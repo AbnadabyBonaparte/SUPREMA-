@@ -11,35 +11,35 @@ interface MatrixHubProps {
 
 const agents: ProfessionalProfile[] = [
     // --- MASCULINO ---
-    { id: 'barber_x0', category: 'Masculino', name: 'Barbeiro Supreme', title: 'Matriz Transcendental', description: 'Visagismo, cortes de precisão e arquitetura capilar masculina.', image: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=800&q=80' },
-    { id: 'grooming_master', category: 'Masculino', name: 'Grooming Master', title: 'Cuidados da Pele & Rotina', description: 'Skincare masculino avançado e protocolos anti-aging.', image: 'https://images.unsplash.com/photo-1616091093747-4d8c83485906?auto=format&fit=crop&w=800&q=80' },
-    { id: 'beard_expert', category: 'Masculino', name: 'Beard Expert', title: 'Design de Barba', description: 'Otimização de crescimento, densidade e modelagem 3D.', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80' },
-    { id: 'mens_style', category: 'Masculino', name: 'Men\'s Style', title: 'Consultoria de Imagem', description: 'Styling completo, guarda-roupa e branding pessoal.', image: 'https://images.unsplash.com/photo-1534030347209-7147fd69a3f2?auto=format&fit=crop&w=800&q=80' },
+    { id: 'barber_x0', category: 'Masculino', name: 'Barbeiro Supreme', title: 'Matriz Transcendental', description: 'Visagismo, cortes de precisão e arquitetura capilar masculina.', image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=80' },
+    { id: 'grooming_master', category: 'Masculino', name: 'Grooming Master', title: 'Cuidados da Pele & Rotina', description: 'Skincare masculino avançado e protocolos anti-aging.', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80' },
+    { id: 'beard_expert', category: 'Masculino', name: 'Beard Expert', title: 'Design de Barba', description: 'Otimização de crescimento, densidade e modelagem 3D.', image: 'https://images.unsplash.com/photo-1552642986-cca00e545ef7?auto=format&fit=crop&w=800&q=80' },
+    { id: 'mens_style', category: 'Masculino', name: 'Men\'s Style', title: 'Consultoria de Imagem', description: 'Styling completo, guarda-roupa e branding pessoal.', image: 'https://images.unsplash.com/photo-1488161628813-99c97485ce11?auto=format&fit=crop&w=800&q=80' },
 
     // --- FEMININO ---
-    { id: 'cabeleireira_x0', category: 'Feminino', name: 'Cabeleireira X.0', title: 'Hair Design Feminino', description: 'Cortes, tratamentos e saúde capilar profunda.', image: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=80' },
-    { id: 'colorista_x0', category: 'Feminino', name: 'Colorista X.0', title: 'Colorimetria Avançada', description: 'Análise de subtom, mechas e coloração artística.', image: 'https://images.unsplash.com/photo-1624525402391-747d80d74a9c?auto=format&fit=crop&w=800&q=80' },
-    { id: 'hair_stylist_x0', category: 'Feminino', name: 'Hair Stylist', title: 'Penteados Exclusivos', description: 'Styling para eventos, gala e produções artísticas.', image: 'https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=800&q=80' },
+    { id: 'cabeleireira_x0', category: 'Feminino', name: 'Cabeleireira X.0', title: 'Hair Design Feminino', description: 'Cortes, tratamentos e saúde capilar profunda.', image: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=800&q=80' },
+    { id: 'colorista_x0', category: 'Feminino', name: 'Colorista X.0', title: 'Colorimetria Avançada', description: 'Análise de subtom, mechas e coloração artística.', image: 'https://images.unsplash.com/photo-1492106087820-71f171ce6549?auto=format&fit=crop&w=800&q=80' },
+    { id: 'hair_stylist_x0', category: 'Feminino', name: 'Hair Stylist', title: 'Penteados Exclusivos', description: 'Styling para eventos, gala e produções artísticas.', image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=800&q=80' },
 
     // --- MAKE & ESTÉTICA ---
-    { id: 'makeup_artist_x0', category: 'Estética', name: 'Makeup Artist', title: 'Maquiagem Profissional', description: 'Técnicas de celebridades, visagismo e contouring.', image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80' },
-    { id: 'beauty_guru', category: 'Estética', name: 'Beauty Guru', title: 'Beleza Integral', description: 'Curadoria de produtos e rotinas de beleza holística.', image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=800&q=80' },
-    { id: 'skincare_expert', category: 'Estética', name: 'Skincare Expert', title: 'Dermocosmética', description: 'Tratamentos faciais clínicos e análise de pele AI.', image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80' },
+    { id: 'makeup_artist_x0', category: 'Estética', name: 'Makeup Artist', title: 'Maquiagem Profissional', description: 'Técnicas de celebridades, visagismo e contouring.', image: 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?auto=format&fit=crop&w=800&q=80' },
+    { id: 'beauty_guru', category: 'Estética', name: 'Beauty Guru', title: 'Beleza Integral', description: 'Curadoria de produtos e rotinas de beleza holística.', image: 'https://images.unsplash.com/photo-1576426863848-c21f5fc67255?auto=format&fit=crop&w=800&q=80' },
+    { id: 'skincare_expert', category: 'Estética', name: 'Skincare Expert', title: 'Dermocosmética', description: 'Tratamentos faciais clínicos e análise de pele AI.', image: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=800&q=80' },
 
     // --- CORPO ---
     { id: 'bronze_master', category: 'Corpo', name: 'Bronze Master', title: 'Tanning Specialist', description: 'Bronzeamento artificial perfeito e health glow.', image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80' },
-    { id: 'body_sculptor', category: 'Corpo', name: 'Body Sculptor', title: 'Modelagem Corporal', description: 'Protocolos de contorno corporal e bem-estar físico.', image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80' },
-    { id: 'spa_therapist', category: 'Corpo', name: 'Spa Therapist', title: 'Wellness & Relax', description: 'Terapias de spa, massagem e reequilíbrio energético.', image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80' },
+    { id: 'body_sculptor', category: 'Corpo', name: 'Body Sculptor', title: 'Modelagem Corporal', description: 'Protocolos de contorno corporal e bem-estar físico.', image: 'https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80' },
+    { id: 'spa_therapist', category: 'Corpo', name: 'Spa Therapist', title: 'Wellness & Relax', description: 'Terapias de spa, massagem e reequilíbrio energético.', image: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=800&q=80' },
 
     // --- UNHAS & DETALHES ---
-    { id: 'nail_artist_x0', category: 'Detalhes', name: 'Nail Artist', title: 'Designer de Unhas', description: 'Nail art, saúde das unhas e tendências de manicure.', image: 'https://images.unsplash.com/photo-1632516643720-e7f5d7d6ecc9?auto=format&fit=crop&w=800&q=80' },
+    { id: 'nail_artist_x0', category: 'Detalhes', name: 'Nail Artist', title: 'Designer de Unhas', description: 'Nail art, saúde das unhas e tendências de manicure.', image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=800&q=80' },
     { id: 'lash_expert', category: 'Detalhes', name: 'Lash Expert', title: 'Extensão de Cílios', description: 'Mapping de cílios, lifting e realce do olhar.', image: 'https://images.unsplash.com/photo-1587776536140-0f329b3926a9?auto=format&fit=crop&w=800&q=80' },
     { id: 'brow_designer', category: 'Detalhes', name: 'Brow Designer', title: 'Arquitetura de Sobrancelhas', description: 'Design, microblading e simetria facial (Phi).', image: 'https://images.unsplash.com/photo-1588513874459-663346923e4a?auto=format&fit=crop&w=800&q=80' },
 
     // --- AVANÇADO ---
-    { id: 'tattoo_artist', category: 'Avançado', name: 'Tattoo Artist', title: 'Body Art Premium', description: 'Design de tatuagem exclusivo e simulação de placement.', image: 'https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=800&q=80' },
-    { id: 'piercing_master', category: 'Avançado', name: 'Piercing Master', title: 'Joalheria Corporal', description: 'Curadoria de joias, anatomia e segurança.', image: 'https://images.unsplash.com/photo-1626146629736-230227d44858?auto=format&fit=crop&w=800&q=80' },
-    { id: 'aesthetic_doctor', category: 'Avançado', name: 'Aesthetic Doctor', title: 'Biomedicina Estética', description: 'Harmonização facial e procedimentos não-invasivos.', image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80' },
+    { id: 'tattoo_artist', category: 'Avançado', name: 'Tattoo Artist', title: 'Body Art Premium', description: 'Design de tatuagem exclusivo e simulação de placement.', image: 'https://images.unsplash.com/photo-1590246130796-5ba0ef383978?auto=format&fit=crop&w=800&q=80' },
+    { id: 'piercing_master', category: 'Avançado', name: 'Piercing Master', title: 'Joalheria Corporal', description: 'Curadoria de joias, anatomia e segurança.', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80' },
+    { id: 'aesthetic_doctor', category: 'Avançado', name: 'Aesthetic Doctor', title: 'Biomedicina Estética', description: 'Harmonização facial e procedimentos não-invasivos.', image: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80' },
 ];
 
 // Atualizado para ter "Destaques" primeiro

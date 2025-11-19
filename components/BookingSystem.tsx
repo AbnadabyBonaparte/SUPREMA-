@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import { Salon, RealProfessional, Service } from '../types';
 
-// --- MOCK DATA (SIMULAÇÃO DO BANCO DE DADOS - IMAGENS CORRIGIDAS) ---
+// --- MOCK DATA (IMAGENS DE ESTÚDIO REAIS & ESTÁVEIS PARA APRESENTAÇÃO) ---
 const mockSalons: Salon[] = [
     {
         id: '1',
         name: "Barbearia Viking Prime",
-        image: "https://images.unsplash.com/photo-1633681926022-84c23e8cb33e?auto=format&fit=crop&w=800&q=80", // Luxury Barbershop Interior
+        image: "https://images.unsplash.com/photo-1503951914875-452162b7f300?auto=format&fit=crop&w=800&q=80", // Dark Interior
         rating: 4.9,
         reviews: 128,
         distance: "1.2 km",
@@ -15,11 +15,11 @@ const mockSalons: Salon[] = [
         isVerified: true,
         professionals: [
             {
-                id: 'p1', name: "Ragnar Lopes", role: "Master Barber", rating: 5.0, avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                id: 'p1', name: "Ragnar Lopes", role: "Master Barber", rating: 5.0, avatar: "https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?auto=format&fit=crop&w=200&q=80",
                 services: [{id: 's1', name: "Corte Viking", price: 80, duration: "45 min"}, {id: 's2', name: "Barba Terapia", price: 60, duration: "30 min"}]
             },
             {
-                id: 'p2', name: "Bjorn Silva", role: "Barber", rating: 4.8, avatar: "https://randomuser.me/api/portraits/men/44.jpg",
+                id: 'p2', name: "Bjorn Silva", role: "Barber", rating: 4.8, avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
                 services: [{id: 's3', name: "Corte Clássico", price: 60, duration: "40 min"}]
             }
         ]
@@ -27,7 +27,7 @@ const mockSalons: Salon[] = [
     {
         id: '2',
         name: "Studio Elegance Femme",
-        image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80", // High-End Salon
+        image: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80", // Luxury Salon
         rating: 4.8,
         reviews: 342,
         distance: "2.5 km",
@@ -35,7 +35,7 @@ const mockSalons: Salon[] = [
         isVerified: true,
         professionals: [
             {
-                id: 'p3', name: "Ana Marie", role: "Colorista", rating: 4.9, avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                id: 'p3', name: "Ana Marie", role: "Colorista", rating: 4.9, avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
                 services: [{id: 's4', name: "Mechas Californianas", price: 450, duration: "120 min"}, {id: 's5', name: "Hidratação Profunda", price: 150, duration: "60 min"}]
             }
         ]
@@ -54,7 +54,7 @@ const mockSalons: Salon[] = [
      {
         id: '4',
         name: "Royal Spa & Wellness",
-        image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80", // Luxury Spa
+        image: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=800&q=80", // Luxury Spa
         rating: 5.0,
         reviews: 210,
         distance: "3.0 km",
@@ -214,7 +214,7 @@ const BookingSystem: React.FC = () => {
                             border: '1px solid #222', 
                             borderRadius: '12px', 
                             overflow: 'hidden', 
-                            cursor: 'pointer',
+                            cursor: 'pointer', 
                             transition: 'transform 0.2s'
                         }}
                         onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
