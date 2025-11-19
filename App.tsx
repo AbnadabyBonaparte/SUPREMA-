@@ -11,9 +11,12 @@ import LoyaltyDashboard from './components/LoyaltyDashboard';
 import BookingSystem from './components/BookingSystem';
 import Shop from './components/Shop';
 import GlobalAssistant from './components/GlobalAssistant';
+import Login from './components/Login';
+import Membership from './components/Membership';
+import PartnerProgram from './components/PartnerProgram';
 import { ProfessionalType, Trend } from './types';
 
-type Page = 'home' | 'consultant' | 'studio' | 'chat' | 'tts' | 'loyalty' | 'booking' | 'shop';
+type Page = 'home' | 'consultant' | 'studio' | 'chat' | 'tts' | 'loyalty' | 'booking' | 'shop' | 'login' | 'membership' | 'partner';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -55,6 +58,12 @@ const App: React.FC = () => {
           return <BookingSystem />;
       case 'shop':
           return <Shop />;
+      case 'login':
+          return <Login onLoginSuccess={() => setCurrentPage('home')} onRegisterClick={() => setCurrentPage('membership')} />;
+      case 'membership':
+          return <Membership onPlanSelect={() => setCurrentPage('login')} />;
+      case 'partner':
+          return <PartnerProgram />;
       default:
         return <MatrixHub onSelect={handleProfessionalSelect} onSelectTrend={handleTrendSelect} />;
     }
