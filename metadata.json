@@ -1,0 +1,7 @@
+{
+  "name": "Suprema Beleza",
+  "description": "Um ecossistema de ferramentas de IA para estilo, imagem, vídeo, chat e voz, com tecnologia Beauty AI.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
