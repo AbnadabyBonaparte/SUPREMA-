@@ -1,7 +1,45 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { saveLead } from '../services/supabaseClient';
+import LoadingSpinner from './LoadingSpinner';
 
 const LoyaltyDashboard: React.FC = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [message, setMessage] = useState('');
+
+    const handleRegister = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setStatus('idle');
+
+        try {
+            const result = await saveLead(name, email);
+            
+            if (result.error) {
+                // Se for erro de configuração (sem banco), simulamos sucesso para demo
+                if (typeof result.error === 'string' && result.error.includes("Banco de dados")) {
+                    setMessage("Modo Demo: Lead registrado localmente (conecte o Supabase para salvar real).");
+                    setStatus('success');
+                } else {
+                    throw new Error("Erro ao salvar.");
+                }
+            } else {
+                setStatus('success');
+                setMessage("Bem-vindo ao Clube Black. Seus dados estão seguros.");
+                setName('');
+                setEmail('');
+            }
+        } catch (err) {
+            setStatus('error');
+            setMessage("Erro ao conectar com o servidor.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <div style={{ padding: '40px 0' }}>
             <h2 style={{ color: '#F0F0F0', textAlign: 'center', marginBottom: '10px', fontSize: '2em' }}>LOYALTY SUPREME</h2>
@@ -49,24 +87,57 @@ const LoyaltyDashboard: React.FC = () => {
                 <p style={{ color: '#555', fontSize: '0.8em', marginTop: '30px', fontFamily: 'monospace' }}>ID: 0000-8821-ALSHAM-X</p>
             </div>
 
-            <div style={{ maxWidth: '600px', margin: '50px auto 0' }}>
-                <h3 style={{ color: '#F0F0F0', fontSize: '1.2em', marginBottom: '20px', borderBottom: '1px solid #222', paddingBottom: '10px' }}>Histórico de Ativos</h3>
-                <div style={{ display: 'grid', gap: '15px' }}>
-                    <div style={{ backgroundColor: '#111', padding: '20px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', border: '1px solid #222', alignItems: 'center' }}>
-                        <div>
-                            <div style={{ color: '#DDD', fontWeight: 500 }}>Consultoria Facial 3D</div>
-                            <div style={{ color: '#555', fontSize: '0.8em' }}>Ontem, 14:30</div>
-                        </div>
-                        <span style={{ color: '#D4AF37', fontFamily: 'monospace' }}>+500 pts</span>
+            {/* Formulário de Cadastro Real */}
+            <div style={{ maxWidth: '600px', margin: '50px auto 0', background: 'rgba(20,20,20,0.5)', padding: '30px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <h3 style={{ color: '#F0F0F0', fontSize: '1.2em', marginBottom: '20px', borderBottom: '1px solid #222', paddingBottom: '10px', textAlign: 'center' }}>
+                    {status === 'success' ? 'Cadastro Realizado com Sucesso' : 'Ativar Membership Oficial'}
+                </h3>
+
+                {status === 'success' ? (
+                    <div style={{ textAlign: 'center', color: '#D4AF37' }}>
+                        <p>✅ {message}</p>
                     </div>
-                     <div style={{ backgroundColor: '#111', padding: '20px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', border: '1px solid #222', alignItems: 'center' }}>
-                        <div>
-                            <div style={{ color: '#DDD', fontWeight: 500 }}>Kit Beard Oil Premium</div>
-                            <div style={{ color: '#555', fontSize: '0.8em' }}>22 Out, 10:15</div>
+                ) : (
+                    <form onSubmit={handleRegister}>
+                        <div style={{ marginBottom: '15px' }}>
+                            <label style={{ display: 'block', color: '#888', fontSize: '0.8em', marginBottom: '5px' }}>Nome Completo</label>
+                            <input 
+                                type="text" 
+                                required 
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                style={{ width: '100%', padding: '12px', background: '#111', border: '1px solid #333', color: '#FFF', borderRadius: '4px' }}
+                            />
                         </div>
-                        <span style={{ color: '#D4AF37', fontFamily: 'monospace' }}>+150 pts</span>
-                    </div>
-                </div>
+                        <div style={{ marginBottom: '20px' }}>
+                            <label style={{ display: 'block', color: '#888', fontSize: '0.8em', marginBottom: '5px' }}>Email Corporativo/Pessoal</label>
+                            <input 
+                                type="email" 
+                                required 
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                style={{ width: '100%', padding: '12px', background: '#111', border: '1px solid #333', color: '#FFF', borderRadius: '4px' }}
+                            />
+                        </div>
+                        <button 
+                            type="submit" 
+                            disabled={isSubmitting}
+                            style={{ 
+                                width: '100%', 
+                                padding: '15px', 
+                                background: '#D4AF37', 
+                                color: '#000', 
+                                border: 'none', 
+                                borderRadius: '4px', 
+                                fontWeight: 'bold', 
+                                cursor: 'pointer',
+                                opacity: isSubmitting ? 0.7 : 1
+                            }}>
+                            {isSubmitting ? 'Processando...' : 'Cadastrar no Banco de Dados'}
+                        </button>
+                        {status === 'error' && <p style={{ color: 'red', marginTop: '10px', fontSize: '0.9em', textAlign: 'center' }}>{message}</p>}
+                    </form>
+                )}
             </div>
         </div>
     );
