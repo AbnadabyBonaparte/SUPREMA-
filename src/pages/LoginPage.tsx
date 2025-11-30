@@ -125,3 +125,5 @@ export function LoginPage({ onLoginSuccess, onRegisterClick }: LoginPageProps) {
         </div>
     );
 }
+
+export default LoginPage;
