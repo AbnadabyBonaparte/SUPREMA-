@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { ProfessionalType } from "@/types/ai";
+// Removi a importação de tipos para evitar erros de build
+// import { ProfessionalType } from "@/types/ai";
 
 // 1. Tenta pegar a chave
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
@@ -24,7 +25,7 @@ const getGenAI = () => {
 
 export const getStyleRecommendations = async (
   prompt: string,
-  professional: string,
+  professional: string, // MUDANÇA: Usando string genérica para evitar erro de TS
   images: any[] = []
 ) => {
   try {
