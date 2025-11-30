@@ -6,18 +6,21 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ShoppingBag, X } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
-import { Link } from "react-router-dom";
 
 export default function CartDrawer() {
   const { cart, removeFromCart, updateQuantity, total } = useCart();
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  // Persistência automática (já está no hook useCart — só pra deixar explícito)
   useEffect(() => {
     if (cart.length > 0) {
       localStorage.setItem("alsham-cart", JSON.stringify(cart));
     }
   }, [cart]);
+
+  const goToCheckout = () => {
+    // Simula navegação para checkout (seu sistema é por estado)
+    window.location.href = "/checkout";
+  };
 
   return (
     <Drawer>
@@ -80,11 +83,9 @@ export default function CartDrawer() {
               <span>Total</span>
               <span className="text-gold font-bold">R$ {total.toFixed(2)}</span>
             </div>
-            <Link to="/checkout" className="block">
-              <Button className="w-full bg-gold hover:bg-gold/90 text-black font-bold text-lg py-6">
-                IR PARA CHECKOUT
-              </Button>
-            </Link>
+            <Button onClick={goToCheckout} className="w-full bg-gold hover:bg-gold/90 text-black font-bold text-lg py-6">
+              IR PARA CHECKOUT
+            </Button>
           </div>
         )}
       </DrawerContent>
