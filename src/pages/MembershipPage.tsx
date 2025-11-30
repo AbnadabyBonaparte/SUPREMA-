@@ -113,3 +113,5 @@ export function MembershipPage({ onPlanSelect }: MembershipPageProps) {
         </div>
     );
 }
+
+export default MembershipPage;
