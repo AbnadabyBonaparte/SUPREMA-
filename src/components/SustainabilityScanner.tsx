@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AlertCircle, Camera, Leaf, AlertTriangle, CheckCircle2 } from "lucide-react";
-import { geminiService } from "@/services/ai/geminiService";
+import { analyzeIngredients } from "@/services/ai/geminiService";
 
 export default function SustainabilityScanner() {
   const [scanning, setScanning] = useState(false);
@@ -21,7 +21,7 @@ export default function SustainabilityScanner() {
       const mockImage = "data:image/jpeg;base64,/9j/4AAQSkZJRg..."; // placeholder
       setImage(mockImage);
 
-      const analysis = await geminiService.analyzeIngredients(mockImage);
+      const analysis = await analyzeIngredients(mockImage);
       setResult(analysis);
     } catch (err) {
       setResult({
