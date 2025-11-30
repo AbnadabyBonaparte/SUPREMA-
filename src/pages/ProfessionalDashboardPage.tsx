@@ -222,3 +222,5 @@ export function ProfessionalDashboardPage() {
         </div>
     );
 }
+
+export default ProfessionalDashboardPage;
