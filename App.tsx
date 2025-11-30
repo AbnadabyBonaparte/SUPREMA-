@@ -10,6 +10,9 @@ import TextToSpeech from './components/TextToSpeech';
 import { FidelidadePage } from './src/pages/FidelidadePage';
 import { SaloesPage } from './src/pages/SaloesPage';
 import { ShopPage } from './src/pages/ShopPage';
+import { LoginPage } from './src/pages/LoginPage';
+import { MembershipPage } from './src/pages/MembershipPage';
+import { PartnerPage } from './src/pages/PartnerPage';
 import { GlobalAssistant } from './src/components/ai/GlobalAssistant';
 import Login from './components/Login';
 import Membership from './components/Membership';
@@ -47,6 +50,23 @@ const App: React.FC = () => {
           onSchedule={() => setCurrentPage('booking')}
         />;
       case 'studio':
+        return <ImageStudio />;
+      case 'chat':
+        return <Chat />;
+      case 'tts':
+        return <TextToSpeech />;
+      case 'loyalty':
+        return <FidelidadePage />;
+      case 'booking':
+        return <SaloesPage />;
+      case 'shop':
+        return <ShopPage />;
+      case 'login':
+        return <LoginPage onLoginSuccess={() => setCurrentPage('home')} onRegisterClick={() => setCurrentPage('membership')} />;
+      case 'membership':
+        return <MembershipPage onPlanSelect={() => setCurrentPage('login')} />;
+      case 'partner':
+        return <PartnerPage />;
       default:
         return <MatrixHub onSelect={handleProfessionalSelect} onSelectTrend={handleTrendSelect} />;
     }
