@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
-import { geminiService } from "@/services/ai/geminiService";
+import { getUpsellRecommendation } from "@/services/ai/geminiService";
 import { Loader2, Trash2, Plus, Minus, Sparkles } from "lucide-react";
 
 export default function CheckoutPage() {
@@ -24,7 +24,7 @@ export default function CheckoutPage() {
     setLoading(true);
     try {
       const items = cart.map(i => i.name).join(", ");
-      const suggestion = await geminiService.getUpsellRecommendation(items);
+      const suggestion = await getUpsellRecommendation(items);
       setUpsell(suggestion);
     } catch (err) {
       console.log("Upsell falhou (normal em dev)", err);
