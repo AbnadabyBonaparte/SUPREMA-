@@ -24,3 +24,5 @@ export function HomePage({ onProfessionalSelect, onTrendSelect }: HomePageProps)
         </div>
     );
 }
+
+export default HomePage;
