@@ -122,7 +122,7 @@ export async function generateImage(
 export async function editImage(
     prompt: string,
     image: { data: string; mimeType: string }
-): Promise<string> {
+ ): Promise<string> {
     try {
         if (!apiKey) throw new Error("API Key is missing.");
 
@@ -292,6 +292,61 @@ export async function getAuraInsight(pageContext: string): Promise<string> {
         console.error('Error in getAuraInsight:', error);
         return "Estou aqui para ajudar.";
     }
+}
+
+// --- UPSELL RECOMMENDATION (NOVO) ---
+export async function getUpsellRecommendation(cartItems: string): Promise<{
+  name: string;
+  price: number;
+  reason: string;
+}> {
+  try {
+    if (!apiKey) {
+      return {
+        name: "Shampoo Premium Alsham",
+        price: 89.90,
+        reason: "Complementa perfeitamente seus produtos selecionados"
+      };
+    }
+
+    const prompt = `
+Você é um especialista em vendas de produtos de beleza da marca Alsham Suprema Beleza.
+O cliente tem no carrinho: ${cartItems}
+
+Sugira UM produto complementar premium que combine perfeitamente com os itens do carrinho.
+O produto deve ser da linha Alsham e ter alto valor agregado.
+
+Responda APENAS com JSON no formato:
+{
+  "name": "Nome do Produto",
+  "price": 99.90,
+  "reason": "Motivo da recomendação (max 100 caracteres)"
+}
+`;
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.0-flash-exp',
+      contents: [{ parts: [{ text: prompt }] }],
+      config: {
+        responseMimeType: 'application/json',
+      }
+    });
+
+    if (!response.text) {
+      throw new Error("No response from AI");
+    }
+
+    const result = JSON.parse(response.text.trim());
+    return result;
+  } catch (error: any) {
+    console.error('Error in getUpsellRecommendation:', error);
+    // Fallback
+    return {
+      name: "Kit Completo Alsham Gold",
+      price: 149.90,
+      reason: "Perfeito para completar sua rotina de beleza premium"
+    };
+  }
 }
 
 // --- AUDIO DECODING HELPERS ---
