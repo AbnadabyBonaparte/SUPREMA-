@@ -1,7 +1,158 @@
 {
-  "name": "Suprema Beleza",
-  "description": "Um ecossistema de ferramentas de IA para estilo, imagem, vídeo, chat e voz, com tecnologia Beauty AI.",
-  "requestFramePermissions": [
-    "geolocation"
-  ]
+  "name": "Alsham Suprema Beleza",
+  "version": "5.0.0",
+  "description": "Plataforma premium de beleza com 18 agentes de IA, try-on AR/VR, live shopping e curadoria personalizada. A revolução da beleza com inteligência artificial.",
+  "author": "Alsham Beauty Tech",
+  "license": "Proprietary",
+  "seo": {
+    "title": "Alsham Suprema Beleza - IA para Beleza e Estilo",
+    "description": "Descubra sua melhor versão com 18 especialistas em IA. Try-on virtual, análise de produtos, live shopping e consultoria personalizada. Beleza inteligente, resultados reais.",
+    "keywords": [
+      "beleza com IA",
+      "consultoria de beleza",
+      "try-on virtual",
+      "AR beauty",
+      "VR makeup",
+      "análise de produtos",
+      "sustentabilidade beleza",
+      "live shopping",
+      "agentes IA beleza",
+      "colorimetria IA",
+      "visagismo digital",
+      "personal stylist IA",
+      "produtos sustentáveis",
+      "beleza premium",
+      "alsham",
+      "metal detox",
+      "subscription box beleza",
+      "curadoria IA"
+    ],
+    "og": {
+      "title": "Alsham Suprema Beleza - 18 Agentes IA para Transformar sua Beleza",
+      "description": "Experimente produtos virtualmente, receba consultoria personalizada e descubra tendências antes de todo mundo. A beleza do futuro, hoje.",
+      "image": "https://alsham.com/og-image.jpg",
+      "url": "https://alsham.com",
+      "type": "website"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@AlshamBeauty",
+      "title": "Alsham Suprema Beleza - IA para Beleza",
+      "description": "18 agentes IA, try-on AR/VR, live shopping e mais. Beleza inteligente.",
+      "image": "https://alsham.com/twitter-card.jpg"
+    }
+  },
+  "features": [
+    "18 Agentes de IA Especializados",
+    "Try-On AR/VR com Webcam",
+    "Sustainability Scanner (Yuka Killer)",
+    "Live Shopping com IA",
+    "Subscription Boxes Personalizadas",
+    "Creator Suite para Influencers",
+    "Checkout com AI Upsell",
+    "Programa de Fidelidade Black",
+    "Dashboard Profissional",
+    "Configurações de Privacidade IA",
+    "Análise de Colorimetria",
+    "Visagismo Digital",
+    "Recomendações Personalizadas",
+    "Chat com AURA (IA)",
+    "Image Studio",
+    "Smart Consultation"
+  ],
+  "technologies": {
+    "frontend": "React 19.2.0",
+    "build": "Vite 6.2.0",
+    "language": "TypeScript 5.8.2",
+    "ai": "Google Gemini 2.5 Pro",
+    "database": "Supabase",
+    "animations": "Framer Motion 12.23.24",
+    "styling": "Tailwind CSS",
+    "deployment": "Vercel"
+  },
+  "pages": [
+    "HomePage",
+    "ShopPage",
+    "ProductDetailPage",
+    "CheckoutPage",
+    "LiveShoppingPage",
+    "SustainabilityPage",
+    "DashboardPage",
+    "ProfilePage",
+    "FidelidadePage",
+    "MembershipPage",
+    "SaloesPage",
+    "PartnerPage",
+    "ProfessionalDashboardPage",
+    "CreatorSuitePage",
+    "SettingsPage",
+    "LoginPage"
+  ],
+  "components": {
+    "ui": [
+      "Button",
+      "Card",
+      "Badge",
+      "Separator",
+      "Textarea",
+      "use-toast"
+    ],
+    "ai": [
+      "SmartConsultation",
+      "ImageStudio",
+      "Chat",
+      "GlobalAssistant"
+    ],
+    "features": [
+      "MatrixHub",
+      "SponsoredHero",
+      "TrendSpotlight",
+      "StyleConsultant",
+      "SustainabilityScanner",
+      "ProductTryOn",
+      "UGCUpload",
+      "SubscriptionBoxPreview",
+      "AnimatedSection",
+      "CartDrawer",
+      "ErrorBoundary",
+      "ProtectedRoute"
+    ]
+  },
+  "agents": [
+    "Cabeleireira X.0",
+    "Barber Supreme",
+    "Makeup Artist",
+    "Skincare Expert",
+    "Nail Artist",
+    "Body Sculptor",
+    "Colorist Pro",
+    "Visagista Digital",
+    "Dermatologista IA",
+    "Nutricionista Capilar",
+    "Personal Stylist",
+    "Trend Forecaster",
+    "Product Specialist",
+    "Sustainability Advisor",
+    "Wedding Planner Beauty",
+    "Men's Grooming Coach",
+    "Teen Beauty Guide",
+    "Mature Skin Specialist"
+  ],
+  "contact": {
+    "email": "contato@alsham.com.br",
+    "phone": "+55 11 9999-9999",
+    "address": "São Paulo, SP - Brasil",
+    "social": {
+      "instagram": "@AlshamBeauty",
+      "tiktok": "@AlshamBeauty",
+      "youtube": "@AlshamBeauty",
+      "linkedin": "company/alsham-beauty"
+    }
+  },
+  "legal": {
+    "privacy_policy": "/privacy",
+    "terms_of_service": "/terms",
+    "lgpd_compliant": true,
+    "gdpr_compliant": true
+  }
 }
