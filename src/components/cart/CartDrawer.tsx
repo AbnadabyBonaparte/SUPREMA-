@@ -1,53 +1,52 @@
-"use client";
-
-import { useEffect } from "react";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ShoppingBag, X } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 
 export default function CartDrawer() {
+  const [open, setOpen] = useState(false);
   const { cart, removeFromCart, updateQuantity, total } = useCart();
   const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  useEffect(() => {
-    if (cart.length > 0) {
-      localStorage.setItem("alsham-cart", JSON.stringify(cart));
-    }
-  }, [cart]);
-
   const goToCheckout = () => {
-    // Simula navegação para checkout (seu sistema é por estado)
+    setOpen(false);
     window.location.href = "/checkout";
   };
 
+  if (!open) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="fixed bottom-6 right-6 z-50 bg-gold/90 hover:bg-gold text-black rounded-full shadow-2xl"
+        onClick={() => setOpen(true)}
+      >
+        <ShoppingBag className="w-8 h-8" />
+        {itemCount > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+            {itemCount}
+          </span>
+        )}
+      </Button>
+    );
+  }
+
   return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
-          <ShoppingBag className="w-6 h-6" />
-          {itemCount > 0 && (
-            <Badge className="absolute -top-2 -right-2 bg-gold text-black px-2 py-1 text-xs font-bold">
-              {itemCount}
-            </Badge>
-          )}
-        </Button>
-      </DrawerTrigger>
-
-      <DrawerContent className="bg-black border-gold/30 text-white max-h-[85vh]">
-        <DrawerHeader className="flex items-center justify-between">
-          <DrawerTitle className="text-2xl font-bold bg-gradient-to-r from-gold to-yellow-600 bg-clip-text text-transparent">
+    <div className="fixed inset-0 z-50 bg-black/80" onClick={() => setOpen(false)}>
+      <div
+        className="fixed bottom-0 right-0 w-full max-w-md h-[85vh] bg-black border border-gold/30 rounded-t-3xl shadow-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between p-6 border-b border-gold/30">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-gold to-yellow-600 bg-clip-text text-transparent">
             Seu Carrinho
-          </DrawerTitle>
-          <DrawerTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <X className="w-6 h-6" />
-            </Button>
-          </DrawerTrigger>
-        </DrawerHeader>
+          </h2>
+          <Button variant="ghost" size="icon" onClick={() => setOpen(false)}>
+            <X className="w-6 h-6" />
+          </Button>
+        </div>
 
-        <div className="px-6 pb-24 overflow-y-auto">
+        <div className="p-6 overflow-y-auto h-full pb-32">
           {cart.length === 0 ? (
             <p className="text-center text-gray-400 py-12">Seu carrinho está vazio</p>
           ) : (
@@ -88,7 +87,7 @@ export default function CartDrawer() {
             </Button>
           </div>
         )}
-      </DrawerContent>
-    </Drawer>
+      </div>
+    </div>
   );
 }
