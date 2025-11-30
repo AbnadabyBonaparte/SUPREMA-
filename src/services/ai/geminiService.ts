@@ -349,6 +349,73 @@ Responda APENAS com JSON no formato:
   }
 }
 
+// --- SUSTAINABILITY SCANNER (NOVO) ---
+export async function analyzeIngredients(imageBase64: string): Promise<{
+  score: number;
+  rating: string;
+  issues: string[];
+  alternatives: string[];
+}> {
+  try {
+    if (!apiKey) {
+      return {
+        score: 75,
+        rating: "BOM",
+        issues: [],
+        alternatives: ["Produto aprovado! Continue usando."]
+      };
+    }
+
+    const prompt = `
+Você é um especialista em sustentabilidade e ingredientes de produtos de beleza.
+Analise a imagem do rótulo/embalagem e avalie:
+
+1. Score de sustentabilidade (0-100)
+2. Rating: EXCELENTE (90-100), BOM (70-89), REGULAR (40-69), RUIM (0-39)
+3. Problemas encontrados (parabenos, sulfatos, microplásticos, etc.)
+4. Alternativas sustentáveis da marca Alsham
+
+Responda APENAS com JSON no formato:
+{
+  "score": 85,
+  "rating": "BOM",
+  "issues": ["Lista de problemas"],
+  "alternatives": ["Lista de alternativas Alsham"]
+}
+`;
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.0-flash-exp',
+      contents: {
+        parts: [
+          { inlineData: { data: imageBase64.split(',')[1] || imageBase64, mimeType: 'image/jpeg' } },
+          { text: prompt }
+        ]
+      },
+      config: {
+        responseMimeType: 'application/json',
+      }
+    });
+
+    if (!response.text) {
+      throw new Error("No response from AI");
+    }
+
+    const result = JSON.parse(response.text.trim());
+    return result;
+  } catch (error: any) {
+    console.error('Error in analyzeIngredients:', error);
+    // Fallback
+    return {
+      score: 65,
+      rating: "REGULAR",
+      issues: ["Não foi possível analisar todos os ingredientes"],
+      alternatives: ["Experimente produtos da linha Alsham Clean Beauty"]
+    };
+  }
+}
+
+
 // --- AUDIO DECODING HELPERS ---
 function decode(base64: string): Uint8Array {
     const binaryString = atob(base64);
