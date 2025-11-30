@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import MatrixHub from './components/MatrixHub';
-import SmartConsultation from './components/SmartConsultation';
-import ImageStudio from './components/ImageStudio';
-import Chat from './components/Chat';
+import SmartConsultation from './src/components/ai/SmartConsultation';
+import { ImageStudio } from './src/components/ai/ImageStudio';
+import { Chat } from './src/components/ai/Chat';
 import TextToSpeech from './components/TextToSpeech';
-import LoyaltyDashboard from './components/LoyaltyDashboard';
-import BookingSystem from './components/BookingSystem';
-import Shop from './components/Shop';
-import GlobalAssistant from './components/GlobalAssistant';
+import { FidelidadePage } from './src/pages/FidelidadePage';
+import { SaloesPage } from './src/pages/SaloesPage';
+import { ShopPage } from './src/pages/ShopPage';
+import { GlobalAssistant } from './src/components/ai/GlobalAssistant';
 import Login from './components/Login';
 import Membership from './components/Membership';
 import PartnerProgram from './components/PartnerProgram';
@@ -24,15 +24,15 @@ const App: React.FC = () => {
   const [selectedTrend, setSelectedTrend] = useState<Trend | null>(null);
 
   const handleProfessionalSelect = (prof: ProfessionalType) => {
-      setSelectedProfessional(prof);
-      setSelectedTrend(null); // Reset trend
-      setCurrentPage('consultant');
+    setSelectedProfessional(prof);
+    setSelectedTrend(null); // Reset trend
+    setCurrentPage('consultant');
   };
 
   const handleTrendSelect = (trend: Trend) => {
-      setSelectedProfessional(trend.targetProfessional);
-      setSelectedTrend(trend);
-      setCurrentPage('consultant');
+    setSelectedProfessional(trend.targetProfessional);
+    setSelectedTrend(trend);
+    setCurrentPage('consultant');
   };
 
   const renderPage = () => {
@@ -40,30 +40,13 @@ const App: React.FC = () => {
       case 'home':
         return <MatrixHub onSelect={handleProfessionalSelect} onSelectTrend={handleTrendSelect} />;
       case 'consultant':
-        return <SmartConsultation 
-            professional={selectedProfessional} 
-            initialTrend={selectedTrend}
-            onBack={() => setCurrentPage('home')} 
-            onSchedule={() => setCurrentPage('booking')}
+        return <SmartConsultation
+          professional={selectedProfessional}
+          initialTrend={selectedTrend}
+          onBack={() => setCurrentPage('home')}
+          onSchedule={() => setCurrentPage('booking')}
         />;
       case 'studio':
-        return <ImageStudio />;
-      case 'chat':
-        return <Chat />;
-      case 'tts':
-          return <TextToSpeech />;
-      case 'loyalty':
-          return <LoyaltyDashboard />;
-      case 'booking':
-          return <BookingSystem />;
-      case 'shop':
-          return <Shop />;
-      case 'login':
-          return <Login onLoginSuccess={() => setCurrentPage('home')} onRegisterClick={() => setCurrentPage('membership')} />;
-      case 'membership':
-          return <Membership onPlanSelect={() => setCurrentPage('login')} />;
-      case 'partner':
-          return <PartnerProgram />;
       default:
         return <MatrixHub onSelect={handleProfessionalSelect} onSelectTrend={handleTrendSelect} />;
     }
@@ -72,7 +55,7 @@ const App: React.FC = () => {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      
+
       <main style={{ flex: 1, maxWidth: '1200px', margin: '0 auto', width: '100%', padding: '0 20px' }}>
         {renderPage()}
       </main>
