@@ -14,7 +14,6 @@ import ProfessionalDashboardPage from './src/pages/ProfessionalDashboardPage';
 import CheckoutPage from './src/pages/CheckoutPage';
 import CartDrawer from './src/components/cart/CartDrawer';
 import { GlobalAssistant } from './src/components/ai/GlobalAssistant';
-import { Toaster } from '@/components/ui/sonner';
 
 type Page = 'home' | 'login' | 'dashboard' | 'fidelidade' | 'membership' | 'profile' | 'saloes' | 'shop' | 'partner' | 'pro-dashboard' | 'checkout';
 
@@ -67,8 +66,6 @@ const App: React.FC = () => {
       <GlobalAssistant currentPage={currentPage} onNavigate={setCurrentPage} />
 
       <Footer />
-
-      <Toaster position="top-center" richColors />
     </div>
   );
 };
