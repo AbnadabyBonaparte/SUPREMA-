@@ -13,13 +13,17 @@ import { ShopPage } from './src/pages/ShopPage';
 import { LoginPage } from './src/pages/LoginPage';
 import { MembershipPage } from './src/pages/MembershipPage';
 import { PartnerPage } from './src/pages/PartnerPage';
+import { DashboardPage } from './src/pages/DashboardPage';
+import { ProfilePage } from './src/pages/ProfilePage';
+import { ProfessionalDashboardPage } from './src/pages/ProfessionalDashboardPage';
+import { HomePage } from './src/pages/HomePage';
 import { GlobalAssistant } from './src/components/ai/GlobalAssistant';
 import Login from './components/Login';
 import Membership from './components/Membership';
 import PartnerProgram from './components/PartnerProgram';
 import { ProfessionalType, Trend } from './types';
 
-type Page = 'home' | 'consultant' | 'studio' | 'chat' | 'tts' | 'loyalty' | 'booking' | 'shop' | 'login' | 'membership' | 'partner';
+type Page = 'home' | 'consultant' | 'studio' | 'chat' | 'tts' | 'loyalty' | 'booking' | 'shop' | 'login' | 'membership' | 'partner' | 'dashboard' | 'profile' | 'pro-dashboard';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -41,7 +45,7 @@ const App: React.FC = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <MatrixHub onSelect={handleProfessionalSelect} onSelectTrend={handleTrendSelect} />;
+        return <HomePage onProfessionalSelect={handleProfessionalSelect} onTrendSelect={handleTrendSelect} />;
       case 'consultant':
         return <SmartConsultation
           professional={selectedProfessional}
@@ -67,8 +71,14 @@ const App: React.FC = () => {
         return <MembershipPage onPlanSelect={() => setCurrentPage('login')} />;
       case 'partner':
         return <PartnerPage />;
+      case 'dashboard':
+        return <DashboardPage />;
+      case 'profile':
+        return <ProfilePage />;
+      case 'pro-dashboard':
+        return <ProfessionalDashboardPage />;
       default:
-        return <MatrixHub onSelect={handleProfessionalSelect} onSelectTrend={handleTrendSelect} />;
+        return <HomePage onProfessionalSelect={handleProfessionalSelect} onTrendSelect={handleTrendSelect} />;
     }
   };
 
