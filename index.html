@@ -2,73 +2,25 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Suprema Beleza | Ecosystem X.0</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        --color-bg: #050505;
-        --color-surface: #121212;
-        --color-surface-light: #1E1E1E;
-        --color-gold: #D4AF37;
-        --color-gold-dim: #aa8c2c;
-        --color-text-primary: #F0F0F0;
-        --color-text-secondary: #A0A0A0;
-        --font-display: 'Cinzel', serif;
-        --font-body: 'Montserrat', sans-serif;
-      }
+    <title>Alsham Suprema Beleza 5.0</title>
 
-      body {
-        background-color: var(--color-bg);
-        background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 100%);
-        color: var(--color-text-primary);
-        margin: 0;
-        font-family: var(--font-body);
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-
-      /* Scrollbar Luxuosa */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--color-bg);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #333;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--color-gold);
-      }
-
-      h1, h2, h3, h4, h5, h6 {
-        font-family: var(--font-display);
-        font-weight: 600;
-        letter-spacing: 0.05em;
-      }
-
-      input, textarea, select, button {
-        font-family: var(--font-body);
-      }
-    </style>
-    <script type="importmap">
-      {
-        "imports": {
-          "react": "https://aistudiocdn.com/react@^19.2.0",
-          "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-          "react/": "https://aistudiocdn.com/react@^19.2.0/",
-          "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0",
-          "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.39.3"
-        }
-      }
-    </script>
+    <!-- ======= CORREÇÃO TELA PRETA (CSP) ======= -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us-assets.i.posthog.com https://*.googleapis.com https://*.gstatic.com;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      img-src 'self' data: https: blob:;
+      font-src 'self' https://fonts.gstatic.com;
+      connect-src 'self' https://api.gemini.google.com https://generativelanguage.googleapis.com https://us-assets.i.posthog.com https://*.supabase.co wss:;
+      frame-src 'self' https://*.google.com;
+      media-src 'self' https: blob:;
+    " />
+    <!-- =========================================== -->
   </head>
-  <body>
+  <body class="bg-black text-white">
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
