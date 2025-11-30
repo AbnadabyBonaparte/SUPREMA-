@@ -273,3 +273,4 @@ export function SaloesPage() {
         </div>
     );
 }
+export default SaloesPage;
