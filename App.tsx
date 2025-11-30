@@ -13,6 +13,7 @@ import PartnerPage from './src/pages/PartnerPage';
 import ProfessionalDashboardPage from './src/pages/ProfessionalDashboardPage';
 import CheckoutPage from './src/pages/CheckoutPage';
 import SustainabilityPage from './src/pages/SustainabilityPage';
+import LiveShoppingPage from './src/pages/LiveShoppingPage';
 import SmartConsultation from './src/components/ai/SmartConsultation';
 import { ImageStudio } from './src/components/ai/ImageStudio';
 import { Chat } from './src/components/ai/Chat';
@@ -34,6 +35,7 @@ type Page =
   | 'pro-dashboard'
   | 'checkout'
   | 'sustainability'
+  | 'live'
   | 'consultant'
   | 'studio'
   | 'chat'
@@ -97,6 +99,8 @@ const App: React.FC = () => {
         return <CheckoutPage />;
       case 'sustainability':
         return <SustainabilityPage />;
+      case 'live':
+        return <LiveShoppingPage />;
       default:
         return <HomePage onProfessionalSelect={handleProfessionalSelect} onTrendSelect={handleTrendSelect} />;
     }
@@ -110,12 +114,12 @@ const App: React.FC = () => {
         {renderPage()}
       </main>
 
-      {/* CARRINHO FLUTUANTE */}
+      {/* CARRINHO GLOBAL */}
       <div className="fixed bottom-6 right-6 z-50">
         <CartDrawer />
       </div>
 
-      {/* AURA — INTELIGÊNCIA GLOBAL */}
+      {/* AURA */}
       <GlobalAssistant currentPage={currentPage} onNavigate={setCurrentPage} />
 
       <Footer />
