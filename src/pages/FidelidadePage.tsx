@@ -137,3 +137,5 @@ export function FidelidadePage() {
         </div>
     );
 }
+
+export default FidelidadePage;
