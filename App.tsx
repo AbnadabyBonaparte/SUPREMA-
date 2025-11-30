@@ -22,24 +22,7 @@ import CartDrawer from './src/components/cart/CartDrawer';
 import { GlobalAssistant } from './src/components/ai/GlobalAssistant';
 import { ProfessionalType, Trend } from './types';
 
-type Page = 
-  | 'home'
-  | 'login'
-  | 'dashboard'
-  | 'fidelidade'
-  | 'membership'
-  | 'profile'
-  | 'saloes'
-  | 'shop'
-  | 'partner'
-  | 'pro-dashboard'
-  | 'checkout'
-  | 'sustainability'
-  | 'live'
-  | 'consultant'
-  | 'studio'
-  | 'chat'
-  | 'tts';
+type Page = 'home' | 'consultant' | 'studio' | 'chat' | 'tts' | 'loyalty' | 'booking' | 'shop' | 'login' | 'membership' | 'partner' | 'dashboard' | 'profile' | 'pro-dashboard' | 'checkout' | 'sustainability' | 'live';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -63,30 +46,28 @@ const App: React.FC = () => {
       case 'home':
         return <HomePage onProfessionalSelect={handleProfessionalSelect} onTrendSelect={handleTrendSelect} />;
       case 'consultant':
-        return (
-          <SmartConsultation
-            professional={selectedProfessional}
-            initialTrend={selectedTrend}
-            onBack={() => setCurrentPage('home')}
-            onSchedule={() => setCurrentPage('saloes')}
-          />
-        );
+        return <SmartConsultation
+          professional={selectedProfessional}
+          initialTrend={selectedTrend}
+          onBack={() => setCurrentPage('home')}
+          onSchedule={() => setCurrentPage('booking')}
+        />;
       case 'studio':
         return <ImageStudio />;
       case 'chat':
         return <Chat />;
       case 'tts':
         return <TextToSpeech />;
-      case 'fidelidade':
+      case 'loyalty':
         return <FidelidadePage />;
-      case 'saloes':
+      case 'booking':
         return <SaloesPage />;
       case 'shop':
         return <ShopPage />;
       case 'login':
-        return <LoginPage onLoginSuccess={() => setCurrentPage('dashboard')} />;
+        return <LoginPage onLoginSuccess={() => setCurrentPage('home')} onRegisterClick={() => setCurrentPage('membership')} />;
       case 'membership':
-        return <MembershipPage />;
+        return <MembershipPage onPlanSelect={() => setCurrentPage('login')} />;
       case 'partner':
         return <PartnerPage />;
       case 'dashboard':
@@ -107,21 +88,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
-
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
+      <main style={{ flex: 1, maxWidth: '1200px', margin: '0 auto', width: '100%', padding: '0 20px' }}>
         {renderPage()}
       </main>
-
-      {/* CARRINHO GLOBAL */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <CartDrawer />
-      </div>
-
-      {/* AURA */}
       <GlobalAssistant currentPage={currentPage} onNavigate={setCurrentPage} />
-
+      <CartDrawer />
       <Footer />
     </div>
   );
