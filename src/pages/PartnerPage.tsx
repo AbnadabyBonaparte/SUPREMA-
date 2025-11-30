@@ -208,3 +208,5 @@ export function PartnerPage() {
         </div>
     );
 }
+
+export default PartnerPage;
