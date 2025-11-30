@@ -7,7 +7,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us-assets.i.posthog.com https://*.googleapis.com https://*.gstatic.com blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; connect-src 'self' https: wss: blob:; font-src 'self' https://fonts.gstatic.com data:; media-src 'self' https: blob:; frame-src 'self' https:;"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us-assets.i.posthog.com https://*.googleapis.com https://*.gstatic.com blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://us.i.posthog.com https://*.googleapis.com https://*.supabase.co wss: blob:; font-src 'self' https://fonts.gstatic.com data:; media-src 'self' https: blob: data:; frame-src 'self' https:; worker-src 'self' blob:;"
         }
       ]
     }
