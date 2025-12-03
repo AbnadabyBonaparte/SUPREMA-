@@ -1,14 +1,14 @@
 {
-  "buildCommand": "pnpm run build",
-  "outputDirectory": "dist",
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://us-assets.i.posthog.com https://*.googleapis.com https://*.gstatic.com blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://us.i.posthog.com https://*.googleapis.com https://*.supabase.co wss: blob:; font-src 'self' https://fonts.gstatic.com data:; media-src 'self' https: blob: data:; frame-src 'self' https:; worker-src 'self' blob:;"
-        }
+          "value": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https://us-assets.i.posthog.com; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self' https://app.posthog.com https://us.i.posthog.com https://us-assets.i.posthog.com https://*.supabase.co https://generativelanguage.googleapis.com; script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' https://us-assets.i.posthog.com;"
+        },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
       ]
     }
   ]
