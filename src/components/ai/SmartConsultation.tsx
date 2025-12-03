@@ -68,7 +68,7 @@ export default function SmartConsultation({
       setResult(recommendations);
     } catch (err: any) {
       console.error('Error getting recommendations:', err);
-      setError(err.message || "Erro: verifique sua chave VITE_GEMINI_API_KEY no .env.local");
+      setError(err.message || "Erro: verifique sua chave VITE_GOOGLE_API_KEY no .env.local");
     } finally {
       setLoading(false);
     }

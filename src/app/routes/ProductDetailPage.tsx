@@ -1,5 +1,6 @@
 // src/pages/ProductDetailPage.tsx
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,16 +14,20 @@ interface ProductDetailPageProps {
   onBack?: () => void;
 }
 
-export default function ProductDetailPage({ productId = '1', onBack }: ProductDetailPageProps) {
+export default function ProductDetailPage({ productId, onBack }: ProductDetailPageProps) {
+  const navigate = useNavigate();
+  const params = useParams<{ productId?: string }>();
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [showTryOn, setShowTryOn] = useState(false);
 
+  const resolvedProductId = params.productId || productId || '1';
+
   // Mock product data
   const product = {
-    id: productId,
+    id: resolvedProductId,
     name: 'Shampoo Metal Detox Alsham',
     price: 189.90,
     oldPrice: 249.90,
@@ -67,14 +72,22 @@ export default function ProductDetailPage({ productId = '1', onBack }: ProductDe
     setShowTryOn(true);
   };
 
+  const handleBack = () => {
+    if (onBack) {
+      onBack();
+      return;
+    }
+    navigate(-1);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white py-10">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 mb-6">
         <div className="flex items-center gap-2 text-sm text-gray-400">
-          <button onClick={onBack} className="hover:text-gold transition-colors">Home</button>
+          <button onClick={handleBack} className="hover:text-gold transition-colors">Home</button>
           <span>/</span>
-          <button onClick={onBack} className="hover:text-gold transition-colors">Shop</button>
+          <button onClick={handleBack} className="hover:text-gold transition-colors">Shop</button>
           <span>/</span>
           <span className="text-white">{product.category}</span>
         </div>

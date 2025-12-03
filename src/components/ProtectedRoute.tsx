@@ -7,15 +7,21 @@ interface ProtectedRouteProps {
   children: ReactNode;
   requiredTier?: 'free' | 'premium' | 'vip';
   redirectTo?: string;
+  loadingFallback?: ReactNode;
 }
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-  children, 
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
   requiredTier,
-  redirectTo = '/login'
+  redirectTo = '/login',
+  loadingFallback
 }) => {
-  const { user } = useApp();
+  const { user, isLoading } = useApp();
   const location = useLocation();
+
+  if (isLoading) {
+    return <>{loadingFallback ?? null}</>;
+  }
 
   // Se não está logado, redireciona para login
   if (!user) {

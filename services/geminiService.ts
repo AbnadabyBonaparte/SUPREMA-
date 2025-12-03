@@ -1,9 +1,10 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { env } from '@/lib/env';
 // Removi a importação de tipos para evitar erros de build
 // import { ProfessionalType } from "@/types/ai";
 
 // 1. Tenta pegar a chave
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const API_KEY = env.VITE_GOOGLE_API_KEY;
 
 // 2. Variável para armazenar a instância (Lazy loading)
 let genAI: GoogleGenerativeAI | null = null;
@@ -11,11 +12,6 @@ let genAI: GoogleGenerativeAI | null = null;
 // 3. Função segura de inicialização (Só cria se tiver chave)
 const getGenAI = () => {
   if (genAI) return genAI;
-  
-  if (!API_KEY) {
-    console.warn("⚠️ VITE_GEMINI_API_KEY não encontrada. A IA não funcionará.");
-    return null;
-  }
   
   genAI = new GoogleGenerativeAI(API_KEY);
   return genAI;

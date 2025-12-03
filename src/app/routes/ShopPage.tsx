@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ShopProduct, ShopCategory } from '@/types/ai';
+import { useNavigate } from 'react-router-dom';
 
 // Mock products data (from legacy)
 const products: ShopProduct[] = [
@@ -35,6 +36,7 @@ const products: ShopProduct[] = [
 const categories: ShopCategory[] = ['Todos', 'Perfumaria', 'Cabelo', 'Skincare', 'Wellness', 'Homem', 'Fitness'];
 
 export function ShopPage() {
+    const navigate = useNavigate();
     const [activeCategory, setActiveCategory] = useState<ShopCategory>('Todos');
     const [cartCount, setCartCount] = useState(0);
 
@@ -45,6 +47,10 @@ export function ShopPage() {
     const handleAddToCart = () => {
         setCartCount(prev => prev + 1);
         alert("Produto adicionado à Sacola Alsham!");
+    };
+
+    const handleViewDetails = (id: string) => {
+        navigate(`/products/${id}`);
     };
 
     return (
@@ -155,6 +161,13 @@ export function ShopPage() {
                                 className="w-full border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black uppercase text-xs font-bold"
                             >
                                 Adicionar à Sacola
+                            </Button>
+                            <Button
+                                onClick={() => handleViewDetails(product.id)}
+                                variant="ghost"
+                                className="w-full mt-3 text-[#D4AF37] hover:text-black hover:bg-[#D4AF37] uppercase text-xs font-bold"
+                            >
+                                Ver detalhes
                             </Button>
                         </div>
                     </Card>

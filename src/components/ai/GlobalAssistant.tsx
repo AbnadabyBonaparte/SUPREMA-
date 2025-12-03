@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAuraInsight } from '@/services/ai/geminiService';
-
-interface GlobalAssistantProps {
-    currentPage: string;
-    onNavigate: (page: string) => void;
-}
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const contextActions: Record<string, { label: string; action: string }[]> = {
     'home': [
@@ -34,10 +30,34 @@ const contextActions: Record<string, { label: string; action: string }[]> = {
     ]
 };
 
-export function GlobalAssistant({ currentPage, onNavigate }: GlobalAssistantProps) {
+export function GlobalAssistant() {
+    const location = useLocation();
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [message, setMessage] = useState<string>("AURA Online. Analisando padrões...");
     const [isThinking, setIsThinking] = useState(false);
+
+    const currentPage = (() => {
+        if (location.pathname.startsWith('/shop')) return 'shop';
+        if (location.pathname.startsWith('/saloes')) return 'booking';
+        if (location.pathname.startsWith('/creator-suite')) return 'studio';
+        if (location.pathname.startsWith('/dashboard')) return 'consultant';
+        return 'home';
+    })();
+
+    const navigateToAction = (action: string) => {
+        const actionMap: Record<string, string> = {
+            home: '/',
+            loyalty: '/fidelidade',
+            booking: '/saloes',
+            shop: '/shop',
+            chat: '/dashboard',
+            studio: '/creator-suite'
+        };
+
+        const target = actionMap[action] || '/';
+        navigate(target);
+    };
 
     // Update message when page changes
     useEffect(() => {
@@ -102,7 +122,7 @@ export function GlobalAssistant({ currentPage, onNavigate }: GlobalAssistantProp
                                 key={idx}
                                 onClick={() => {
                                     if (action.action !== 'camera_trigger') {
-                                        onNavigate(action.action);
+                                        navigateToAction(action.action);
                                         setIsOpen(false);
                                     }
                                 }}

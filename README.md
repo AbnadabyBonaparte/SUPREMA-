@@ -165,7 +165,7 @@ pnpm install
 # Configure as variáveis de ambiente
 cp .env.example .env
 # Edite .env e adicione:
-# VITE_GEMINI_API_KEY=sua_chave_aqui
+# VITE_GOOGLE_API_KEY=sua_chave_aqui
 # VITE_SUPABASE_URL=sua_url_aqui
 # VITE_SUPABASE_ANON_KEY=sua_chave_aqui
 
@@ -182,7 +182,7 @@ pnpm build
 
 1. Conecte o repositório GitHub ao Vercel
 2. Configure as variáveis de ambiente:
-   - `VITE_GEMINI_API_KEY`
+   - `VITE_GOOGLE_API_KEY`
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
 3. Deploy automático a cada push na branch `main`

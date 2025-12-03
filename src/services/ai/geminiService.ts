@@ -2,17 +2,13 @@
 import { GoogleGenAI, GenerateContentResponse, Type, Modality } from "@google/genai";
 import { agentConfigs } from './agents';
 import { StyleRecommendation, ChatMessage, ProfessionalType } from "@/types/ai";
+import { env } from '@/lib/env';
 
 // Tenta obter a chave de forma segura
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const apiKey = env.VITE_GOOGLE_API_KEY;
 
-if (!apiKey) {
-    console.warn('⚠️ VITE_GEMINI_API_KEY not found in environment variables. AI features will not work properly.');
-}
-
-// Inicialização segura: Se não tiver chave, cria com string vazia para não quebrar o build,
-// mas as chamadas falharão graciosamente.
-const ai = new GoogleGenAI({ apiKey: apiKey || '' });
+// Inicialização segura usando a chave validada
+const ai = new GoogleGenAI({ apiKey });
 
 const styleResponseSchema = {
     type: Type.OBJECT,
@@ -52,7 +48,7 @@ export async function getStyleRecommendations(
     images?: { inlineData: { data: string; mimeType: string } }[]
 ): Promise<StyleRecommendation[]> {
     try {
-        if (!apiKey) throw new Error("API Key is missing. Please configure VITE_GEMINI_API_KEY.");
+        if (!apiKey) throw new Error("API Key is missing. Please configure VITE_GOOGLE_API_KEY.");
 
         // Get agent configuration
         const agentConfig = agentConfigs[professional];
