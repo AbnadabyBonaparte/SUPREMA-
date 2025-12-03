@@ -168,6 +168,8 @@ cp .env.example .env
 # VITE_GOOGLE_API_KEY=sua_chave_aqui
 # VITE_SUPABASE_URL=sua_url_aqui
 # VITE_SUPABASE_ANON_KEY=sua_chave_aqui
+# VITE_GA_MEASUREMENT_ID=sua_ga4_measurement_id (produção)
+# VITE_ENABLE_ANALYTICS=false (manter false em dev/preview)
 
 # Rode o projeto
 pnpm dev
@@ -185,7 +187,17 @@ pnpm build
    - `VITE_GOOGLE_API_KEY`
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
+   - `VITE_GA_MEASUREMENT_ID`
+   - `VITE_ENABLE_ANALYTICS` (false em Preview, true em Produção)
 3. Deploy automático a cada push na branch `main`
+
+---
+
+## 📈 **ANALYTICS & CSP**
+
+- Analytics: Google Analytics 4 via `gtag.js`, habilitado somente quando `VITE_ENABLE_ANALYTICS=true` e `VITE_GA_MEASUREMENT_ID` configurado.
+- Pré-visualizações e desenvolvimento permanecem sem coleta de analytics por padrão.
+- CSP: cabeçalhos definidos no `vercel.json`, usando Report-Only em Preview e enforcement em Produção, permitindo apenas domínios necessários (GA4, Supabase, Gemini).
 
 ---
 
