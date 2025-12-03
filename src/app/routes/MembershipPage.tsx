@@ -3,7 +3,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import SubscriptionManager from '@/components/SubscriptionManager';
-import { useAppContext } from '@/contexts/AppContext';
+import { useApp } from '@/contexts/AppContext';
 
 interface MembershipPageProps {
     onPlanSelect?: () => void;
