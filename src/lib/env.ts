@@ -4,6 +4,7 @@ const envSchema = z.object({
   VITE_SUPABASE_URL: z.string().url('VITE_SUPABASE_URL deve ser uma URL válida'),
   VITE_SUPABASE_ANON_KEY: z.string().min(1, 'VITE_SUPABASE_ANON_KEY é obrigatório'),
   VITE_GOOGLE_API_KEY: z.string().min(1, 'VITE_GOOGLE_API_KEY é obrigatório'),
+  VITE_STRIPE_PUBLISHABLE_KEY: z.string().min(1, 'VITE_STRIPE_PUBLISHABLE_KEY é obrigatório'),
   VITE_ENABLE_ANALYTICS: z
     .string()
     .optional()

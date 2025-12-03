@@ -2,17 +2,42 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import SubscriptionManager from '@/components/SubscriptionManager';
+import { useAppContext } from '@/contexts/AppContext';
 
 interface MembershipPageProps {
     onPlanSelect?: () => void;
 }
 
 export function MembershipPage({ onPlanSelect }: MembershipPageProps) {
+    const { user } = useAppContext();
+    // Se o usuário estiver logado, mostrar o gerenciador de assinaturas
+    if (user) {
+        return (
+            <div className="min-h-screen bg-black text-white py-20 px-4">
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-12">
+                        <h1 className="text-5xl font-serif text-white mb-4">GERENCIAR ASSINATURA</h1>
+                        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                            Controle sua assinatura, altere planos e gerencie pagamentos
+                        </p>
+                    </div>
+                    
+                    <SubscriptionManager 
+                        userId={user.id} 
+                        userEmail={user.email} 
+                    />
+                </div>
+            </div>
+        );
+    }
+
+    // Página de apresentação para usuários não logados
     const handleSubscribe = (plan: 'free' | 'prime') => {
         if (plan === 'prime') {
-            alert('Redirecionando para checkout Stripe... (Mock)');
+            alert('Faça login primeiro para assinar um plano premium!');
         } else {
-            alert('Conta gratuita criada com sucesso!');
+            alert('Faça login primeiro para criar sua conta!');
         }
         if (onPlanSelect) onPlanSelect();
     };
