@@ -2,13 +2,12 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 // ==================== INTERFACES ====================
-
 export interface User {
   id: string;
   name: string;
   email: string;
   avatar?: string;
-  tier: 'free' | 'premium' | 'vip';
+  tier: 'free' | 'pro' | 'premium' | 'luxury';
   createdAt: string;
 }
 
@@ -27,7 +26,7 @@ interface AppContextType {
   setUser: (user: User | null) => void;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  
+
   // Cart
   cart: CartItem[];
   addToCart: (item: Omit<CartItem, 'quantity'>) => void;
@@ -36,22 +35,20 @@ interface AppContextType {
   clearCart: () => void;
   cartTotal: number;
   cartCount: number;
-  
+
   // Theme
   theme: 'light' | 'dark';
   toggleTheme: () => void;
-  
+
   // Loading
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
 }
 
 // ==================== CONTEXT ====================
-
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // ==================== PROVIDER ====================
-
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   // User State
   const [user, setUser] = useState<User | null>(() => {
@@ -75,44 +72,36 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   // ==================== EFFECTS ====================
-
-  // Persist user to localStorage
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('alsham_user', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('alsham_user');
-    }
+    if (user) localStorage.setItem('alsham_user', JSON.stringify(user));
+    else localStorage.removeItem('alsham_user');
   }, [user]);
 
-  // Persist cart to localStorage
   useEffect(() => {
     localStorage.setItem('alsham_cart', JSON.stringify(cart));
   }, [cart]);
 
-  // Persist theme to localStorage
   useEffect(() => {
     localStorage.setItem('alsham_theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   // ==================== USER FUNCTIONS ====================
-
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      // Simulação de login (substituir por chamada real ao Supabase)
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Mock – depois você troca por Supabase Auth
+      await new Promise(resolve => setTimeout(resolve, 800));
+
       const mockUser: User = {
-        id: '1',
+        id: crypto.randomUUID(),
         name: email.split('@')[0],
         email,
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
-        tier: 'premium',
-        createdAt: new Date().toISOString()
+        tier: 'pro',
+        createdAt: new Date().toISOString(),
       };
-      
+
       setUser(mockUser);
     } catch (error) {
       console.error('Login failed:', error);
@@ -128,21 +117,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // ==================== CART FUNCTIONS ====================
-
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
     setCart(prev => {
       const existing = prev.find(i => i.id === item.id);
-      
       if (existing) {
-        // Incrementa quantidade se já existe
-        return prev.map(i => 
-          i.id === item.id 
-            ? { ...i, quantity: i.quantity + 1 } 
-            : i
+        return prev.map(i =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
         );
       }
-      
-      // Adiciona novo item
       return [...prev, { ...item, quantity: 1 }];
     });
   };
@@ -156,33 +138,18 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       removeFromCart(id);
       return;
     }
-    
-    setCart(prev => 
-      prev.map(i => 
-        i.id === id 
-          ? { ...i, quantity } 
-          : i
-      )
-    );
+    setCart(prev => prev.map(i => (i.id === id ? { ...i, quantity } : i)));
   };
 
-  const clearCart = () => {
-    setCart([]);
-  };
+  const clearCart = () => setCart([]);
 
-  // ==================== COMPUTED VALUES ====================
+  const cartTotal = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const cartCount = cart.reduce((sum, i) => sum + i.quantity, 0);
 
-  const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  // ==================== THEME ====================
+  const toggleTheme = () => setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
 
-  // ==================== THEME FUNCTIONS ====================
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-
-  // ==================== PROVIDER VALUE ====================
-
+  // ==================== VALUE ====================
   const value: AppContextType = {
     user,
     setUser,
@@ -198,23 +165,16 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     theme,
     toggleTheme,
     isLoading,
-    setIsLoading
+    setIsLoading,
   };
 
-  return (
-    <AppContext.Provider value={value}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
 // ==================== HOOK ====================
-
 export const useApp = () => {
   const context = useContext(AppContext);
-  if (!context) {
-    throw new Error('useApp must be used within AppProvider');
-  }
+  if (!context) throw new Error('useApp must be used within AppProvider');
   return context;
 };
 
