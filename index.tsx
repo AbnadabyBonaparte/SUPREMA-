@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { env } from './src/lib/env';
 
 // DEBUG: confirma que a API Key chegou (vai aparecer no console)
-if (!import.meta.env.VITE_GEMINI_API_KEY) {
-  console.error('ERRO: VITE_GEMINI_API_KEY não configurada no Vercel!');
+if (!env.VITE_GOOGLE_API_KEY) {
+  console.error('ERRO: VITE_GOOGLE_API_KEY não configurada no ambiente!');
 } else {
-  console.log('Gemini API Key carregada com sucesso');
+  console.log('Google API Key carregada com sucesso');
 }
 
 const rootElement = document.getElementById('root');

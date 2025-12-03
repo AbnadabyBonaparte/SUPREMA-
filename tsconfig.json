@@ -21,6 +21,18 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "react-router-dom": [
+        "./src/lib/router.tsx"
+      ],
+      "react-router-dom/*": [
+        "./src/lib/router.tsx"
+      ],
+      "zod": [
+        "./src/lib/zod.ts"
+      ],
+      "zod/*": [
+        "./src/lib/zod.ts"
       ]
     },
     "allowImportingTsExtensions": true,

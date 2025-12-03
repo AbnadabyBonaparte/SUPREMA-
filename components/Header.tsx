@@ -1,25 +1,33 @@
 
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-type Page = 'home' | 'consultant' | 'studio' | 'chat' | 'tts' | 'loyalty' | 'booking' | 'shop' | 'login' | 'membership' | 'partner';
+type Page = 'home' | 'studio' | 'booking' | 'shop' | 'dashboard' | 'live';
 
-interface HeaderProps {
-  currentPage: Page;
-  setCurrentPage: (page: Page) => void;
-}
+const navItems: { label: string; page: Page; path: string }[] = [
+  { label: 'Matriz', page: 'home', path: '/' },
+  { label: 'Estúdio', page: 'studio', path: '/creator-suite' },
+  { label: 'Agendar', page: 'booking', path: '/saloes' },
+  { label: 'Loja', page: 'shop', path: '/shop' },
+  { label: 'Concierge', page: 'dashboard', path: '/dashboard' },
+  { label: 'Voz', page: 'live', path: '/live' }
+];
 
-const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
+const Header: React.FC = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const navButtonStyle = (page: Page) => ({
     padding: '10px 15px',
     backgroundColor: 'transparent',
-    color: currentPage === page ? '#D4AF37' : '#A0A0A0',
-    borderBottom: currentPage === page ? '2px solid #D4AF37' : '2px solid transparent',
+    color: location.pathname === navItems.find(item => item.page === page)?.path ? '#D4AF37' : '#A0A0A0',
+    borderBottom: location.pathname === navItems.find(item => item.page === page)?.path ? '2px solid #D4AF37' : '2px solid transparent',
     borderTop: 'none',
     borderLeft: 'none',
     borderRight: 'none',
     borderRadius: '0',
     cursor: 'pointer',
-    fontWeight: currentPage === page ? 600 : 400,
+    fontWeight: location.pathname === navItems.find(item => item.page === page)?.path ? 600 : 400,
     fontSize: '0.85em',
     textTransform: 'uppercase' as 'uppercase',
     letterSpacing: '1px',
@@ -29,8 +37,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
   });
 
   return (
-    <header style={{ 
-        padding: '20px 40px', 
+    <header style={{
+        padding: '20px 40px',
         background: 'rgba(5, 5, 5, 0.9)',
         backdropFilter: 'blur(15px)',
         borderBottom: '1px solid rgba(255,255,255,0.05)',
@@ -43,8 +51,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
     }}>
       {/* Top Bar: B2B Link */}
       <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
-          <button 
-            onClick={() => setCurrentPage('partner')}
+          <button
+            onClick={() => navigate('/partner')}
             style={{ background: 'transparent', border: 'none', color: '#666', fontSize: '0.7em', textTransform: 'uppercase', letterSpacing: '1px', cursor: 'pointer' }}
           >
             Área do Parceiro (Business) &rarr;
@@ -52,13 +60,13 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
       </div>
 
       <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-          <h1 
-            onClick={() => setCurrentPage('home')}
-            style={{ 
-              color: '#F0F0F0', 
-              margin: '0', 
+          <h1
+            onClick={() => navigate('/')}
+            style={{
+              color: '#F0F0F0',
+              margin: '0',
               fontSize: '2.2em',
-              letterSpacing: '0.1em', 
+              letterSpacing: '0.1em',
               textTransform: 'uppercase',
               background: 'linear-gradient(45deg, #F0F0F0 30%, #D4AF37 100%)',
               WebkitBackgroundClip: 'text',
@@ -76,17 +84,16 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
 
       <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
           <nav style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '5px', flex: 1 }}>
-            <button onClick={() => setCurrentPage('home')} style={navButtonStyle('home')}>Matriz</button>
-            <button onClick={() => setCurrentPage('studio')} style={navButtonStyle('studio')}>Estúdio</button>
-            <button onClick={() => setCurrentPage('booking')} style={navButtonStyle('booking')}>Agendar</button>
-            <button onClick={() => setCurrentPage('shop')} style={navButtonStyle('shop')}>Loja</button>
-            <button onClick={() => setCurrentPage('chat')} style={navButtonStyle('chat')}>Concierge</button>
-            <button onClick={() => setCurrentPage('tts')} style={navButtonStyle('tts')}>Voz</button>
+            {navItems.map(item => (
+              <button key={item.path} onClick={() => navigate(item.path)} style={navButtonStyle(item.page)}>
+                {item.label}
+              </button>
+            ))}
           </nav>
 
           <div style={{ marginLeft: '20px' }}>
-              <button 
-                onClick={() => setCurrentPage('login')}
+              <button
+                onClick={() => navigate('/login')}
                 style={{
                     padding: '10px 25px',
                     background: 'transparent',

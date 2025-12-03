@@ -1,8 +1,8 @@
 // src/pages/HomePage.tsx
 import React from 'react';
-import MatrixHub from '../../components/MatrixHub';
-import SponsoredHero from '../../components/SponsoredHero';
-import TrendSpotlight from '../../components/TrendSpotlight';
+import MatrixHub from '../../../components/MatrixHub';
+import SponsoredHero from '../../../components/SponsoredHero';
+import TrendSpotlight from '../../../components/TrendSpotlight';
 import { ProfessionalType, Trend } from '@/types/ai';
 
 interface HomePageProps {
