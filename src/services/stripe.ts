@@ -346,3 +346,4 @@ export function isSubscriptionExpiringSoon(subscription: StripeSubscription): bo
   
   return expirationDate <= sevenDaysFromNow;
 }
+

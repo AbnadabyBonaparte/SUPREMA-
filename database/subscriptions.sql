@@ -199,3 +199,4 @@ SELECT
 
 -- Mostrar estrutura da tabela
 \d subscriptions;
+

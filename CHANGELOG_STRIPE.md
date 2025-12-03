@@ -300,3 +300,4 @@ Para dúvidas sobre a implementação:
 - 🔧 Troubleshooting: Veja seção no `STRIPE_SETUP.md`
 
 **Implementação concluída com sucesso! 🎉**
+
