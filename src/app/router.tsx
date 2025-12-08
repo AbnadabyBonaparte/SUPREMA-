@@ -21,11 +21,7 @@ const ProductDetailPage = lazy(() => import('./routes/ProductDetailPage'));
 const CreatorSuitePage = lazy(() => import('./routes/CreatorSuitePage'));
 const SettingsPage = lazy(() => import('./routes/SettingsPage'));
 
-interface AppRoutesProps {
-  RouteComponent?: typeof Route;
-}
-
-const AppRoutes: React.FC<AppRoutesProps> = ({ RouteComponent = Route }) => {
+export const renderAppRoutes = (RouteComponent: typeof Route = Route) => {
   const RouteEl = RouteComponent;
 
   return (
@@ -33,24 +29,45 @@ const AppRoutes: React.FC<AppRoutesProps> = ({ RouteComponent = Route }) => {
       <RouteEl path="/" element={<RootLayout />}>
         <RouteEl index element={<HomePage />} />
         <RouteEl path="login" element={<LoginPage />} />
-        <RouteEl path="dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-        <RouteEl path="fidelidade" element={<ProtectedRoute><FidelidadePage /></ProtectedRoute>} />
+        <RouteEl
+          path="dashboard"
+          element={<ProtectedRoute><DashboardPage /></ProtectedRoute>}
+        />
+        <RouteEl
+          path="fidelidade"
+          element={<ProtectedRoute><FidelidadePage /></ProtectedRoute>}
+        />
         <RouteEl path="membership" element={<MembershipPage />} />
-        <RouteEl path="profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+        <RouteEl
+          path="profile"
+          element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
+        />
         <RouteEl path="saloes" element={<SaloesPage />} />
         <RouteEl path="shop" element={<ShopPage />} />
         <RouteEl path="partner" element={<PartnerPage />} />
-        <RouteEl path="pro-dashboard" element={<ProtectedRoute requiredTier="premium"><ProfessionalDashboardPage /></ProtectedRoute>} />
-        <RouteEl path="checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+        <RouteEl
+          path="pro-dashboard"
+          element={<ProtectedRoute requiredTier="premium"><ProfessionalDashboardPage /></ProtectedRoute>}
+        />
+        <RouteEl
+          path="checkout"
+          element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>}
+        />
         <RouteEl path="sustainability" element={<SustainabilityPage />} />
         <RouteEl path="live" element={<LiveShoppingPage />} />
         <RouteEl path="products/:productId" element={<ProductDetailPage />} />
-        <RouteEl path="creator-suite" element={<ProtectedRoute requiredTier="premium"><CreatorSuitePage /></ProtectedRoute>} />
-        <RouteEl path="settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+        <RouteEl
+          path="creator-suite"
+          element={<ProtectedRoute requiredTier="premium"><CreatorSuitePage /></ProtectedRoute>}
+        />
+        <RouteEl
+          path="settings"
+          element={<ProtectedRoute><SettingsPage /></ProtectedRoute>}
+        />
         <RouteEl path="*" element={<Navigate to="/" replace />} />
       </RouteEl>
     </>
   );
 };
 
-export default AppRoutes;
+export default renderAppRoutes;

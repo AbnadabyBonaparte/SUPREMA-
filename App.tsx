@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route } from '@/lib/router';
-import AppRoutes from './src/app/router';
+import renderAppRoutes from './src/app/router';
 import { AppProvider } from './src/contexts/AppContext';
 import { initAnalytics } from './src/lib/analytics';
 
@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Suspense fallback={<div style={{ padding: '20px' }}>Carregando...</div>}>
           <Routes>
-            <AppRoutes RouteComponent={Route} />
+            {renderAppRoutes(Route)}
           </Routes>
         </Suspense>
       </Router>
