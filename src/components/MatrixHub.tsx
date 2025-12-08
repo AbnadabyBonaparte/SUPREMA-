@@ -1,20 +1,14 @@
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
 import { CardDynasty } from '@/components/ui/CardDynasty'
+import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
 
-interface MatrixHubProps {
-    onSelect: (id: string) => void;
-    onSelectTrend: (trend: any) => void;
-}
-
-export default function MatrixHub({ onSelect, onSelectTrend }: MatrixHubProps) {
+export default function MatrixHub() {
     return (
-        <CardDynasty className="p-8 border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
-            <BadgeDynasty variant="outline">System Offline</BadgeDynasty>
-            <h3 className="text-2xl font-display text-white/40">MatrixHub Neural Interface</h3>
-            <p className="text-white/20 max-w-md">
-                The agentic neural network is currently initializing.
-                Detailed consultation services will be available in the next system update.
-            </p>
-        </CardDynasty>
+        <section className="py-20 px-6">
+            <CardDynasty className="p-12 text-center bg-obsidian-950/90 border-sovereign-gold-700/20">
+                <BadgeDynasty variant="gold" className="mb-6">Sistema de Agentes IA</BadgeDynasty>
+                <h2 className="text-3xl font-display text-white mb-4">Matrix Hub — 18 Agentes Especializados</h2>
+                <p className="text-white/60">Integração Gemini em progresso. Em breve: Consultoria Multimodal Completa.</p>
+            </CardDynasty>
+        </section>
     )
 }

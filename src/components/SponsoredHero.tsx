@@ -1,15 +1,14 @@
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
-import { CardDynasty } from '@/components/ui/CardDynasty'
+import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
 
 export default function SponsoredHero() {
     return (
-        <div className="relative w-full h-80 rounded-2xl overflow-hidden bg-gradient-to-r from-obsidian-900 to-obsidian-800 flex items-center justify-center border border-white/5">
-            <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-            <div className="text-center space-y-2 z-10">
-                <BadgeDynasty variant="gold">Partnership</BadgeDynasty>
-                <h3 className="text-3xl font-display text-white/50">Brand Spotlight Space</h3>
-                <p className="text-white/30">Reserved for premium brand collaborations.</p>
+        <section className="relative h-96 bg-gradient-to-br from-obsidian-950 to-obsidian-900 overflow-hidden rounded-2xl">
+            <div className="absolute inset-0 bg-black/40" />
+            <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
+                <h2 className="text-4xl md:text-5xl font-display text-white mb-6">Parcerias Exclusivas</h2>
+                <p className="text-xl text-white/80 mb-8 max-w-2xl">Experiências premium com as maiores marcas de beleza do mundo.</p>
+                <ButtonDynasty variant="gold" size="lg">Descubra Parceiros</ButtonDynasty>
             </div>
-        </div>
+        </section>
     )
 }
