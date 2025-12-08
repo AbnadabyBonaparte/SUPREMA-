@@ -1,7 +1,7 @@
 // src/App.tsx
 
 import { BrowserRouter as Router } from 'react-router-dom'
-import { Routes, Route } from '@/lib/router'  // Seu wrapper custom
+import { Routes, Route } from '@/lib/router'  // Wrapper custom do projeto (só Routes/Route)
 import { SupremeHeader } from '@/components/layout/SupremeHeader'
 import { SupremeFooter } from '@/components/layout/SupremeFooter'
 import HomePage from '@/app/routes/HomePage'
