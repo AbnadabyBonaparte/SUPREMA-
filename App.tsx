@@ -141,6 +141,7 @@ function App() {
               <Route path="/agents" element={<ConsultoriaPage />} />
               <Route path="/experiences" element={<SaloesPage />} />
               <Route path="/studio" element={<ImageStudio />} />
+              <Route path="/chat" element={<ChatPage />} />
 
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
