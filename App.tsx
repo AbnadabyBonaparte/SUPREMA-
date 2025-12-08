@@ -140,6 +140,7 @@ function App() {
               <Route path="/consultoria" element={<ConsultoriaPage />} />
               <Route path="/agents" element={<ConsultoriaPage />} />
               <Route path="/experiences" element={<SaloesPage />} />
+              <Route path="/studio" element={<ImageStudio />} />
 
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
