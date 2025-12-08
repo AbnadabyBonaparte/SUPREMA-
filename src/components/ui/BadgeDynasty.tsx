@@ -14,6 +14,7 @@ const badgeVariants = cva(
         success: "bg-emerald-noir-500/10 text-emerald-noir-600 border-emerald-noir-600/30",
         warning: "bg-rose-bronze-500/10 text-rose-bronze-600 border-rose-bronze-600/30",
         destructive: "bg-ruby-700/10 text-ruby-600 border-ruby-600/30",
+        outline: "border border-sovereign-gold-700/50 text-sovereign-gold-700 bg-transparent",
       },
     },
     defaultVariants: {
@@ -24,7 +25,7 @@ const badgeVariants = cva(
 
 export interface BadgeDynastyProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {}
+  VariantProps<typeof badgeVariants> { }
 
 export function BadgeDynasty({ className, variant, ...props }: BadgeDynastyProps) {
   return (

@@ -3,7 +3,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { SupremeHero } from '@/components/sections/SupremeHero'
-import TrendSpotlight from '@/components/TrendSpotlight'
+import TrendSpotlight from '@/components/sections/TrendSpotlight'
 import MatrixHub from '@/components/MatrixHub'
 import SponsoredHero from '@/components/SponsoredHero'
 import { ProductCardDynasty } from '@/components/cards/ProductCardDynasty'
