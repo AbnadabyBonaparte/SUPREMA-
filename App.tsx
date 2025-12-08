@@ -1,6 +1,7 @@
 // src/App.tsx
 
-import { BrowserRouter as Router, Routes, Route } from '@/lib/router'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Routes, Route } from '@/lib/router'  // Seu wrapper custom
 import { SupremeHeader } from '@/components/layout/SupremeHeader'
 import { SupremeFooter } from '@/components/layout/SupremeFooter'
 import HomePage from '@/app/routes/HomePage'
