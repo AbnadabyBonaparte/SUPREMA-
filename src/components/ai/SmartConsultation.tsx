@@ -1,239 +1,148 @@
-"use client";
+// src/components/ai/SmartConsultation.tsx
 
-import { useState, useRef } from "react";
-import Webcam from "react-webcam";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Loader2, Camera, Upload, Sparkles } from "lucide-react";
-import { getStyleRecommendations } from "@/services/ai/geminiService";
-import { ProfessionalType, StyleRecommendation, Trend } from "@/types/ai";
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
+import { CardDynasty } from '@/components/ui/CardDynasty'
+import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
+import { InputDynasty } from '@/components/ui/InputDynasty'
+import { TextareaDynasty } from '@/components/ui/textarea'
+import { agentConfigs } from '@/services/ai/agents'
+import { getStyleRecommendations, playTextAsSpeech } from '@/services/ai/geminiService'
+import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
+import { Sparkles, Send, Volume2, Camera } from 'lucide-react'
 
-interface SmartConsultationProps {
-  professional?: ProfessionalType;
-  initialTrend?: Trend | null;
-  onBack?: () => void;
-  onSchedule?: () => void;
-}
+export default function SmartConsultation() {
+  const [searchParams] = useSearchParams()
+  const agentId = searchParams.get('agent') || agentConfigs[0].id
+  const selectedAgent = agentConfigs.find(a => a.id === agentId) || agentConfigs[0]
 
-export default function SmartConsultation({
-  professional = 'makeup_artist_x0',
-  initialTrend,
-  onBack,
-  onSchedule
-}: SmartConsultationProps) {
-  const [prompt, setPrompt] = useState("");
-  const [images, setImages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<StyleRecommendation[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const webcamRef = useRef<Webcam>(null);
+  const [prompt, setPrompt] = useState('')
+  const [images, setImages] = useState<File[]>([])
+  const [recommendations, setRecommendations] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const capture = () => {
-    const screenshot = webcamRef.current?.getScreenshot();
-    if (screenshot) setImages(prev => [...prev, screenshot]);
-  };
-
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) return;
-    Array.from(files).forEach(file => {
-      const reader = new FileReader();
-      reader.onloadend = () => setImages(prev => [...prev, reader.result as string]);
-      reader.readAsDataURL(file);
-    });
-  };
-
-  const submit = async () => {
-    if (!prompt && images.length === 0) return;
-    setLoading(true);
-    setError(null);
-    setResult(null);
-
+  const handleSubmit = async () => {
+    if (!prompt.trim()) return
+    setIsLoading(true)
+    setError('')
     try {
-      // Convert base64 images to the format expected by Gemini
-      const imageData = images.map(img => ({
-        inlineData: {
-          data: img.split(',')[1], // Remove data:image/jpeg;base64, prefix
-          mimeType: 'image/jpeg'
-        }
-      }));
-
-      const recommendations = await getStyleRecommendations(
-        prompt || "Me dê 3 recomendações de beleza personalizadas com base nas imagens.",
-        professional,
-        imageData
-      );
-
-      setResult(recommendations);
+      const result = await getStyleRecommendations(prompt, selectedAgent.type as any, images)
+      setRecommendations(result)
     } catch (err: any) {
-      console.error('Error getting recommendations:', err);
-      setError(err.message || "Erro: verifique sua chave VITE_GOOGLE_API_KEY no .env.local");
+      setError('Erro na consultoria. Tente novamente.')
+      console.error(err)
     } finally {
-      setLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImages(Array.from(e.target.files))
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-black text-white py-20">
-      <Card className="max-w-6xl mx-auto p-12 bg-gradient-to-br from-black to-gray-900 border-2 border-gold rounded-3xl">
-        {onBack && (
-          <button
-            onClick={onBack}
-            className="mb-6 text-gray-400 hover:text-white transition-colors flex items-center gap-2"
-          >
-            ← Voltar
-          </button>
-        )}
+    <section className="py-20 px-6 bg-obsidian-950">
+      <div className="container mx-auto max-w-5xl">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+          className="space-y-12"
+        >
+          {/* Header Consultoria */}
+          <motion.div variants={fadeInUp} className="text-center">
+            <BadgeDynasty variant="gold" className="mb-4">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Consultoria com {selectedAgent.name}
+            </BadgeDynasty>
+            <h2 className="text-4xl font-display text-white mb-4">
+              Sua Transformação Personalizada
+            </h2>
+            <p className="text-xl text-marble-50/60">
+              Descreva seu desejo ou envie fotos. {selectedAgent.name} analisa multimodalmente e entrega recomendações premium.
+            </p>
+          </motion.div>
 
-        <h1 className="text-6xl font-bold text-center mb-12 bg-gradient-to-r from-gold to-amber-400 bg-clip-text text-transparent">
-          Alsham Suprema Beleza 5.0
-        </h1>
-
-        <div className="grid lg:grid-cols-2 gap-12">
-          <div className="space-y-8">
-            <Textarea
-              placeholder="Descreva seu desejo ou deixe em branco para análise automática..."
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              className="bg-gray-900 border-gold text-white placeholder-gray-500"
-              rows={5}
-            />
-
-            <div className="flex gap-8 items-start">
-              <Webcam
-                ref={webcamRef}
-                screenshotFormat="image/jpeg"
-                className="rounded-2xl border-4 border-gold"
-                width={400}
-                height={400}
+          {/* Formulário */}
+          <CardDynasty className="p-8 bg-obsidian-900/50 border-sovereign-gold-700/20">
+            <motion.div variants={fadeInUp} className="space-y-6">
+              <TextareaDynasty
+                placeholder="Descreva o que deseja: corte, maquiagem, skincare, estilo completo..."
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                className="min-h-32"
               />
-              <div className="space-y-4">
-                <Button
-                  onClick={capture}
-                  size="lg"
-                  className="w-full bg-gold hover:bg-amber-500 text-black font-bold"
-                >
-                  <Camera className="mr-3" /> Tirar Foto
-                </Button>
-                <label>
-                  <Button
-                    asChild
-                    size="lg"
-                    variant="outline"
-                    className="w-full border-gold text-white"
-                  >
-                    <span>
-                      <Upload className="mr-3" /> Upload Fotos
-                      <input
-                        type="file"
-                        multiple
-                        accept="image/*"
-                        onChange={handleFile}
-                        className="hidden"
-                      />
-                    </span>
-                  </Button>
+
+              <div className="flex items-center gap-4">
+                <InputDynasty
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageUpload}
+                  className="flex-1"
+                />
+                <label className="cursor-pointer">
+                  <ButtonDynasty variant="outline" className="gap-2">
+                    <Camera className="w-4 h-4" />
+                    Enviar Fotos ({images.length})
+                  </ButtonDynasty>
                 </label>
               </div>
-            </div>
 
-            <div className="flex flex-wrap gap-4">
-              {images.map((img, i) => (
-                <div key={i} className="relative">
-                  <img
-                    src={img}
-                    alt="upload"
-                    className="w-32 h-32 object-cover rounded-xl border-2 border-gold"
-                  />
-                  <button
-                    onClick={() => setImages(prev => prev.filter((_, idx) => idx !== i))}
-                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
+              <ButtonDynasty
+                variant="gold"
+                size="lg"
+                onClick={handleSubmit}
+                disabled={isLoading || !prompt.trim()}
+                className="w-full"
+              >
+                {isLoading ? 'Analisando...' : 'Iniciar Consultoria'}
+                <Send className="w-5 h-5 ml-2" />
+              </ButtonDynasty>
 
-            <Button
-              onClick={submit}
-              disabled={loading}
-              size="lg"
-              className="w-full py-8 text-2xl font-bold bg-gradient-to-r from-gold to-amber-500 hover:from-amber-500 hover:to-gold"
-            >
-              {loading ? <Loader2 className="animate-spin mr-4" /> : <Sparkles className="mr-4" />}
-              {loading ? "Gemini 2.0 Flash pensando..." : "Consultar Especialista"}
-            </Button>
+              {error && <p className="text-ruby-600 text-center">{error}</p>}
+            </motion.div>
+          </CardDynasty>
 
-            {error && (
-              <div className="p-4 bg-red-500/10 border border-red-500 rounded-lg text-red-400">
-                {error}
-              </div>
-            )}
-          </div>
+          {/* Resultados */}
+          {recommendations.length > 0 && (
+            <motion.div variants={fadeInUp} className="space-y-8">
+              <h3 className="text-3xl font-display text-white text-center">
+                Recomendações Premium
+              </h3>
+              {recommendations.map((rec, idx) => (
+                <CardDynasty key={idx} className="p-8 bg-obsidian-900/50 border-sovereign-gold-700/20">
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-2xl font-display text-sovereign-gold-500 mb-2">
+                        {rec.outfitName}
+                      </h4>
+                      <p className="text-marble-50/80">{rec.description}</p>
+                    </div>
 
-          <div>
-            {result && result.length > 0 && (
-              <div className="space-y-6">
-                <h2 className="text-4xl font-bold text-gold mb-8">Suas Recomendações</h2>
-                {result.map((rec, i) => (
-                  <Card key={i} className="p-8 bg-gray-900 border-gold">
-                    <h3 className="text-2xl font-bold text-gold mb-4">{rec.outfitName}</h3>
-                    <p className="text-lg leading-relaxed mb-4">{rec.description}</p>
+                    <div>
+                      <p className="font-semibold text-white mb-2">Análise Técnica:</p>
+                      <p className="text-marble-50/60">{rec.technicalAnalysis}</p>
+                    </div>
 
-                    {rec.technicalAnalysis && (
-                      <div className="mb-4 p-4 bg-white/5 rounded-lg">
-                        <h4 className="text-sm uppercase tracking-wider text-gold mb-2">Análise Técnica</h4>
-                        <p className="text-sm text-gray-300">{rec.technicalAnalysis}</p>
-                      </div>
-                    )}
-
-                    {rec.items && rec.items.length > 0 && (
-                      <div className="mb-4">
-                        <h4 className="text-sm uppercase tracking-wider text-gold mb-2">Passos</h4>
-                        <ul className="list-disc list-inside space-y-1 text-sm text-gray-300">
-                          {rec.items.map((item, idx) => <li key={idx}>{item}</li>)}
-                        </ul>
-                      </div>
-                    )}
-
-                    {rec.recommendedProducts && rec.recommendedProducts.length > 0 && (
-                      <div>
-                        <h4 className="text-sm uppercase tracking-wider text-gold mb-3">Produtos Recomendados</h4>
-                        <div className="space-y-2">
-                          {rec.recommendedProducts.map((product, idx) => (
-                            <div key={idx} className="p-3 bg-white/5 rounded-lg">
-                              <div className="flex justify-between items-start mb-1">
-                                <span className="font-medium text-sm">{product.name}</span>
-                                <span className="text-gold text-sm font-bold">{product.price}</span>
-                              </div>
-                              <p className="text-xs text-gray-400">{product.reason}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </Card>
-                ))}
-
-                {onSchedule && (
-                  <div className="text-center mt-6">
-                    <Button
-                      onClick={onSchedule}
-                      size="lg"
-                      variant="outline"
-                      className="border-gold text-gold hover:bg-gold hover:text-black"
-                    >
-                      Agendar Profissional Agora
-                    </Button>
+                    <div className="flex items-center gap-4">
+                      <ButtonDynasty variant="outline" onClick={() => playTextAsSpeech(rec.description)}>
+                        <Volume2 className="w-4 h-4 mr-2" />
+                        Ouvir Recomendação
+                      </ButtonDynasty>
+                    </div>
                   </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </Card>
-    </div>
-  );
+                </CardDynasty>
+              ))}
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+    </section>
+  )
 }
