@@ -128,7 +128,7 @@ export default function HomePage() {
             </Link>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="rounded-3xl border border-sovereign-gold-700/15 bg-obsidian-900/40 backdrop-blur-sm p-2">
+          <motion.div variants={fadeInUp} className="rounded-3xl border border-sovereign-gold-700/15 bg-obsidian-900/40 backdrop-blur-sm p-2 shadow-obsidian-lift">
             <TrendSpotlight onSelectTrend={handleSelectTrend} />
           </motion.div>
         </div>
@@ -156,7 +156,7 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="rounded-3xl border border-sovereign-gold-700/15 bg-obsidian-900/40 backdrop-blur-sm p-4">
+          <motion.div variants={fadeInUp} className="rounded-3xl border border-sovereign-gold-700/15 bg-obsidian-900/40 backdrop-blur-sm p-4 shadow-obsidian-lift">
             <MatrixHub onSelect={handleSelectAgent} onSelectTrend={handleSelectTrend} />
           </motion.div>
         </div>
@@ -283,7 +283,7 @@ export default function HomePage() {
       >
         <div className="container mx-auto px-6 lg:px-10">
           <motion.div variants={fadeInUp}>
-            <CardDynasty className="relative overflow-hidden">
+            <CardDynasty className="relative overflow-hidden shadow-obsidian-lift">
               <div className="absolute inset-0 bg-gradient-to-r from-obsidian-950 via-obsidian-900 to-obsidian-950" />
               <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top,_rgba(214,165,56,0.25),transparent_45%)]" />
               <div className="relative grid gap-10 lg:grid-cols-2 items-center p-8 lg:p-12">
