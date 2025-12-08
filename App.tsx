@@ -1,23 +1,28 @@
-import React, { useEffect } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import { router } from './src/app/router';
-import { AppProvider } from './src/contexts/AppContext';
-import { initAnalytics } from './src/lib/analytics';
+// src/App.tsx
 
-const App: React.FC = () => {
-  useEffect(() => {
-    try {
-      initAnalytics();
-    } catch (error) {
-      console.warn('Falha ao inicializar analytics:', error);
-    }
-  }, []);
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { SupremeHeader } from '@/components/layout/SupremeHeader'
+import { SupremeFooter } from '@/components/layout/SupremeFooter'
+import HomePage from '@/app/routes/HomePage'
+// Importe outras páginas...
 
+function App() {
   return (
-    <AppProvider>
-      <RouterProvider router={router} fallback={<div style={{ padding: '20px' }}>Carregando...</div>} />
-    </AppProvider>
-  );
-};
+    <Router>
+      <div className="min-h-screen bg-obsidian-950 text-marble-50">
+        <SupremeHeader />
+        
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            {/* Outras rotas */}
+          </Routes>
+        </main>
 
-export default App;
+        <SupremeFooter />
+      </div>
+    </Router>
+  )
+}
+
+export default App
