@@ -3,8 +3,9 @@ import { z } from 'zod';
 const envSchema = z.object({
   VITE_SUPABASE_URL: z.string().url('VITE_SUPABASE_URL deve ser uma URL válida'),
   VITE_SUPABASE_ANON_KEY: z.string().min(1, 'VITE_SUPABASE_ANON_KEY é obrigatório'),
-  VITE_GOOGLE_API_KEY: z.string().min(1, 'VITE_GOOGLE_API_KEY é obrigatório'),
-  VITE_STRIPE_PUBLISHABLE_KEY: z.string().min(1, 'VITE_STRIPE_PUBLISHABLE_KEY é obrigatório'),
+  // Permite placeholders para não quebrar o build; funcionalidades ficam limitadas.
+  VITE_GOOGLE_API_KEY: z.string().optional(),
+  VITE_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
   VITE_ENABLE_ANALYTICS: z
     .string()
     .optional()
@@ -19,4 +20,19 @@ if (!parsed.success) {
   throw new Error('Falha ao carregar variáveis de ambiente. Confira o arquivo .env.');
 }
 
-export const env = parsed.data;
+const envWithFallback = {
+  ...parsed.data,
+  VITE_GOOGLE_API_KEY: parsed.data.VITE_GOOGLE_API_KEY || 'placeholder-google-key',
+  VITE_STRIPE_PUBLISHABLE_KEY: parsed.data.VITE_STRIPE_PUBLISHABLE_KEY || 'placeholder-stripe-key',
+};
+
+if (
+  envWithFallback.VITE_GOOGLE_API_KEY === 'placeholder-google-key' ||
+  envWithFallback.VITE_STRIPE_PUBLISHABLE_KEY === 'placeholder-stripe-key'
+) {
+  console.warn(
+    '⚠️ Variáveis de ambiente VITE_GOOGLE_API_KEY e/ou VITE_STRIPE_PUBLISHABLE_KEY não definidas. Usando placeholders; recursos de Google AI ou Stripe podem não funcionar.'
+  );
+}
+
+export const env = envWithFallback;

@@ -1,5 +1,6 @@
 import React, { lazy } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { Route } from '@/lib/router';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import RootLayout from './routes/RootLayout';
 
@@ -20,28 +21,36 @@ const ProductDetailPage = lazy(() => import('./routes/ProductDetailPage'));
 const CreatorSuitePage = lazy(() => import('./routes/CreatorSuitePage'));
 const SettingsPage = lazy(() => import('./routes/SettingsPage'));
 
-export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootLayout />,
-    children: [
-      { index: true, element: <HomePage /> },
-      { path: 'login', element: <LoginPage /> },
-      { path: 'dashboard', element: <ProtectedRoute><DashboardPage /></ProtectedRoute> },
-      { path: 'fidelidade', element: <ProtectedRoute><FidelidadePage /></ProtectedRoute> },
-      { path: 'membership', element: <MembershipPage /> },
-      { path: 'profile', element: <ProtectedRoute><ProfilePage /></ProtectedRoute> },
-      { path: 'saloes', element: <SaloesPage /> },
-      { path: 'shop', element: <ShopPage /> },
-      { path: 'partner', element: <PartnerPage /> },
-      { path: 'pro-dashboard', element: <ProtectedRoute requiredTier="premium"><ProfessionalDashboardPage /></ProtectedRoute> },
-      { path: 'checkout', element: <ProtectedRoute><CheckoutPage /></ProtectedRoute> },
-      { path: 'sustainability', element: <SustainabilityPage /> },
-      { path: 'live', element: <LiveShoppingPage /> },
-      { path: 'products/:productId', element: <ProductDetailPage /> },
-      { path: 'creator-suite', element: <ProtectedRoute requiredTier="premium"><CreatorSuitePage /></ProtectedRoute> },
-      { path: 'settings', element: <ProtectedRoute><SettingsPage /></ProtectedRoute> },
-      { path: '*', element: <Navigate to="/" replace /> }
-    ]
-  }
-]);
+interface AppRoutesProps {
+  RouteComponent?: typeof Route;
+}
+
+const AppRoutes: React.FC<AppRoutesProps> = ({ RouteComponent = Route }) => {
+  const RouteEl = RouteComponent;
+
+  return (
+    <>
+      <RouteEl path="/" element={<RootLayout />}>
+        <RouteEl index element={<HomePage />} />
+        <RouteEl path="login" element={<LoginPage />} />
+        <RouteEl path="dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+        <RouteEl path="fidelidade" element={<ProtectedRoute><FidelidadePage /></ProtectedRoute>} />
+        <RouteEl path="membership" element={<MembershipPage />} />
+        <RouteEl path="profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+        <RouteEl path="saloes" element={<SaloesPage />} />
+        <RouteEl path="shop" element={<ShopPage />} />
+        <RouteEl path="partner" element={<PartnerPage />} />
+        <RouteEl path="pro-dashboard" element={<ProtectedRoute requiredTier="premium"><ProfessionalDashboardPage /></ProtectedRoute>} />
+        <RouteEl path="checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+        <RouteEl path="sustainability" element={<SustainabilityPage />} />
+        <RouteEl path="live" element={<LiveShoppingPage />} />
+        <RouteEl path="products/:productId" element={<ProductDetailPage />} />
+        <RouteEl path="creator-suite" element={<ProtectedRoute requiredTier="premium"><CreatorSuitePage /></ProtectedRoute>} />
+        <RouteEl path="settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+        <RouteEl path="*" element={<Navigate to="/" replace />} />
+      </RouteEl>
+    </>
+  );
+};
+
+export default AppRoutes;
