@@ -1,8 +1,8 @@
-// src/components/ui/TextareaDynasty.tsx
+// src/components/ui/TextareaDynasty.tsx (IMPORT CORRIGIDO)
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
-import { Textarea } from "@/components/ui/textarea" // Importa do textarea padrão shadcn/ui (agora sem conflito)
+import { Textarea } from "./textarea"  // Importa do textarea base (agora restaurado)
 
 export interface TextareaDynastyProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
