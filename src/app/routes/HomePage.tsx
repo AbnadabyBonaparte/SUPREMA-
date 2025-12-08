@@ -3,41 +3,14 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { SupremeHero } from '@/components/sections/SupremeHero'
-import { AgentCardDynasty } from '@/components/cards/AgentCardDynasty'
+import TrendSpotlight from '@/components/TrendSpotlight'
+import MatrixHub from '@/components/MatrixHub'
 import { ProductCardDynasty } from '@/components/cards/ProductCardDynasty'
 import { CardDynasty } from '@/components/ui/CardDynasty'
 import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
 import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
-import { agentConfigs, ProfessionalType } from '@/services/ai/agents'
 import { ArrowRight, Crown, MapPin, Sparkles, Star } from 'lucide-react'
-
-const trendHighlights = [
-  {
-    id: 't1',
-    title: 'Platinum Blonde Era',
-    ref: 'Kim Kardashian & Beyoncé',
-    description: 'Platinado frio com raiz esfumada e tratamento de reparação total.',
-    image: 'https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=1500&q=80',
-    cta: '/consultoria',
-  },
-  {
-    id: 't2',
-    title: "Old Money Glow",
-    ref: 'Hailey Bieber vibes',
-    description: 'Skin minimalista, nail chrome e cabelo com camadas 90s.',
-    image: 'https://images.unsplash.com/photo-1503951914875-452162b7f300?auto=format&fit=crop&w=1500&q=80',
-    cta: '/agents',
-  },
-  {
-    id: 't3',
-    title: 'Viking Beard Revival',
-    ref: 'Jason Momoa energy',
-    description: 'Barbas densas com mapeamento 3D e nutrição profunda.',
-    image: 'https://images.unsplash.com/photo-1587776536140-0f329b3926a9?auto=format&fit=crop&w=1500&q=80',
-    cta: '/saloes',
-  },
-]
 
 const salonHighlights = [
   {
@@ -112,29 +85,14 @@ const productHighlights = [
   },
 ]
 
-const agentAvatars: Record<ProfessionalType, string> = {
-  barber_x0: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=80',
-  grooming_master: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
-  beard_expert: 'https://images.unsplash.com/photo-1552642986-cca00e545ef7?auto=format&fit=crop&w=800&q=80',
-  cabeleireira_x0: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=800&q=80',
-  colorista_x0: 'https://images.unsplash.com/photo-1492106087820-71f171ce6549?auto=format&fit=crop&w=800&q=80',
-  hair_stylist_x0: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=800&q=80',
-  makeup_artist_x0: 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?auto=format&fit=crop&w=800&q=80',
-  beauty_guru: 'https://images.unsplash.com/photo-1576426863848-c21f5fc67255?auto=format&fit=crop&w=800&q=80',
-  skincare_expert: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=800&q=80',
-  bronze_master: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80',
-  body_sculptor: 'https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80',
-  spa_therapist: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=800&q=80',
-  nail_artist_x0: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=800&q=80',
-  lash_expert: 'https://images.unsplash.com/photo-1587776536140-0f329b3926a9?auto=format&fit=crop&w=800&q=80',
-  brow_designer: 'https://images.unsplash.com/photo-1588513874459-663346923e4a?auto=format&fit=crop&w=800&q=80',
-  tattoo_artist: 'https://images.unsplash.com/photo-1590246130796-5ba0ef383978?auto=format&fit=crop&w=800&q=80',
-  piercing_master: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80',
-  aesthetic_doctor: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80',
-}
-
 export default function HomePage() {
-  const agents = Object.values(agentConfigs)
+  const handleSelectAgent = (id: string) => {
+    console.log('Agente selecionado', id)
+  }
+
+  const handleSelectTrend = (trend: unknown) => {
+    console.log('Tendência selecionada', trend)
+  }
 
   return (
     <div className="min-h-screen bg-obsidian-950 text-marble-50">
@@ -170,45 +128,9 @@ export default function HomePage() {
             </Link>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {trendHighlights.map((trend, idx) => (
-              <motion.div key={trend.id} variants={fadeInUp} transition={{ delay: idx * 0.05 }}>
-                <CardDynasty className="overflow-hidden h-full">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={trend.image}
-                      alt={trend.title}
-                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/30 to-transparent" />
-                    <div className="absolute top-4 left-4 flex items-center gap-2">
-                      <BadgeDynasty variant="gold" className="shadow-lg">
-                        Trending
-                      </BadgeDynasty>
-                      <BadgeDynasty variant="obsidian">{trend.ref}</BadgeDynasty>
-                    </div>
-                  </div>
-                  <div className="p-6 space-y-3">
-                    <h3 className="font-display text-xl text-marble-50">{trend.title}</h3>
-                    <p className="font-body text-sm text-marble-50/70 leading-relaxed">
-                      {trend.description}
-                    </p>
-                    <div className="flex items-center justify-between pt-2">
-                      <span className="font-accent text-xs uppercase tracking-[0.2em] text-sovereign-gold-700">
-                        Celebrity drop
-                      </span>
-                      <Link to={trend.cta}>
-                        <ButtonDynasty size="sm" variant="gold" className="gap-2">
-                          Quero este visual
-                          <ArrowRight className="w-4 h-4" />
-                        </ButtonDynasty>
-                      </Link>
-                    </div>
-                  </div>
-                </CardDynasty>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div variants={fadeInUp} className="rounded-3xl border border-sovereign-gold-700/15 bg-obsidian-900/40 backdrop-blur-sm p-2">
+            <TrendSpotlight onSelectTrend={handleSelectTrend} />
+          </motion.div>
         </div>
       </motion.section>
 
@@ -234,26 +156,9 @@ export default function HomePage() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {agents.map((agent, idx) => {
-              const rating = Math.min(5, 4.8 + (idx % 3) * 0.07)
-              const consultations = 1800 + idx * 37
-
-              return (
-                <motion.div key={agent.id} variants={fadeInUp} transition={{ delay: (idx % 6) * 0.05 }}>
-                  <AgentCardDynasty
-                    name={agent.name}
-                    specialty={agent.title}
-                    description={agent.description}
-                    avatar={agentAvatars[agent.id]}
-                    consultations={consultations}
-                    rating={Number(rating.toFixed(1))}
-                    available={idx % 4 !== 0}
-                  />
-                </motion.div>
-              )
-            })}
-          </div>
+          <motion.div variants={fadeInUp} className="rounded-3xl border border-sovereign-gold-700/15 bg-obsidian-900/40 backdrop-blur-sm p-4">
+            <MatrixHub onSelect={handleSelectAgent} onSelectTrend={handleSelectTrend} />
+          </motion.div>
         </div>
       </motion.section>
 
