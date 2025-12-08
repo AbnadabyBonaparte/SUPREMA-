@@ -107,7 +107,7 @@ export default function SustainabilityScanner() {
                 </motion.div>
               )}
 
-              {result.alternatives.length > 0 && (
+                            {result.alternatives.length > 0 && (
                 <motion.div variants={fadeInUp}>
                   <CardDynasty className="p-8 bg-emerald-900/30 border-emerald-700/40">
                     <div className="flex items-center gap-4 mb-6">
@@ -116,8 +116,12 @@ export default function SustainabilityScanner() {
                     </div>
                     <ul className="space-y-4">
                       {result.alternatives.map((alt, i) => (
-                        <motion.li key={i} variants={fadeInUp} className="flex items-center gap-4 text-xl">
-                          <Leaf className="y className="w-7 h-7 text-emerald-400" />
+                        <motion.li 
+                          key={i} 
+                          variants={fadeInUp} 
+                          className="flex items-center gap-4 text-xl"
+                        >
+                          <Leaf className="w-7 h-7 text-emerald-400 flex-shrink-0" />
                           <span className="text-marble-50/90">{alt}</span>
                         </motion.li>
                       ))}
@@ -125,7 +129,6 @@ export default function SustainabilityScanner() {
                   </CardDynasty>
                 </motion.div>
               )}
-
               <motion.div variants={fadeInUp} className="text-center">
                 <ButtonDynasty
                   variant="gold"
