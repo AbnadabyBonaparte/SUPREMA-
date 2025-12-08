@@ -9,7 +9,6 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "react-router-dom": path.resolve(__dirname, "./src/lib/router"),
-      "zod": path.resolve(__dirname, "./src/lib/zod"),
     },
   },
 })
