@@ -1,53 +1,43 @@
 // src/services/ai/geminiService.ts (adicione no final do arquivo)
 
-export interface UpsellRecommendation {
-  productName: string
-  reason: string
-  price: string
-  urgency: 'high' | 'medium' | 'low'
+export interface SustainabilityAnalysis {
+  score: number; // 0-100
+  rating: 'EXCELENTE' | 'BOM' | 'REGULAR' | 'RUIM';
+  issues: string[];
+  alternatives: string[];
 }
 
-export async function getUpsellRecommendation(
-  cartItems: string[],
-  userProfile?: string
-): Promise<UpsellRecommendation[]> {
+export async function analyzeIngredients(ingredients: string[]): Promise<SustainabilityAnalysis> {
   if (!apiKey) {
     // Fallback premium para testes sem key
-    return [
-      {
-        productName: 'Kit Supreme Glow',
-        reason: 'Complementa perfeitamente seus itens de skincare — clientes semelhantes adoram.',
-        price: 'R$ 489,00',
-        urgency: 'high'
-      }
-    ]
+    return {
+      score: 92,
+      rating: 'EXCELENTE',
+      issues: [],
+      alternatives: ['Todos os ingredientes são clean e sustentáveis.']
+    }
   }
 
   const model = ai.getGenerativeModel({ 
     model: 'gemini-2.5-pro',
     generationConfig: { 
       responseMimeType: 'application/json',
-      temperature: 0.7,
+      temperature: 0.6,
       maxOutputTokens: 512
     }
   })
 
   const prompt = `
-Você é Product Specialist da Alsham Suprema Beleza.
-O usuário tem no carrinho: ${cartItems.join(', ')}.
-${userProfile ? `Perfil: ${userProfile}.` : ''}
+Você é Sustainability Advisor da Alsham Suprema Beleza.
+Analise a lista de ingredientes: ${ingredients.join(', ')}.
 
-Recomende 1-3 produtos upsell premium que complementem perfeitamente.
+Avalie sustentabilidade, clean beauty e impacto ambiental.
 Retorne JSON estrito:
 {
-  "recommendations": [
-    {
-      "productName": "string",
-      "reason": "string detalhado e persuasivo",
-      "price": "string com R$",
-      "urgency": "high" | "medium" | "low"
-    }
-  ]
+  "score": number (0-100),
+  "rating": "EXCELENTE" | "BOM" | "REGULAR" | "RUIM",
+  "issues": string[] (ingredientes problemáticos + motivo),
+  "alternatives": string[] (sugestões clean da Alsham)
 }
 `
 
@@ -55,17 +45,20 @@ Retorne JSON estrito:
     const result = await model.generateContent(prompt)
     const text = result.response.text()
     const parsed = JSON.parse(text)
-    return parsed.recommendations || []
+    return {
+      score: parsed.score || 70,
+      rating: parsed.rating || 'REGULAR',
+      issues: parsed.issues || [],
+      alternatives: parsed.alternatives || ['Consulte nossa linha Clean Beauty']
+    }
   } catch (error) {
-    console.error('Upsell error:', error)
+    console.error('Sustainability analysis error:', error)
     // Fallback premium
-    return [
-      {
-        productName: 'Óleo Capilar Supreme',
-        reason: 'Best-seller que eleva qualquer rotina capilar — 98% das clientes recomendam.',
-        price: 'R$ 289,00',
-        urgency: 'high'
-      }
-    ]
+    return {
+      score: 78,
+      rating: 'BOM',
+      issues: ['Alguns ingredientes requerem atenção (ex: silicones)'],
+      alternatives: ['Recomendamos nossa linha Zero Waste Supreme']
+    }
   }
 }
