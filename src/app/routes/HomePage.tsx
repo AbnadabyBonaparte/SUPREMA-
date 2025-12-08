@@ -3,8 +3,9 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { SupremeHero } from '@/components/sections/SupremeHero'
-import TrendSpotlight from '../../../components/TrendSpotlight'
-import MatrixHub from '../../../components/MatrixHub'
+import TrendSpotlight from '@/components/TrendSpotlight'
+import MatrixHub from '@/components/MatrixHub'
+import SponsoredHero from '@/components/SponsoredHero'
 import { ProductCardDynasty } from '@/components/cards/ProductCardDynasty'
 import { CardDynasty } from '@/components/ui/CardDynasty'
 import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
@@ -281,65 +282,19 @@ export default function HomePage() {
         viewport={{ once: true, amount: 0.2 }}
         className="py-16 lg:py-20 border-t border-sovereign-gold-700/10 bg-obsidian-950"
       >
-        <div className="container mx-auto px-6 lg:px-10">
-          <motion.div variants={fadeInUp}>
-            <CardDynasty className="relative overflow-hidden shadow-obsidian-lift">
-              <div className="absolute inset-0 bg-gradient-to-r from-obsidian-950 via-obsidian-900 to-obsidian-950" />
-              <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top,_rgba(214,165,56,0.25),transparent_45%)]" />
-              <div className="relative grid gap-10 lg:grid-cols-2 items-center p-8 lg:p-12">
-                <div className="space-y-4">
-                  <BadgeDynasty className="w-fit">Brand Spotlight</BadgeDynasty>
-                  <h3 className="font-display text-3xl md:text-4xl text-marble-50 leading-tight">
-                    Alsham Obsidian Dynasty — o renascimento absoluto da beleza de luxo
-                  </h3>
-                  <p className="font-body text-marble-50/70 leading-relaxed">
-                    Powered by Gemini 2.5 Pro + Imagen 4 + Veo 3. Experiências imersivas, consultoria 24/7 e um ecossistema completo que vai do ritual diário ao red carpet.
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    <BadgeDynasty variant="gold">IA generativa</BadgeDynasty>
-                    <BadgeDynasty variant="obsidian">Try-on instantâneo</BadgeDynasty>
-                    <BadgeDynasty variant="gold">Concierge Supreme</BadgeDynasty>
-                  </div>
-                  <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                    <Link to="/membership">
-                      <ButtonDynasty variant="gold" className="gap-2">
-                        Assinar Supreme
-                        <ArrowRight className="w-4 h-4" />
-                      </ButtonDynasty>
-                    </Link>
-                    <Link to="/partner">
-                      <ButtonDynasty variant="outline" className="gap-2">
-                        Ser um parceiro
-                        <ArrowRight className="w-4 h-4" />
-                      </ButtonDynasty>
-                    </Link>
-                  </div>
-                </div>
+        <div className="container mx-auto px-6 lg:px-10 space-y-8">
+          <motion.div variants={fadeInUp} className="space-y-3">
+            <BadgeDynasty className="w-fit">Brand Spotlight</BadgeDynasty>
+            <h3 className="font-display text-3xl md:text-4xl text-marble-50 leading-tight">
+              Parcerias Supreme para impulsionar o Obsidian Dynasty
+            </h3>
+            <p className="font-body text-marble-50/70 max-w-3xl">
+              Ative campanhas premium, drops exclusivos e experiências patrocinadas sem perder a estética de luxo da Obsidian Dynasty.
+            </p>
+          </motion.div>
 
-                <div className="relative h-full">
-                  <div className="grid grid-cols-2 gap-3">
-                    {['Try-on AR', 'Consultoria IA', 'Live Shopping', 'Agenda Premium'].map((label, idx) => (
-                      <motion.div
-                        key={label}
-                        variants={fadeInUp}
-                        transition={{ delay: 0.1 * idx }}
-                        className="p-5 rounded-2xl border border-sovereign-gold-700/20 bg-obsidian-900/50 backdrop-blur-sm"
-                      >
-                        <span className="font-accent text-xs uppercase tracking-[0.2em] text-sovereign-gold-700">
-                          {label}
-                        </span>
-                        <p className="mt-2 font-heading text-lg text-marble-50">
-                          Experiência {idx + 1}
-                        </p>
-                        <p className="font-body text-sm text-marble-50/60">
-                          Fluidez total com o stack Obsidian Dynasty.
-                        </p>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </CardDynasty>
+          <motion.div variants={fadeInUp} className="rounded-3xl overflow-hidden border border-sovereign-gold-700/15 bg-obsidian-900/40 shadow-obsidian-lift">
+            <SponsoredHero />
           </motion.div>
         </div>
       </motion.section>

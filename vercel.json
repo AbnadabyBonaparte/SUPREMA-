@@ -13,7 +13,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy-Report-Only",
-          "value": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https://images.unsplash.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com https://api.gemini.google.com https://api.stripe.com; script-src 'self' https://www.googletagmanager.com https://js.stripe.com; media-src 'self' blob: data:; object-src 'none'; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; form-action 'self' https://checkout.stripe.com;"
+          "value": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https://images.unsplash.com https://images.unsplash.com/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com https://api.gemini.google.com https://api.stripe.com; script-src 'self' https://www.googletagmanager.com https://js.stripe.com; media-src 'self' blob: data:; object-src 'none'; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; form-action 'self' https://checkout.stripe.com;"
         },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
@@ -28,7 +28,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https://images.unsplash.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com https://api.gemini.google.com https://api.stripe.com; script-src 'self' https://www.googletagmanager.com https://js.stripe.com; media-src 'self' blob: data:; object-src 'none'; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; form-action 'self' https://checkout.stripe.com;"
+          "value": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' data: blob: https://images.unsplash.com https://images.unsplash.com/; style-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com https://api.gemini.google.com https://api.stripe.com; script-src 'self' https://www.googletagmanager.com https://js.stripe.com; media-src 'self' blob: data:; object-src 'none'; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; form-action 'self' https://checkout.stripe.com;"
         },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
