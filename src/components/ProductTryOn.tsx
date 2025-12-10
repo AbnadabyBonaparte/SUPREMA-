@@ -4,6 +4,8 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { X, Camera, RotateCcw, Download, Sparkles } from 'lucide-react';
 import Webcam from 'react-webcam';
+import { Z_INDEX } from '@/lib/z-index';
+import { cn } from '@/lib/utils';
 
 interface ProductTryOnProps {
   productName: string;
@@ -52,7 +54,7 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4">
+    <div className={cn("fixed inset-0 bg-black/95 flex items-center justify-center p-4", Z_INDEX.modal)}>
       <Card className="bg-[#0A0A0A] border-gold/30 p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
