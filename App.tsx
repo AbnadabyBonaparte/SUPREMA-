@@ -3,6 +3,7 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
+import { motion } from 'framer-motion';
 import { AppProvider } from './src/contexts/AppContext';
 import { initAnalytics } from './src/lib/analytics';
 import { SupremeHeader } from './src/components/layout/SupremeHeader';
