@@ -5,11 +5,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  Menu, X, ShoppingBag, User, Search, Sparkles, 
-  Crown, Diamond, Calendar, MessageCircle 
+import {
+  Menu, X, ShoppingBag, User, Search, Sparkles,
+  Crown, Diamond, Calendar, MessageCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Z_INDEX } from '@/lib/z-index'
 
 const navigationItems = [
   { 
@@ -60,9 +61,10 @@ export function SupremeHeader() {
     <>
       <motion.header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          isScrolled 
-            ? "bg-obsidian-950/95 backdrop-blur-xl border-b border-sovereign-gold-700/20 shadow-obsidian-lift" 
+          "fixed top-0 left-0 right-0 transition-all duration-500",
+          Z_INDEX.header,
+          isScrolled
+            ? "bg-obsidian-950/95 backdrop-blur-xl border-b border-sovereign-gold-700/20 shadow-obsidian-lift"
             : "bg-transparent"
         )}
         initial={{ y: -100 }}
@@ -188,7 +190,7 @@ export function SupremeHeader() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 lg:hidden"
+            className={cn("fixed inset-0 lg:hidden", Z_INDEX.mobileMenu)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -256,7 +258,7 @@ export function SupremeHeader() {
       <AnimatePresence>
         {isSearchOpen && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-start justify-center pt-32 px-6"
+            className={cn("fixed inset-0 flex items-start justify-center pt-32 px-6", Z_INDEX.searchModal)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, X } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
+import { Z_INDEX } from "@/lib/z-index";
+import { cn } from "@/lib/utils";
 
 export default function CartDrawer() {
   const [open, setOpen] = useState(false);
@@ -18,7 +20,10 @@ export default function CartDrawer() {
       <Button
         variant="ghost"
         size="icon"
-        className="fixed bottom-6 right-6 z-50 bg-gold/90 hover:bg-gold text-black rounded-full shadow-2xl"
+        className={cn(
+          "fixed bottom-6 left-6 bg-gold/90 hover:bg-gold text-black rounded-full shadow-2xl",
+          Z_INDEX.header
+        )}
         onClick={() => setOpen(true)}
       >
         <ShoppingBag className="w-8 h-8" />
@@ -32,9 +37,12 @@ export default function CartDrawer() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80" onClick={() => setOpen(false)}>
+    <div className={cn("fixed inset-0 bg-black/80", Z_INDEX.overlay)} onClick={() => setOpen(false)}>
       <div
-        className="fixed bottom-0 right-0 w-full max-w-md h-[85vh] bg-black border border-gold/30 rounded-t-3xl shadow-2xl overflow-hidden"
+        className={cn(
+          "fixed bottom-0 left-0 w-full max-w-md h-[85vh] bg-black border border-gold/30 rounded-t-3xl shadow-2xl overflow-hidden",
+          Z_INDEX.drawer
+        )}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-6 border-b border-gold/30">

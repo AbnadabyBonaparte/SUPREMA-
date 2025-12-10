@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
 import { CardDynasty } from '@/components/ui/CardDynasty'
 import { Sparkles, X, Send } from 'lucide-react'
+import { Z_INDEX } from '@/lib/z-index'
+import { cn } from '@/lib/utils'
 
 export function GlobalAssistant() {
   const [isOpen, setIsOpen] = useState(false)
@@ -14,7 +16,10 @@ export function GlobalAssistant() {
     <>
       {/* Botão Flutuante */}
       <motion.button
-        className="fixed bottom-8 right-8 z-50 w-16 h-16 rounded-full bg-liquid-gold shadow-2xl shadow-sovereign-gold-700/50 flex items-center justify-center hover:scale-110 transition-all duration-300"
+        className={cn(
+          "fixed bottom-8 right-8 w-16 h-16 rounded-full bg-liquid-gold shadow-2xl shadow-sovereign-gold-700/50 flex items-center justify-center hover:scale-110 transition-all duration-300",
+          Z_INDEX.header
+        )}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
@@ -29,7 +34,7 @@ export function GlobalAssistant() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-28 right-8 z-50 w-96"
+            className={cn("fixed bottom-28 right-8 w-96 max-w-[calc(100vw-4rem)]", Z_INDEX.modal)}
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}

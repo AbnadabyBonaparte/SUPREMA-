@@ -77,8 +77,8 @@ function App() {
         <Router>
           <div className="min-h-screen bg-obsidian-950 text-marble-50 flex flex-col">
             <SupremeHeader />
-            
-            <main className="flex-1">
+
+            <main className="flex-1 pt-20 lg:pt-24">
               <Suspense fallback={<LoadingFallback />}>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
