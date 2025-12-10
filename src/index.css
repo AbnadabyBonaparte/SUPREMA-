@@ -1,0 +1,243 @@
+/* Alsham Suprema Beleza - Global Styles */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base layer - Reset and defaults */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-obsidian-950 text-marble-50 antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Remove default margins */
+  h1, h2, h3, h4, h5, h6, p {
+    @apply m-0;
+  }
+}
+
+/* Components layer - Reusable component classes */
+@layer components {
+  /* Typography Scale - Dynasty Design System */
+  .text-dynasty-hero {
+    @apply font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[0.9];
+  }
+
+  .text-dynasty-h1 {
+    @apply font-display text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight leading-tight;
+  }
+
+  .text-dynasty-h2 {
+    @apply font-heading text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight leading-tight;
+  }
+
+  .text-dynasty-h3 {
+    @apply font-heading text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight leading-snug;
+  }
+
+  .text-dynasty-h4 {
+    @apply font-heading text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight leading-snug;
+  }
+
+  .text-dynasty-body {
+    @apply font-body text-base md:text-lg leading-relaxed tracking-normal;
+  }
+
+  .text-dynasty-caption {
+    @apply font-body text-sm md:text-base leading-relaxed tracking-wide;
+  }
+
+  .text-dynasty-accent {
+    @apply font-accent text-xs uppercase tracking-[0.2em] font-semibold;
+  }
+
+  /* Container utilities */
+  .container-dynasty {
+    @apply container mx-auto px-6 lg:px-10;
+  }
+
+  /* Card effects */
+  .card-dynasty {
+    @apply rounded-2xl border border-sovereign-gold-700/15 bg-obsidian-900/40 backdrop-blur-sm shadow-obsidian-lift;
+  }
+
+  .card-dynasty-hover {
+    @apply transition-all duration-500 hover:border-sovereign-gold-700/30 hover:shadow-gold-glow hover:-translate-y-1;
+  }
+
+  /* Button base styles */
+  .btn-dynasty-base {
+    @apply inline-flex items-center justify-center rounded-xl font-heading font-semibold transition-all duration-300;
+  }
+
+  .btn-dynasty-gold {
+    @apply btn-dynasty-base bg-liquid-gold text-obsidian-950 hover:shadow-gold-glow hover:scale-105;
+  }
+
+  .btn-dynasty-outline {
+    @apply btn-dynasty-base border-2 border-sovereign-gold-700/30 text-sovereign-gold-700 hover:bg-sovereign-gold-700/10 hover:border-sovereign-gold-700;
+  }
+
+  /* Background patterns */
+  .bg-obsidian-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* Gradient text */
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-sovereign-gold-700 via-sovereign-gold-500 to-sovereign-gold-700 bg-clip-text text-transparent;
+  }
+
+  /* Loading spinner */
+  .spinner-dynasty {
+    @apply animate-spin rounded-full border-4 border-sovereign-gold-700 border-t-transparent;
+  }
+
+  /* Smooth transitions */
+  .transition-dynasty {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  /* Focus states */
+  .focus-dynasty {
+    @apply focus:outline-none focus:ring-2 focus:ring-sovereign-gold-700/50 focus:ring-offset-2 focus:ring-offset-obsidian-950;
+  }
+
+  /* Scrollbar styling */
+  .scrollbar-dynasty {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.sovereign-gold.700') theme('colors.obsidian.900');
+  }
+
+  .scrollbar-dynasty::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  .scrollbar-dynasty::-webkit-scrollbar-track {
+    @apply bg-obsidian-900;
+  }
+
+  .scrollbar-dynasty::-webkit-scrollbar-thumb {
+    @apply bg-sovereign-gold-700 rounded-full;
+  }
+
+  .scrollbar-dynasty::-webkit-scrollbar-thumb:hover {
+    @apply bg-sovereign-gold-600;
+  }
+
+  /* Section spacing */
+  .section-dynasty {
+    @apply py-16 lg:py-20;
+  }
+
+  /* Border utilities */
+  .border-dynasty {
+    @apply border border-sovereign-gold-700/10;
+  }
+
+  .border-dynasty-strong {
+    @apply border-2 border-sovereign-gold-700/30;
+  }
+}
+
+/* Utilities layer - Single-purpose utilities */
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Aspect ratios */
+  .aspect-golden {
+    aspect-ratio: 1.618 / 1;
+  }
+
+  /* Glass morphism effect */
+  .glass-dynasty {
+    @apply bg-obsidian-900/40 backdrop-blur-md border border-sovereign-gold-700/15;
+  }
+
+  /* Subtle animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

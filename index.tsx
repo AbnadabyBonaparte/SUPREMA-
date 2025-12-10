@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { env } from './src/lib/env';
+import './src/index.css';
 
 // DEBUG: confirma que a API Key chegou (vai aparecer no console)
 if (!env.VITE_GOOGLE_API_KEY) {
