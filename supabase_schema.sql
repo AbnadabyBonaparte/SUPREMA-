@@ -1,5 +1,15 @@
--- ==================== SUPREMA- DATABASE SCHEMA ====================
+-- ==================== SUPREMA BELEZA - DATABASE SCHEMA ====================
 -- Execute este SQL no Supabase SQL Editor para criar as tabelas necessárias
+-- 
+-- INSTRUÇÕES:
+-- 1. Acesse https://supabase.com/dashboard
+-- 2. Selecione seu projeto
+-- 3. Vá em SQL Editor
+-- 4. Cole este script completo
+-- 5. Execute (Run)
+--
+-- NOTA: Este schema é idempotente (pode ser executado múltiplas vezes)
+-- Para schema completo com mais campos, use: supabase_schema_complete.sql
 
 -- Products Table
 CREATE TABLE IF NOT EXISTS products (
