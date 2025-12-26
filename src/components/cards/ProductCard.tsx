@@ -1,10 +1,12 @@
 // src/components/cards/ProductCard.tsx
 
+import { memo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ShoppingBag, Heart, Eye, Star } from 'lucide-react'
+import { ShoppingBag, Heart, Eye, Star, Loader2 } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 
 interface ProductCardProps {
   name: string
@@ -18,7 +20,7 @@ interface ProductCardProps {
   isFavorite?: boolean
 }
 
-export function ProductCard({ 
+export const ProductCard = memo(function ProductCard({ 
   name, 
   brand, 
   price, 
@@ -29,14 +31,31 @@ export function ProductCard({
   badge,
   isFavorite = false 
 }: ProductCardProps) {
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const [imageError, setImageError] = useState(false)
+
   return (
     <Card className="group relative overflow-hidden">
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden bg-obsidian-900">
+        {!imageLoaded && !imageError && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        )}
         <img
           src={image}
           alt={name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+          onLoad={() => setImageLoaded(true)}
+          onError={() => {
+            setImageError(true)
+            setImageLoaded(true)
+          }}
+          className={cn(
+            "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110",
+            imageLoaded ? "opacity-100" : "opacity-0"
+          )}
         />
         
         {/* Gradient Overlay */}
@@ -128,5 +147,5 @@ export function ProductCard({
       </div>
     </Card>
   )
-}
+})
 
