@@ -1,11 +1,12 @@
 // src/pages/SaloesPage.tsx
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Salon, RealProfessional, Service } from '@/types/ai';
+import { RealProfessional, Service } from '@/types/ai';
+import { useSalons, SalonWithProfessionals } from '@/hooks/useSalons';
+import { Loader2 } from 'lucide-react';
 
-// Mock salons data
-const mockSalons: Salon[] = [
+// Mock data removed - now using Supabase
     {
         id: '1',
         name: "Barbearia Viking Prime",
@@ -76,7 +77,8 @@ const mockSalons: Salon[] = [
 ];
 
 export function SaloesPage() {
-    const [selectedSalon, setSelectedSalon] = useState<Salon | null>(null);
+    const { salons, loading, error } = useSalons();
+    const [selectedSalon, setSelectedSalon] = useState<SalonWithProfessionals | null>(null);
     const [selectedProfessional, setSelectedProfessional] = useState<RealProfessional | null>(null);
     const [selectedService, setSelectedService] = useState<Service | null>(null);
     const [showPayment, setShowPayment] = useState(false);
@@ -239,17 +241,56 @@ export function SaloesPage() {
                 ))}
             </div>
 
+            {/* Loading State */}
+            {loading && (
+                <div className="flex items-center justify-center py-20">
+                    <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                    <span className="ml-3 text-muted">Carregando salões...</span>
+                </div>
+            )}
+
+            {/* Error State */}
+            {error && (
+                <div className="text-center py-20">
+                    <p className="text-error mb-4">{error}</p>
+                    <Button onClick={() => window.location.reload()}>Tentar novamente</Button>
+                </div>
+            )}
+
+            {/* Empty State */}
+            {!loading && !error && salons.length === 0 && (
+                <div className="text-center py-20">
+                    <p className="text-muted text-lg mb-4">Nenhum salão encontrado</p>
+                    <p className="text-muted text-sm">Tente novamente mais tarde</p>
+                </div>
+            )}
+
             {/* Salon Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {mockSalons.map(salon => (
+            {!loading && !error && salons.length > 0 && (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {salons.map(salon => {
+                        // Transform Supabase data to match component expectations
+                        const transformedSalon: SalonWithProfessionals = {
+                            ...salon,
+                            image: salon.image || salon.images?.[0] || '',
+                            rating: salon.rating || 0,
+                            reviews: salon.reviews_count || 0,
+                            distance: salon.distance || 'N/A',
+                            isVerified: salon.is_verified || false,
+                            professionals: salon.professionals?.map(pro => ({
+                                ...pro,
+                                services: pro.services || [],
+                            })) || [],
+                        };
+                        return (
                     <Card
                         key={salon.id}
-                        onClick={() => setSelectedSalon(salon)}
+                        onClick={() => setSelectedSalon(transformedSalon)}
                         className="bg-surface border-border overflow-hidden cursor-pointer hover:-translate-y-2 transition-transform duration-300"
                     >
                         <div className="h-52 overflow-hidden relative">
-                            <img src={salon.image} alt={salon.name} className="w-full h-full object-cover" />
-                            {salon.isVerified && (
+                            <img src={transformedSalon.image} alt={transformedSalon.name} className="w-full h-full object-cover" />
+                            {transformedSalon.isVerified && (
                                 <span className="absolute top-3 right-3 bg-primary text-foreground-inverse px-2 py-1 rounded text-xs font-bold uppercase">
                                     Verificado
                                 </span>
@@ -257,19 +298,21 @@ export function SaloesPage() {
                         </div>
                         <div className="p-5">
                             <div className="flex justify-between items-start mb-2">
-                                <h3 className="text-foreground text-lg font-medium">{salon.name}</h3>
-                                <span className="bg-surface text-primary px-2 py-1 rounded text-sm">{salon.distance}</span>
+                                <h3 className="text-foreground text-lg font-medium">{transformedSalon.name}</h3>
+                                <span className="bg-surface text-primary px-2 py-1 rounded text-sm">{transformedSalon.distance}</span>
                             </div>
-                            <div className="text-gray-500 text-sm mb-4">{salon.address}</div>
-                            <div className="flex gap-4 text-gray-400 text-sm">
-                                <span>⭐ {salon.rating}</span>
+                            <div className="text-muted text-sm mb-4">{transformedSalon.address}</div>
+                            <div className="flex gap-4 text-muted text-sm">
+                                <span>⭐ {transformedSalon.rating}</span>
                                 <span>•</span>
-                                <span>{salon.reviews} avaliações</span>
+                                <span>{transformedSalon.reviews} avaliações</span>
                             </div>
                         </div>
                     </Card>
-                ))}
-            </div>
+                        );
+                    })}
+                </div>
+            )}
         </div>
     );
 }

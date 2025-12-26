@@ -1,19 +1,53 @@
 // src/components/SubscriptionBoxPreview.tsx
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, Package, Calendar, TrendingUp, X } from 'lucide-react';
+import { Sparkles, Package, Calendar, TrendingUp, X, Loader2 } from 'lucide-react';
+import { useSubscriptionBoxes } from '@/hooks/useSubscriptionBoxes';
 
 interface SubscriptionBoxPreviewProps {
   onSubscribe?: () => void;
 }
 
 export default function SubscriptionBoxPreview({ onSubscribe }: SubscriptionBoxPreviewProps) {
-  const [selectedTier, setSelectedTier] = useState<'essentials' | 'premium' | 'luxury'>('premium');
+  const { boxes: supabaseBoxes, loading, error } = useSubscriptionBoxes();
+  const [selectedTier, setSelectedTier] = useState<string>('');
   const [showPreview, setShowPreview] = useState(false);
 
-  const boxes = {
+  // Transform Supabase boxes to match component format
+  const boxes = useMemo(() => {
+    if (!supabaseBoxes || supabaseBoxes.length === 0) return {};
+    
+    const boxesMap: Record<string, any> = {};
+    supabaseBoxes.forEach((box) => {
+      const tierKey = box.tier.toLowerCase().replace(/\s+/g, '_');
+      boxesMap[tierKey] = {
+        name: box.name || box.tier,
+        price: box.price,
+        products: box.product_details?.length || box.products?.length || 0,
+        value: box.product_details?.reduce((sum: number, p: any) => sum + (p.price || 0), 0) || box.price * 1.5,
+        items: box.product_details?.map((p: any) => ({
+          name: p.name,
+          category: p.category || 'Geral',
+        })) || [],
+        color: tierKey === 'luxury' ? 'from-purple-500 to-pink-500' : 
+               tierKey === 'premium' ? 'from-gold to-yellow-300' : 
+               'from-blue-500 to-cyan-500',
+        id: box.id,
+      };
+    });
+    
+    // Set default selected tier
+    if (!selectedTier && Object.keys(boxesMap).length > 0) {
+      setSelectedTier(Object.keys(boxesMap)[0]);
+    }
+    
+    return boxesMap;
+  }, [supabaseBoxes, selectedTier]);
+
+  // Fallback mock data (only if Supabase has no data)
+  const fallbackBoxes = {
     essentials: {
       name: 'Essentials Box',
       price: 89.90,
@@ -70,13 +104,39 @@ export default function SubscriptionBoxPreview({ onSubscribe }: SubscriptionBoxP
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <span className="ml-3 text-muted">Carregando boxes...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-error mb-4">{error}</p>
+        <Button onClick={() => window.location.reload()}>Tentar novamente</Button>
+      </div>
+    );
+  }
+
+  if (!currentBox || Object.keys(boxes).length === 0) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-muted text-lg mb-4">Nenhuma box de assinatura disponível</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <Package className="w-10 h-10 text-gold" />
-          <h2 className="text-4xl font-bold text-white">Subscription Boxes</h2>
+          <Package className="w-10 h-10 text-primary" />
+          <h2 className="text-4xl font-bold text-foreground">Subscription Boxes</h2>
         </div>
         <p className="text-xl text-foreground-secondary max-w-2xl mx-auto">
           Receba mensalmente produtos selecionados por IA baseados no seu perfil e preferências

@@ -1,37 +1,11 @@
 // src/pages/ShopPage.tsx
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ShopProduct, ShopCategory } from '@/types/ai';
+import { ShopCategory } from '@/types/ai';
 import { useNavigate } from 'react-router-dom';
-
-// Mock products data (from legacy)
-const products: ShopProduct[] = [
-    // Perfumaria
-    { id: 'p1', name: 'L\'Homme Mystère Eau de Parfum', description: 'Notas de Oud, Couro e Tabaco. Intensidade extrema.', price: 890.00, originalPrice: 1200.00, category: 'Perfumaria', rating: 5.0, isBestSeller: true, image: 'https://images.unsplash.com/photo-1594035910387-40f78ee6604a?auto=format&fit=crop&w=800&q=80' },
-    { id: 'p2', name: 'Royal Gold Essence', description: 'Fragrância oriental com toques de açafrão e rosa negra.', price: 1450.00, category: 'Perfumaria', rating: 4.9, isNew: true, image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80' },
-    { id: 'p3', name: 'Oceanic Blue Intense', description: 'Fresco, cítrico e amadeirado. Inspirado no Mediterrâneo.', price: 650.00, category: 'Perfumaria', rating: 4.8, image: 'https://images.unsplash.com/photo-1523293188086-b469999ada95?auto=format&fit=crop&w=800&q=80' },
-
-    // Cabelo
-    { id: 'c1', name: 'Kit L\'Oréal Metal Detox', description: 'Neutralizador de metal para cor vibrante e sem quebra.', price: 389.90, originalPrice: 450.00, category: 'Cabelo', rating: 4.9, isBestSeller: true, image: 'https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=800&q=80' },
-    { id: 'c2', name: 'Kérastase Elixir Ultime', description: 'Oleo capilar nutritivo para brilho intenso e antifrizz.', price: 299.90, category: 'Cabelo', rating: 5.0, image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?auto=format&fit=crop&w=800&q=80' },
-
-    // Skincare
-    { id: 's1', name: 'Sérum Vitamina C 10 Pure', description: 'Antioxidante potente para luminosidade e correção.', price: 189.90, category: 'Skincare', rating: 4.8, isNew: true, image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80' },
-    { id: 's2', name: 'Ácido Hialurônico + B5', description: 'Hidratação profunda e preenchimento de linhas finas.', price: 150.00, category: 'Skincare', rating: 4.9, isBestSeller: true, image: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=800&q=80' },
-
-    // Wellness
-    { id: 'w1', name: 'Matcha Ceremonial Orgânico', description: 'Chá verde japonês premium. Energia zen.', price: 120.00, originalPrice: 150.00, category: 'Wellness', rating: 5.0, isBestSeller: true, image: 'https://images.unsplash.com/photo-1582793988951-9aed5509eb97?auto=format&fit=crop&w=800&q=80' },
-    { id: 'w2', name: 'Gummy Hair Vitamins', description: 'Biotina e Zinco para cabelos e unhas fortes.', price: 149.90, category: 'Wellness', rating: 4.7, image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=800&q=80' },
-
-    // Homem
-    { id: 'h1', name: 'Beard Growth Kit Full', description: 'Roller, Sérum Ativador e Pente de Madeira.', price: 210.00, category: 'Homem', rating: 4.8, isBestSeller: true, image: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=80' },
-    { id: 'h2', name: 'Pomada Efeito Matte', description: 'Fixação forte sem brilho. Acabamento natural.', price: 65.00, category: 'Homem', rating: 4.7, image: 'https://images.unsplash.com/photo-1593702295094-aea22597af65?auto=format&fit=crop&w=800&q=80' },
-
-    // Fitness
-    { id: 'f1', name: 'Gel Redutor Termogênico', description: 'Acelera queima de gordura abdominal localizada.', price: 89.90, originalPrice: 120.00, category: 'Fitness', rating: 4.6, isBestSeller: true, image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80' },
-    { id: 'f2', name: 'Creatina Monohidratada Pura', description: 'Força e explosão muscular.', price: 130.00, category: 'Fitness', rating: 5.0, image: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=800&q=80' },
-];
+import { useProducts } from '@/hooks/useProducts';
+import { Loader2 } from 'lucide-react';
 
 const categories: ShopCategory[] = ['Todos', 'Perfumaria', 'Cabelo', 'Skincare', 'Wellness', 'Homem', 'Fitness'];
 
@@ -40,9 +14,24 @@ export function ShopPage() {
     const [activeCategory, setActiveCategory] = useState<ShopCategory>('Todos');
     const [cartCount, setCartCount] = useState(0);
 
-    const filteredProducts = activeCategory === 'Todos'
-        ? products
-        : products.filter(p => p.category === activeCategory);
+    // Fetch products from Supabase
+    const { products, loading, error } = useProducts(activeCategory === 'Todos' ? undefined : activeCategory);
+
+    // Transform products to match ShopProduct interface
+    const transformedProducts = useMemo(() => {
+        return products.map(p => ({
+            id: p.id,
+            name: p.name,
+            description: p.description || '',
+            price: p.price,
+            originalPrice: p.original_price,
+            category: p.category,
+            rating: p.rating || 0,
+            isBestSeller: p.is_best_seller || false,
+            isNew: p.is_new || false,
+            image: p.image || p.images?.[0] || '',
+        }));
+    }, [products]);
 
     const handleAddToCart = () => {
         setCartCount(prev => prev + 1);
@@ -107,9 +96,34 @@ export function ShopPage() {
                 ))}
             </div>
 
+            {/* Loading State */}
+            {loading && (
+                <div className="flex items-center justify-center py-20">
+                    <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                    <span className="ml-3 text-muted">Carregando produtos...</span>
+                </div>
+            )}
+
+            {/* Error State */}
+            {error && (
+                <div className="text-center py-20">
+                    <p className="text-error mb-4">{error}</p>
+                    <Button onClick={() => window.location.reload()}>Tentar novamente</Button>
+                </div>
+            )}
+
+            {/* Empty State */}
+            {!loading && !error && transformedProducts.length === 0 && (
+                <div className="text-center py-20">
+                    <p className="text-muted text-lg mb-4">Nenhum produto encontrado</p>
+                    <p className="text-muted text-sm">Tente selecionar outra categoria</p>
+                </div>
+            )}
+
             {/* Product Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {filteredProducts.map(product => (
+            {!loading && !error && transformedProducts.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {transformedProducts.map(product => (
                     <Card
                         key={product.id}
                         className="bg-surface border-border overflow-hidden hover:-translate-y-2 transition-transform duration-300 shadow-xl"
@@ -171,8 +185,9 @@ export function ShopPage() {
                             </Button>
                         </div>
                     </Card>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
