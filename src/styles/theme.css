@@ -98,8 +98,37 @@
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
+/* ==================== DARK THEME (Explicit) ==================== */
+:root[data-theme="dark"],
+html[data-theme="dark"] {
+  /* Re-declare all dark theme variables explicitly for priority */
+  --color-background: var(--color-obsidian-950);
+  --color-background-secondary: var(--color-obsidian-900);
+  --color-background-tertiary: var(--color-obsidian-800);
+  --color-surface: var(--color-obsidian-900);
+  --color-surface-elevated: var(--color-obsidian-800);
+  --color-surface-hover: var(--color-obsidian-700);
+
+  /* Text Colors */
+  --color-text-primary: var(--color-marble-50);
+  --color-text-secondary: var(--color-marble-400);
+  --color-text-tertiary: var(--color-marble-300);
+  --color-text-inverse: var(--color-obsidian-950);
+
+  /* Border Colors */
+  --color-border: rgba(180, 83, 9, 0.2);
+  --color-border-strong: rgba(180, 83, 9, 0.3);
+  --color-border-subtle: rgba(180, 83, 9, 0.1);
+  --color-border-dark: var(--color-obsidian-700);
+
+  /* Shadows */
+  --shadow-gold-glow: 0 0 30px rgba(181, 83, 9, 0.4), 0 0 60px rgba(181, 83, 9, 0.2);
+  --shadow-obsidian-lift: 0 20px 60px -15px rgba(0, 0, 0, 0.6), 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+}
+
 /* ==================== LIGHT THEME ==================== */
-:root[data-theme="light"] {
+:root[data-theme="light"],
+html[data-theme="light"] {
   /* Background & Surface */
   --color-background: var(--color-marble-50);
   --color-background-secondary: var(--color-marble-100);
