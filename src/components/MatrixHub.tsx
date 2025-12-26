@@ -1,7 +1,7 @@
 // src/components/MatrixHub.tsx
 
 import { motion } from 'framer-motion'
-import { AgentCardDynasty } from '@/components/cards/AgentCardDynasty'
+import { AgentCard } from '@/components/cards/AgentCardDynasty'
 import { agentConfigs } from '@/services/ai/agents'
 import { staggerContainer, fadeInUp } from '@/lib/motion-variants'
 import { Badge } from '@/components/ui/badge'
@@ -40,7 +40,7 @@ export default function MatrixHub() {
         >
           {agentConfigs.map((agent, index) => (
             <motion.div key={agent.id} variants={fadeInUp}>
-              <AgentCardDynasty
+              <AgentCard
                 agent={agent}
                 priority={index < 6} // Carrega imagens dos primeiros com prioridade
               />
