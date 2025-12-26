@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
-import { getUpsellRecommendation, UpsellRecommendation } from "@/services/ai/geminiService";
+import { aiService, type UpsellRecommendation } from "@/services/ai";
 import { Loader2, Trash2, Plus, Minus, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "@/lib/motion-variants";
@@ -27,7 +27,7 @@ export default function CheckoutPage() {
     setLoading(true);
     try {
       const items = cart.map(i => i.name);
-      const suggestions = await getUpsellRecommendation(items);
+      const suggestions = await aiService.getUpsellRecommendation(items);
       setUpsell(suggestions);
     } catch (err) {
       console.log("Upsell falhou (normal em dev)", err);

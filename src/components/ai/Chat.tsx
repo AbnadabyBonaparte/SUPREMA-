@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { chatWithGemini } from '@/services/ai/geminiService' // Função a ser adicionada no service
+import { aiService } from '@/services/ai'
 import { fadeInUp } from '@/lib/motion-variants'
 import { Send, Bot, User } from 'lucide-react'
 
@@ -35,7 +35,7 @@ export default function Chat() {
     setIsLoading(true)
 
     try {
-      const response = await chatWithGemini([...messages, userMessage])
+      const response = await aiService.chatWithGemini([...messages, userMessage])
       setMessages(prev => [...prev, { role: 'assistant', content: response }])
     } catch (err) {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Erro na resposta. Tente novamente.' }])

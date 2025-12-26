@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AlertCircle, Camera, Leaf, AlertTriangle, CheckCircle2 } from "lucide-react";
-import { analyzeIngredients, SustainabilityAnalysis } from "@/services/ai/geminiService";
+import { aiService, type SustainabilityAnalysis } from "@/services/ai";
 import { fadeInUp, staggerContainer } from "@/lib/motion-variants";
 
 export default function SustainabilityScanner() {
@@ -24,7 +24,7 @@ export default function SustainabilityScanner() {
       // TODO: Implement real image capture and ingredient extraction
       const placeholderImage = "data:image/jpeg;base64,/9j/4AAQSkZJRg...";
       setImage(placeholderImage);
-      const analysis = await analyzeIngredients(["parabenos", "sulfatos", "microplásticos"]);
+      const analysis = await aiService.analyzeIngredients(["parabenos", "sulfatos", "microplásticos"]);
       setResult(analysis);
     } catch (err) {
       setResult({

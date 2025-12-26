@@ -11,6 +11,8 @@ const envSchema = z.object({
     .optional()
     .transform((value) => value === 'true'),
   VITE_GA_MEASUREMENT_ID: z.string().optional(),
+  // Provider de IA (gemini, grok, claude, local) — padrão: gemini
+  VITE_AI_PROVIDER: z.enum(['gemini', 'grok', 'claude', 'local']).optional().default('gemini'),
 });
 
 const parsed = envSchema.safeParse(import.meta.env);

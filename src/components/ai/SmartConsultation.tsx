@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { agentConfigs } from '@/services/ai/agents'
-import { getStyleRecommendations, playTextAsSpeech } from '@/services/ai/geminiService'
+import { aiService } from '@/services/ai'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 import { Sparkles, Send, Volume2, Camera } from 'lucide-react'
 
@@ -29,7 +29,7 @@ export default function SmartConsultation() {
     setIsLoading(true)
     setError('')
     try {
-      const result = await getStyleRecommendations(prompt, selectedAgent.type as any, images)
+      const result = await aiService.getStyleRecommendations(prompt, selectedAgent.type as any, images)
       setRecommendations(result)
     } catch (err: any) {
       setError('Erro na consultoria. Tente novamente.')
@@ -131,7 +131,7 @@ export default function SmartConsultation() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                      <Button variant="outline" onClick={() => playTextAsSpeech(rec.description)}>
+                      <Button variant="outline" onClick={() => aiService.playTextAsSpeech(rec.description)}>
                         <Volume2 className="w-4 h-4 mr-2" />
                         Ouvir Recomendação
                       </Button>

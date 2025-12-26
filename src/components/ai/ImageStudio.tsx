@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
-import { generateImage, editImage } from '@/services/ai/geminiService'
+import { aiService } from '@/services/ai'
 import { fadeInUp } from '@/lib/motion-variants'
 import { Sparkles, Wand2, Image as ImageIcon, Download } from 'lucide-react'
 
@@ -23,7 +23,7 @@ export default function ImageStudio() {
     if (!prompt.trim()) return
     setIsGenerating(true)
     try {
-      const base64 = await generateImage(prompt, '1:1')
+      const base64 = await aiService.generateImage(prompt, '1:1')
       setGeneratedImage(`data:image/png;base64,${base64}`)
     } catch (err) {
       console.error(err)
@@ -39,7 +39,7 @@ export default function ImageStudio() {
       const reader = new FileReader()
       reader.onload = async (e) => {
         const base64 = e.target?.result as string
-        const edited = await editImage(editPrompt, { data: base64.split(',')[1], mimeType: 'image/png' })
+        const edited = await aiService.editImage(editPrompt, { data: base64.split(',')[1], mimeType: 'image/png' })
         setEditedImage(`data:image/png;base64,${edited}`)
       }
       reader.readAsDataURL(editImageFile)
