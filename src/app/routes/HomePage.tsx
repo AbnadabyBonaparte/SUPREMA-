@@ -6,10 +6,10 @@ import { SupremeHero } from '@/components/sections/SupremeHero'
 import TrendSpotlight from '@/components/sections/TrendSpotlight'
 import MatrixHub from '@/components/MatrixHub'
 import SponsoredHero from '@/components/SponsoredHero'
-import { ProductCardDynasty } from '@/components/cards/ProductCardDynasty'
-import { CardDynasty } from '@/components/ui/CardDynasty'
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
-import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
+import { ProductCard } from '@/components/cards/ProductCard'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 import { ArrowRight, Crown, MapPin, Sparkles, Star } from 'lucide-react'
 
@@ -113,7 +113,7 @@ export default function HomePage() {
             className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
           >
             <div>
-              <BadgeDynasty className="w-fit">TrendSpotlight™</BadgeDynasty>
+              <Badge className="w-fit">TrendSpotlight™</Badge>
               <h2 className="mt-3 font-display text-3xl md:text-4xl text-marble-50">
                 Radar global de tendências em tempo real
               </h2>
@@ -122,10 +122,10 @@ export default function HomePage() {
               </p>
             </div>
             <Link to="/live" className="w-fit">
-              <ButtonDynasty variant="outline" className="gap-2">
+              <Button variant="outline" className="gap-2">
                 Ver Live Shopping
                 <ArrowRight className="w-4 h-4" />
-              </ButtonDynasty>
+              </Button>
             </Link>
           </motion.div>
 
@@ -145,10 +145,10 @@ export default function HomePage() {
       >
         <div className="container mx-auto px-6 lg:px-10 space-y-8">
           <motion.div variants={fadeInUp} className="flex flex-col gap-3">
-            <BadgeDynasty className="w-fit gap-2">
+            <Badge className="w-fit gap-2">
               <Sparkles className="w-4 h-4" />
               MatrixHub • 18 agentes IA
-            </BadgeDynasty>
+            </Badge>
             <h2 className="font-display text-3xl md:text-4xl text-marble-50">
               Consultoria suprema para cada detalhe do seu ritual de beleza
             </h2>
@@ -174,7 +174,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-10 space-y-8">
           <motion.div variants={fadeInUp} className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <BadgeDynasty className="w-fit">Booking • Rede credenciada</BadgeDynasty>
+              <Badge className="w-fit">Booking • Rede credenciada</Badge>
               <h2 className="mt-3 font-display text-3xl md:text-4xl text-marble-50">
                 Agende em salões e spas premiados
               </h2>
@@ -183,17 +183,17 @@ export default function HomePage() {
               </p>
             </div>
             <Link to="/saloes">
-              <ButtonDynasty variant="gold" className="gap-2">
+              <Button variant="gold" className="gap-2">
                 Abrir agenda completa
                 <ArrowRight className="w-4 h-4" />
-              </ButtonDynasty>
+              </Button>
             </Link>
           </motion.div>
 
           <div className="grid gap-6 md:grid-cols-3">
             {salonHighlights.map((salon, idx) => (
               <motion.div key={salon.id} variants={fadeInUp} transition={{ delay: idx * 0.05 }}>
-                <CardDynasty className="overflow-hidden h-full">
+                <Card className="overflow-hidden h-full">
                   <div className="relative aspect-video">
                     <img
                       src={salon.image}
@@ -202,10 +202,10 @@ export default function HomePage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/40 to-transparent" />
                     <div className="absolute top-4 left-4 flex items-center gap-2">
-                      <BadgeDynasty variant="gold" className="gap-2">
+                      <Badge variant="gold" className="gap-2">
                         <Crown className="w-4 h-4" />
                         Supreme Verified
-                      </BadgeDynasty>
+                      </Badge>
                     </div>
                   </div>
                   <div className="p-6 space-y-3">
@@ -225,12 +225,12 @@ export default function HomePage() {
                       <span className="font-body text-sm text-marble-50/60">Guests Supreme</span>
                     </div>
                     <Link to="/saloes">
-                      <ButtonDynasty variant="outline" className="w-full mt-2">
+                      <Button variant="outline" className="w-full mt-2">
                         Reservar agora
-                      </ButtonDynasty>
+                      </Button>
                     </Link>
                   </div>
-                </CardDynasty>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -248,7 +248,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6 lg:px-10 space-y-8">
           <motion.div variants={fadeInUp} className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <BadgeDynasty className="w-fit">Boutique Supreme</BadgeDynasty>
+              <Badge className="w-fit">Boutique Supreme</Badge>
               <h2 className="mt-3 font-display text-3xl md:text-4xl text-marble-50">
                 Curadoria de luxo pronta para o carrinho
               </h2>
@@ -257,17 +257,17 @@ export default function HomePage() {
               </p>
             </div>
             <Link to="/shop">
-              <ButtonDynasty variant="gold" className="gap-2">
+              <Button variant="gold" className="gap-2">
                 Ver loja completa
                 <ArrowRight className="w-4 h-4" />
-              </ButtonDynasty>
+              </Button>
             </Link>
           </motion.div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {productHighlights.map((product, idx) => (
               <motion.div key={product.id} variants={fadeInUp} transition={{ delay: idx * 0.05 }}>
-                <ProductCardDynasty {...product} />
+                <ProductCard {...product} />
               </motion.div>
             ))}
           </div>
@@ -284,7 +284,7 @@ export default function HomePage() {
       >
         <div className="container mx-auto px-6 lg:px-10 space-y-8">
           <motion.div variants={fadeInUp} className="space-y-3">
-            <BadgeDynasty className="w-fit">Brand Spotlight</BadgeDynasty>
+            <Badge className="w-fit">Brand Spotlight</Badge>
             <h3 className="font-display text-3xl md:text-4xl text-marble-50 leading-tight">
               Parcerias Supreme para impulsionar o Obsidian Dynasty
             </h3>

@@ -2,10 +2,10 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
-import { CardDynasty } from '@/components/ui/CardDynasty'
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
-import { InputDynasty } from '@/components/ui/InputDynasty'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 import { chatWithGemini } from '@/services/ai/geminiService' // Função a ser adicionada no service
 import { fadeInUp } from '@/lib/motion-variants'
 import { Send, Bot, User } from 'lucide-react'
@@ -48,15 +48,15 @@ export default function Chat() {
     <section className="py-20 px-6 bg-obsidian-950 min-h-screen">
       <div className="container mx-auto max-w-4xl">
         <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="text-center mb-12">
-          <BadgeDynasty variant="gold" className="mb-4">
+          <Badge variant="gold" className="mb-4">
             Chat com Grounding Gemini
-          </BadgeDynasty>
+          </Badge>
           <h2 className="text-4xl font-display text-white">
             Converse com a Inteligência Suprema
           </h2>
         </motion.div>
 
-        <CardDynasty className="h-96 md:h-full flex flex-col bg-obsidian-900/50 border-sovereign-gold-700/20">
+        <Card className="h-96 md:h-full flex flex-col bg-obsidian-900/50 border-sovereign-gold-700/20">
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             {messages.length === 0 && (
               <p className="text-center text-marble-50/60 mt-20">
@@ -88,18 +88,18 @@ export default function Chat() {
 
           <div className="p-6 border-t border-sovereign-gold-700/20">
             <div className="flex gap-3">
-              <InputDynasty
+              <Input
                 placeholder="Digite sua mensagem..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               />
-              <ButtonDynasty variant="gold" onClick={handleSend} disabled={isLoading}>
+              <Button variant="gold" onClick={handleSend} disabled={isLoading}>
                 <Send className="w-5 h-5" />
-              </ButtonDynasty>
+              </Button>
             </div>
           </div>
-        </CardDynasty>
+        </Card>
       </div>
     </section>
   )

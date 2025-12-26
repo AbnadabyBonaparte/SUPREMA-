@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { AgentCardDynasty } from '@/components/cards/AgentCardDynasty'
 import { agentConfigs } from '@/services/ai/agents'
 import { staggerContainer, fadeInUp } from '@/lib/motion-variants'
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
+import { Badge } from '@/components/ui/badge'
 import { Sparkles } from 'lucide-react'
 
 export default function MatrixHub() {
@@ -18,10 +18,10 @@ export default function MatrixHub() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <BadgeDynasty variant="gold" className="mb-4 animate-pulse">
+          <Badge variant="gold" className="mb-4 animate-pulse">
             <Sparkles className="w-4 h-4 mr-2" />
             Sistema de Agentes IA Ativo
-          </BadgeDynasty>
+          </Badge>
           <h2 className="text-4xl md:text-5xl font-display text-white mb-4">
             Matrix Hub — 18 Agentes Especializados
           </h2>

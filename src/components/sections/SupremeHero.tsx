@@ -4,8 +4,8 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Sparkles, Play } from 'lucide-react'
-import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 
 export function SupremeHero() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -70,10 +70,10 @@ export function SupremeHero() {
             transition={{ duration: 0.6 }}
             className="flex justify-center mb-8"
           >
-            <BadgeDynasty variant="gold" className="gap-2 px-4 py-2">
+            <Badge variant="gold" className="gap-2 px-4 py-2">
               <Sparkles className="w-3 h-3" />
               <span>Powered by Gemini 2.5 Pro + Imagen 4 + Veo 3</span>
-            </BadgeDynasty>
+            </Badge>
           </motion.div>
 
           {/* Main Headline */}
@@ -118,16 +118,16 @@ export function SupremeHero() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           >
             <Link to="/agents">
-              <ButtonDynasty variant="gold" size="xl" className="group">
+              <Button variant="gold" size="xl" className="group">
                 Começar Consultoria IA
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </ButtonDynasty>
+              </Button>
             </Link>
             
-            <ButtonDynasty variant="outline" size="xl" className="group">
+            <Button variant="outline" size="xl" className="group">
               <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
               Ver Demo
-            </ButtonDynasty>
+            </Button>
           </motion.div>
 
           {/* Stats */}

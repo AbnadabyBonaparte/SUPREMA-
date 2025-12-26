@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import Stripe from 'stripe';
+// Supabase client para server-side (usa service_role_key)
+// NOTA: Este é diferente do cliente frontend em src/lib/supabaseClient.ts
 import { createClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import stripeRoutes from './routes/stripe';

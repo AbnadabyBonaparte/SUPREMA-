@@ -1,18 +1,18 @@
-// src/components/cards/AgentCardDynasty.tsx
+// src/components/cards/AgentCard.tsx
 
-import { CardDynasty } from '@/components/ui/CardDynasty'
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
-import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { AgentConfig } from '@/services/ai/agents'
 import { Sparkles, MessageCircle } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-interface AgentCardDynastyProps {
+interface AgentCardProps {
   agent: AgentConfig
   priority?: boolean
 }
 
-export function AgentCardDynasty({ agent, priority = false }: AgentCardDynastyProps) {
+export function AgentCard({ agent, priority = false }: AgentCardProps) {
   const navigate = useNavigate()
 
   const handleSelect = () => {
@@ -20,7 +20,7 @@ export function AgentCardDynasty({ agent, priority = false }: AgentCardDynastyPr
   }
 
   return (
-    <CardDynasty 
+    <Card 
       className="h-full group cursor-pointer overflow-hidden border-sovereign-gold-700/10 hover:border-sovereign-gold-700/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-sovereign-gold-700/20"
       onClick={handleSelect}
     >
@@ -36,9 +36,9 @@ export function AgentCardDynasty({ agent, priority = false }: AgentCardDynastyPr
 
         {/* Online Indicator */}
         <div className="absolute top-4 right-4">
-          <BadgeDynasty variant="gold" className="animate-pulse">
+          <Badge variant="gold" className="animate-pulse">
             Online
-          </BadgeDynasty>
+          </Badge>
         </div>
       </div>
 
@@ -47,12 +47,12 @@ export function AgentCardDynasty({ agent, priority = false }: AgentCardDynastyPr
           <h3 className="font-display text-xl text-white mb-2">
             {agent.name}
           </h3>
-          <BadgeDynasty variant="outline" className="text-xs">
+          <Badge variant="outline" className="text-xs">
             Especialista Premium
-          </BadgeDynasty>
+          </Badge>
         </div>
 
-        <ButtonDynasty 
+        <Button 
           variant="gold" 
           className="w-full gap-2"
           onClick={(e) => {
@@ -62,8 +62,8 @@ export function AgentCardDynasty({ agent, priority = false }: AgentCardDynastyPr
         >
           <MessageCircle className="w-4 h-4" />
           Iniciar Consultoria
-        </ButtonDynasty>
+        </Button>
       </div>
-    </CardDynasty>
+    </Card>
   )
 }

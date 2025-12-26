@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useCart } from "@/hooks/useCart";
-import { ButtonDynasty } from "@/components/ui/ButtonDynasty";
-import { CardDynasty } from "@/components/ui/CardDynasty";
-import { BadgeDynasty } from "@/components/ui/BadgeDynasty";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
 import { getUpsellRecommendation, UpsellRecommendation } from "@/services/ai/geminiService";
 import { Loader2, Trash2, Plus, Minus, Sparkles } from "lucide-react";
@@ -51,12 +51,12 @@ export default function CheckoutPage() {
         animate={{ opacity: 1 }} 
         className="min-h-screen bg-obsidian-950 text-marble-50 flex items-center justify-center"
       >
-        <CardDynasty className="p-16 text-center border-sovereign-gold-700/20">
+        <Card className="p-16 text-center border-sovereign-gold-700/20">
           <p className="text-3xl font-display mb-8">Seu carrinho está vazio</p>
-          <ButtonDynasty variant="gold" size="lg">
+          <Button variant="gold" size="lg">
             Continuar Comprando
-          </ButtonDynasty>
-        </CardDynasty>
+          </Button>
+        </Card>
       </motion.div>
     );
   }
@@ -79,7 +79,7 @@ export default function CheckoutPage() {
             <motion.div variants={staggerContainer}>
               {cart.map((item, idx) => (
                 <motion.div key={item.id} variants={fadeInUp} transition={{ delay: idx * 0.1 }}>
-                  <CardDynasty className="p-6 hover:border-sovereign-gold-700/40 transition-all duration-500 hover:-translate-y-1">
+                  <Card className="p-6 hover:border-sovereign-gold-700/40 transition-all duration-500 hover:-translate-y-1">
                     <div className="flex items-center gap-6">
                       <img src={item.image} alt={item.name} className="w-28 h-28 rounded-xl object-cover" />
                       <div className="flex-1">
@@ -87,32 +87,32 @@ export default function CheckoutPage() {
                         <p className="text-sovereign-gold-500 text-xl">R$ {item.price.toFixed(2)}</p>
                       </div>
                       <div className="flex items-center gap-4">
-                        <ButtonDynasty size="icon" variant="outline" onClick={() => updateQuantity(item.id, item.quantity - 1)}>
+                        <Button size="icon" variant="outline" onClick={() => updateQuantity(item.id, item.quantity - 1)}>
                           <Minus className="w-5 h-5" />
-                        </ButtonDynasty>
-                        <BadgeDynasty variant="gold">{item.quantity}</BadgeDynasty>
-                        <ButtonDynasty size="icon" variant="outline" onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                        </Button>
+                        <Badge variant="gold">{item.quantity}</Badge>
+                        <Button size="icon" variant="outline" onClick={() => updateQuantity(item.id, item.quantity + 1)}>
                           <Plus className="w-5 h-5" />
-                        </ButtonDynasty>
-                        <ButtonDynasty size="icon" variant="ghost" onClick={() => removeFromCart(item.id)}>
+                        </Button>
+                        <Button size="icon" variant="ghost" onClick={() => removeFromCart(item.id)}>
                           <Trash2 className="w-6 h-6 text-ruby-600" />
-                        </ButtonDynasty>
+                        </Button>
                       </div>
                     </div>
-                  </CardDynasty>
+                  </Card>
                 </motion.div>
               ))}
             </motion.div>
 
             {/* AI UPSELL */}
             {loading && (
-              <CardDynasty className="p-12 text-center">
+              <Card className="p-12 text-center">
                 <Loader2 className="w-12 h-12 animate-spin mx-auto text-sovereign-gold-600" />
-              </CardDynasty>
+              </Card>
             )}
             {upsell.length > 0 && (
               <motion.div variants={fadeInUp}>
-                <CardDynasty className="p-8 bg-gradient-to-br from-sovereign-gold-900/20 to-obsidian-900 border-sovereign-gold-700/40">
+                <Card className="p-8 bg-gradient-to-br from-sovereign-gold-900/20 to-obsidian-900 border-sovereign-gold-700/40">
                   <div className="flex items-center gap-6">
                     <Sparkles className="w-16 h-16 text-sovereign-gold-600" />
                     <div>
@@ -121,21 +121,21 @@ export default function CheckoutPage() {
                         <div key={idx} className="mb-6">
                           <h4 className="text-3xl font-display text-white mb-2">{rec.productName}</h4>
                           <p className="text-marble-50/80 mb-3">{rec.reason}</p>
-                          <ButtonDynasty variant="gold" size="lg">
+                          <Button variant="gold" size="lg">
                             Adicionar por {rec.price}
-                          </ButtonDynasty>
+                          </Button>
                         </div>
                       ))}
                     </div>
                   </div>
-                </CardDynasty>
+                </Card>
               </motion.div>
             )}
           </div>
 
           {/* Resumo */}
           <motion.div variants={fadeInUp}>
-            <CardDynasty className="h-fit p-10 bg-obsidian-900/80 border-sovereign-gold-700/30">
+            <Card className="h-fit p-10 bg-obsidian-900/80 border-sovereign-gold-700/30">
               <h2 className="text-4xl font-display mb-8">Resumo do Pedido</h2>
               <div className="space-y-6 text-2xl">
                 <div className="flex justify-between">
@@ -153,15 +153,15 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               </div>
-              <ButtonDynasty
+              <Button
                 variant="gold"
                 size="lg"
                 className="w-full mt-10 text-2xl py-8"
                 onClick={handleCheckout}
               >
                 FINALIZAR COMPRA
-              </ButtonDynasty>
-            </CardDynasty>
+              </Button>
+            </Card>
           </motion.div>
         </div>
       </div>

@@ -1,12 +1,12 @@
-// src/components/cards/ProductCardDynasty.tsx
+// src/components/cards/ProductCard.tsx
 
 import { motion } from 'framer-motion'
 import { ShoppingBag, Heart, Eye, Star } from 'lucide-react'
-import { CardDynasty } from '@/components/ui/CardDynasty'
-import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 
-interface ProductCardDynastyProps {
+interface ProductCardProps {
   name: string
   brand: string
   price: number
@@ -18,7 +18,7 @@ interface ProductCardDynastyProps {
   isFavorite?: boolean
 }
 
-export function ProductCardDynasty({ 
+export function ProductCard({ 
   name, 
   brand, 
   price, 
@@ -28,9 +28,9 @@ export function ProductCardDynasty({
   image, 
   badge,
   isFavorite = false 
-}: ProductCardDynastyProps) {
+}: ProductCardProps) {
   return (
-    <CardDynasty className="group relative overflow-hidden">
+    <Card className="group relative overflow-hidden">
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden bg-obsidian-900">
         <img
@@ -45,9 +45,9 @@ export function ProductCardDynasty({
         {/* Badge */}
         {badge && (
           <div className="absolute top-4 left-4">
-            <BadgeDynasty variant="gold">
+            <Badge variant="gold">
               {badge}
-            </BadgeDynasty>
+            </Badge>
           </div>
         )}
         
@@ -121,11 +121,11 @@ export function ProductCardDynasty({
             )}
           </div>
           
-          <ButtonDynasty variant="gold" size="icon" className="rounded-full">
+          <Button variant="gold" size="icon" className="rounded-full">
             <ShoppingBag className="w-5 h-5" />
-          </ButtonDynasty>
+          </Button>
         </div>
       </div>
-    </CardDynasty>
+    </Card>
   )
 }

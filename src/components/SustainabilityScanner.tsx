@@ -4,9 +4,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ButtonDynasty } from "@/components/ui/ButtonDynasty";
-import { CardDynasty } from "@/components/ui/CardDynasty";
-import { BadgeDynasty } from "@/components/ui/BadgeDynasty";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { AlertCircle, Camera, Leaf, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { analyzeIngredients, SustainabilityAnalysis } from "@/services/ai/geminiService";
 import { fadeInUp, staggerContainer } from "@/lib/motion-variants";
@@ -55,13 +55,13 @@ export default function SustainabilityScanner() {
           </p>
         </motion.div>
 
-        <CardDynasty className="p-12 bg-obsidian-900/50 border-sovereign-gold-700/20">
+        <Card className="p-12 bg-obsidian-900/50 border-sovereign-gold-700/20">
           {!result ? (
             <motion.div variants={fadeInUp} className="text-center space-y-12">
               <div className="bg-obsidian-800/50 border-4 border-dashed border-sovereign-gold-700/30 rounded-3xl w-80 h-80 mx-auto flex items-center justify-center">
                 <Camera className="w-32 h-32 text-sovereign-gold-600/50" />
               </div>
-              <ButtonDynasty
+              <Button
                 variant="gold"
                 size="lg"
                 onClick={handleScan}
@@ -69,7 +69,7 @@ export default function SustainabilityScanner() {
                 className="text-2xl px-16 py-10"
               >
                 {scanning ? "Analisando com IA..." : "ESCANEAR PRODUTO"}
-              </ButtonDynasty>
+              </Button>
             </motion.div>
           ) : (
             <motion.div variants={staggerContainer} className="space-y-12">
@@ -80,17 +80,17 @@ export default function SustainabilityScanner() {
                 }`}>
                   {result.score}/100
                 </div>
-                <BadgeDynasty 
+                <Badge 
                   variant={result.score > 70 ? "gold" : result.score > 40 ? "outline" : "destructive"}
                   className="mt-6 text-3xl px-12 py-4"
                 >
                   {result.rating}
-                </BadgeDynasty>
+                </Badge>
               </motion.div>
 
               {result.issues.length > 0 && (
                 <motion.div variants={fadeInUp}>
-                  <CardDynasty className="p-8 bg-ruby-900/30 border-ruby-700/40">
+                  <Card className="p-8 bg-ruby-900/30 border-ruby-700/40">
                     <div className="flex items-center gap-4 mb-6">
                       <AlertTriangle className="w-10 h-10 text-ruby-500" />
                       <h3 className="text-3xl font-display text-ruby-400">Problemas Detectados</h3>
@@ -103,13 +103,13 @@ export default function SustainabilityScanner() {
                         </motion.li>
                       ))}
                     </ul>
-                  </CardDynasty>
+                  </Card>
                 </motion.div>
               )}
 
                             {result.alternatives.length > 0 && (
                 <motion.div variants={fadeInUp}>
-                  <CardDynasty className="p-8 bg-emerald-900/30 border-emerald-700/40">
+                  <Card className="p-8 bg-emerald-900/30 border-emerald-700/40">
                     <div className="flex items-center gap-4 mb-6">
                       <CheckCircle2 className="w-10 h-10 text-emerald-400" />
                       <h3 className="text-3xl font-display text-emerald-400">Recomendações Alsham</h3>
@@ -126,22 +126,22 @@ export default function SustainabilityScanner() {
                         </motion.li>
                       ))}
                     </ul>
-                  </CardDynasty>
+                  </Card>
                 </motion.div>
               )}
               <motion.div variants={fadeInUp} className="text-center">
-                <ButtonDynasty
+                <Button
                   variant="gold"
                   size="lg"
                   onClick={handleScan}
                   className="text-2xl px-16 py-10"
                 >
                   ESCANEAR OUTRO PRODUTO
-                </ButtonDynasty>
+                </Button>
               </motion.div>
             </motion.div>
           )}
-        </CardDynasty>
+        </Card>
       </div>
     </motion.section>
   );

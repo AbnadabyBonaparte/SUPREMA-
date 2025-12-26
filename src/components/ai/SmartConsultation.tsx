@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
-import { CardDynasty } from '@/components/ui/CardDynasty'
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
-import { InputDynasty } from '@/components/ui/InputDynasty'
-import { TextareaDynasty } from '@/components/ui/TextareaDynasty'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { agentConfigs } from '@/services/ai/agents'
 import { getStyleRecommendations, playTextAsSpeech } from '@/services/ai/geminiService'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
@@ -56,10 +56,10 @@ export default function SmartConsultation() {
         >
           {/* Header Consultoria */}
           <motion.div variants={fadeInUp} className="text-center">
-            <BadgeDynasty variant="gold" className="mb-4">
+            <Badge variant="gold" className="mb-4">
               <Sparkles className="w-4 h-4 mr-2" />
               Consultoria com {selectedAgent.name}
-            </BadgeDynasty>
+            </Badge>
             <h2 className="text-4xl font-display text-white mb-4">
               Sua Transformação Personalizada
             </h2>
@@ -69,9 +69,9 @@ export default function SmartConsultation() {
           </motion.div>
 
           {/* Formulário */}
-          <CardDynasty className="p-8 bg-obsidian-900/50 border-sovereign-gold-700/20">
+          <Card className="p-8 bg-obsidian-900/50 border-sovereign-gold-700/20">
             <motion.div variants={fadeInUp} className="space-y-6">
-              <TextareaDynasty
+              <Textarea
                 placeholder="Descreva o que deseja: corte, maquiagem, skincare, estilo completo..."
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
@@ -79,7 +79,7 @@ export default function SmartConsultation() {
               />
 
               <div className="flex items-center gap-4">
-                <InputDynasty
+                <Input
                   type="file"
                   accept="image/*"
                   multiple
@@ -87,14 +87,14 @@ export default function SmartConsultation() {
                   className="flex-1"
                 />
                 <label className="cursor-pointer">
-                  <ButtonDynasty variant="outline" className="gap-2">
+                  <Button variant="outline" className="gap-2">
                     <Camera className="w-4 h-4" />
                     Enviar Fotos ({images.length})
-                  </ButtonDynasty>
+                  </Button>
                 </label>
               </div>
 
-              <ButtonDynasty
+              <Button
                 variant="gold"
                 size="lg"
                 onClick={handleSubmit}
@@ -103,11 +103,11 @@ export default function SmartConsultation() {
               >
                 {isLoading ? 'Analisando...' : 'Iniciar Consultoria'}
                 <Send className="w-5 h-5 ml-2" />
-              </ButtonDynasty>
+              </Button>
 
               {error && <p className="text-ruby-600 text-center">{error}</p>}
             </motion.div>
-          </CardDynasty>
+          </Card>
 
           {/* Resultados */}
           {recommendations.length > 0 && (
@@ -116,7 +116,7 @@ export default function SmartConsultation() {
                 Recomendações Premium
               </h3>
               {recommendations.map((rec, idx) => (
-                <CardDynasty key={idx} className="p-8 bg-obsidian-900/50 border-sovereign-gold-700/20">
+                <Card key={idx} className="p-8 bg-obsidian-900/50 border-sovereign-gold-700/20">
                   <div className="space-y-6">
                     <div>
                       <h4 className="text-2xl font-display text-sovereign-gold-500 mb-2">
@@ -131,13 +131,13 @@ export default function SmartConsultation() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                      <ButtonDynasty variant="outline" onClick={() => playTextAsSpeech(rec.description)}>
+                      <Button variant="outline" onClick={() => playTextAsSpeech(rec.description)}>
                         <Volume2 className="w-4 h-4 mr-2" />
                         Ouvir Recomendação
-                      </ButtonDynasty>
+                      </Button>
                     </div>
                   </div>
-                </CardDynasty>
+                </Card>
               ))}
             </motion.div>
           )}

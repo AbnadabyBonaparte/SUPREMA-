@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
-import { BadgeDynasty } from '@/components/ui/BadgeDynasty'
-import { CardDynasty } from '@/components/ui/CardDynasty'
-import { ButtonDynasty } from '@/components/ui/ButtonDynasty'
+import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { ArrowRight, Flame, TrendingUp, Eye, Heart } from 'lucide-react'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 
@@ -69,12 +69,12 @@ export default function TrendSpotlight({ onSelectTrend }: TrendSpotlightProps) {
                         </h3>
                     </div>
                     <div className="flex gap-2">
-                        <BadgeDynasty variant="gold" className="animate-pulse">
+                        <Badge variant="gold" className="animate-pulse">
                             Live Updates
-                        </BadgeDynasty>
-                        <BadgeDynasty variant="outline">
+                        </Badge>
+                        <Badge variant="outline">
                             Global Feed
-                        </BadgeDynasty>
+                        </Badge>
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@ export default function TrendSpotlight({ onSelectTrend }: TrendSpotlightProps) {
                 >
                     {trends.map((trend) => (
                         <motion.div key={trend.id} variants={fadeInUp} onClick={() => onSelectTrend?.(trend)} className="cursor-pointer group">
-                            <CardDynasty className="h-full overflow-hidden border-white/5 bg-white/5 hover:border-sovereign-gold-500/50 transition-all duration-500 group-hover:transform group-hover:-translate-y-2">
+                            <Card className="h-full overflow-hidden border-white/5 bg-white/5 hover:border-sovereign-gold-500/50 transition-all duration-500 group-hover:transform group-hover:-translate-y-2">
                                 <div className="relative aspect-[4/5] overflow-hidden">
                                     <img
                                         src={trend.image}
@@ -96,9 +96,9 @@ export default function TrendSpotlight({ onSelectTrend }: TrendSpotlightProps) {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
                                     <div className="absolute top-3 left-3">
-                                        <BadgeDynasty className="bg-black/50 backdrop-blur border-white/10 text-xs">
+                                        <Badge className="bg-black/50 backdrop-blur border-white/10 text-xs">
                                             {trend.category}
-                                        </BadgeDynasty>
+                                        </Badge>
                                     </div>
 
                                     <div className="absolute bottom-4 left-4 right-4">
@@ -115,15 +115,15 @@ export default function TrendSpotlight({ onSelectTrend }: TrendSpotlightProps) {
                                         </div>
                                     </div>
                                 </div>
-                            </CardDynasty>
+                            </Card>
                         </motion.div>
                     ))}
                 </motion.div>
 
                 <div className="mt-8 flex justify-center">
-                    <ButtonDynasty variant="outline" className="gap-2 text-white/60 hover:text-sovereign-gold-400">
+                    <Button variant="outline" className="gap-2 text-white/60 hover:text-sovereign-gold-400">
                         Ver Relatório Completo <ArrowRight className="w-4 h-4" />
-                    </ButtonDynasty>
+                    </Button>
                 </div>
             </div>
         </div>

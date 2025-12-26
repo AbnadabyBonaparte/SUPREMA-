@@ -1,15 +1,14 @@
-// src/components/ui/InputDynasty.tsx
-
+// src/components/ui/input.tsx (shadcn/ui compatible with Dynasty variants)
 import * as React from "react"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
-export interface InputDynastyProps
+export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: React.ReactNode
 }
 
-export const InputDynasty = React.forwardRef<HTMLInputElement, InputDynastyProps>(
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, icon, ...props }, ref) => {
     const [isFocused, setIsFocused] = React.useState(false)
 
@@ -43,4 +42,5 @@ export const InputDynasty = React.forwardRef<HTMLInputElement, InputDynastyProps
   }
 )
 
-InputDynasty.displayName = "InputDynasty"
+Input.displayName = "Input"
+

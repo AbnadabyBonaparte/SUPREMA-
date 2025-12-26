@@ -1,73 +1,37 @@
-// src/components/ui/badge.tsx
-import React from 'react';
+// src/components/ui/badge.tsx (shadcn/ui compatible with Dynasty variants)
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'success' | 'warning' | 'error' | 'gold' | 'outline';
-  children: React.ReactNode;
-}
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full border px-3 py-1 font-body text-xs font-normal transition-all duration-300",
+  {
+    variants: {
+      variant: {
+        default: "bg-liquid-gold/10 text-sovereign-gold-700 border-sovereign-gold-700/30",
+        gold: "bg-liquid-gold/10 text-sovereign-gold-700 border-sovereign-gold-700/30",
+        obsidian: "bg-obsidian-900 text-marble-50 border-sovereign-gold-700/20",
+        success: "bg-emerald-noir-500/10 text-emerald-noir-600 border-emerald-noir-600/30",
+        warning: "bg-rose-bronze-500/10 text-rose-bronze-600 border-rose-bronze-600/30",
+        error: "bg-ruby-700/10 text-ruby-600 border-ruby-600/30",
+        destructive: "bg-ruby-700/10 text-ruby-600 border-ruby-600/30",
+        outline: "border border-sovereign-gold-700/50 text-sovereign-gold-700 bg-transparent",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
 
-export const Badge: React.FC<BadgeProps> = ({ 
-  variant = 'default', 
-  children,
-  style,
-  ...props 
-}) => {
-  const variants = {
-    default: {
-      background: 'rgba(212, 175, 55, 0.2)',
-      color: '#D4AF37',
-      border: '1px solid rgba(212, 175, 55, 0.5)'
-    },
-    success: {
-      background: 'rgba(34, 197, 94, 0.2)',
-      color: '#22C55E',
-      border: '1px solid rgba(34, 197, 94, 0.5)'
-    },
-    warning: {
-      background: 'rgba(234, 179, 8, 0.2)',
-      color: '#EAB308',
-      border: '1px solid rgba(234, 179, 8, 0.5)'
-    },
-    error: {
-      background: 'rgba(239, 68, 68, 0.2)',
-      color: '#EF4444',
-      border: '1px solid rgba(239, 68, 68, 0.5)'
-    },
-    gold: {
-      background: 'linear-gradient(135deg, #D4AF37 0%, #F0F0F0 100%)',
-      color: '#000',
-      border: 'none',
-      fontWeight: 700
-    },
-    outline: {
-      background: 'transparent',
-      color: '#F0F0F0',
-      border: '1px solid rgba(255, 255, 255, 0.2)'
-    }
-  };
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+  VariantProps<typeof badgeVariants> { }
 
+export function Badge({ className, variant, ...props }: BadgeProps) {
   return (
-    <div 
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: '12px',
-        padding: '4px 12px',
-        fontSize: '0.75rem',
-        fontWeight: 600,
-        letterSpacing: '0.5px',
-        textTransform: 'uppercase',
-        transition: 'all 0.3s ease',
-        whiteSpace: 'nowrap',
-        ...variants[variant],
-        ...style
-      }}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+    <div className={cn(badgeVariants({ variant }), className)} {...props} />
+  )
+}
 
 export default Badge;
