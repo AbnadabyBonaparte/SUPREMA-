@@ -67,6 +67,11 @@ export function SupremeHeader() {
             ? "bg-[var(--color-background)]/95 backdrop-blur-xl border-b border-[var(--color-border)] shadow-obsidian-lift"
             : "bg-transparent"
         )}
+        style={{
+          backgroundColor: 'var(--color-background)',
+          color: 'var(--color-text-primary)',
+          borderBottom: '1px solid var(--color-border)'
+        }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -197,6 +202,11 @@ export function SupremeHeader() {
           >
             <motion.div
               className="absolute inset-0 bg-[var(--color-background)]/98 backdrop-blur-2xl"
+              style={{
+                backgroundColor: 'var(--color-background)',
+                color: 'var(--color-text-primary)',
+                borderTop: '1px solid var(--color-border)'
+              }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -205,6 +215,10 @@ export function SupremeHeader() {
             
             <motion.div
               className="relative h-full flex flex-col justify-center items-center gap-8 px-6"
+              style={{
+                backgroundColor: 'var(--color-background)',
+                color: 'var(--color-text-primary)'
+              }}
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
