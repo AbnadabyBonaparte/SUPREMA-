@@ -30,7 +30,7 @@ export function ProfessionalDashboardPage() {
                     <h1 className="text-4xl font-serif text-foreground mb-2">Dashboard Profissional</h1>
                     <p className="text-gray-500">Gerencie sua agenda e acompanhe seus ganhos</p>
                 </div>
-                <Button className="bg-[#D4AF37] text-black hover:bg-[#F2D06B]">
+                <Button className="bg-primary text-foreground-inverse hover:bg-primary-hover">
                     + Novo Horário
                 </Button>
             </div>
@@ -46,8 +46,8 @@ export function ProfessionalDashboardPage() {
                         key={period.key}
                         onClick={() => setSelectedPeriod(period.key as typeof selectedPeriod)}
                         className={`px-6 py-2 rounded-full font-medium transition-colors ${selectedPeriod === period.key
-                                ? 'bg-[#D4AF37] text-black'
-                                : 'bg-[#1A1A1A] text-gray-400 border border-[#333] hover:border-[#D4AF37]/50'
+                                ? 'bg-primary text-foreground-inverse'
+                                : 'bg-surface text-muted border border-border hover:border-primary/50'
                             }`}
                     >
                         {period.label}
@@ -57,14 +57,14 @@ export function ProfessionalDashboardPage() {
 
             {/* Stats Cards */}
             <div className="grid md:grid-cols-3 gap-6 mb-10">
-                <Card className="bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 border-[#D4AF37]/30 p-6">
+                <Card className="bg-gradient-to-br from-primary/20 to-primary/5 border-primary/30 p-6">
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-2xl">
+                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-2xl">
                             💰
                         </div>
                         <div>
                             <div className="text-sm text-gray-400">Faturamento</div>
-                            <div className="text-3xl font-bold text-[#D4AF37]">R$ {currentStats.revenue.toLocaleString()}</div>
+                            <div className="text-3xl font-bold text-primary">R$ {currentStats.revenue.toLocaleString()}</div>
                         </div>
                     </div>
                     <div className="text-xs text-gray-500">

@@ -78,7 +78,7 @@ export default function SubscriptionBoxPreview({ onSubscribe }: SubscriptionBoxP
           <Package className="w-10 h-10 text-gold" />
           <h2 className="text-4xl font-bold text-white">Subscription Boxes</h2>
         </div>
-        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+        <p className="text-xl text-foreground-secondary max-w-2xl mx-auto">
           Receba mensalmente produtos selecionados por IA baseados no seu perfil e preferências
         </p>
       </div>
@@ -92,7 +92,7 @@ export default function SubscriptionBoxPreview({ onSubscribe }: SubscriptionBoxP
             className={`relative overflow-hidden rounded-xl transition-all ${
               selectedTier === tier
                 ? 'ring-4 ring-gold scale-105'
-                : 'ring-2 ring-[#333] hover:ring-gold/50'
+                : 'ring-2 ring-border hover:ring-primary/50'
             }`}
           >
             <Card className={`bg-gradient-to-br ${box.color} p-6 text-center`}>
@@ -164,32 +164,32 @@ export default function SubscriptionBoxPreview({ onSubscribe }: SubscriptionBoxP
 
       {/* Features */}
       <div className="grid md:grid-cols-3 gap-6">
-        <Card className="bg-[#1A1A1A] border-[#333] p-6 text-center">
+        <Card className="bg-surface border-border p-6 text-center">
           <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mx-auto mb-4">
             <Sparkles className="w-8 h-8 text-gold" />
           </div>
           <h4 className="text-white font-bold mb-2">Curadoria IA</h4>
-          <p className="text-gray-400 text-sm">
+          <p className="text-muted text-sm">
             Produtos selecionados por IA baseados no seu perfil e histórico
           </p>
         </Card>
 
-        <Card className="bg-[#1A1A1A] border-[#333] p-6 text-center">
+        <Card className="bg-surface border-border p-6 text-center">
           <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mx-auto mb-4">
             <Calendar className="w-8 h-8 text-blue-400" />
           </div>
           <h4 className="text-white font-bold mb-2">Entrega Mensal</h4>
-          <p className="text-gray-400 text-sm">
+          <p className="text-muted text-sm">
             Receba sua box todo dia 15 do mês, sem surpresas
           </p>
         </Card>
 
-        <Card className="bg-[#1A1A1A] border-[#333] p-6 text-center">
+        <Card className="bg-surface border-border p-6 text-center">
           <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
             <TrendingUp className="w-8 h-8 text-green-400" />
           </div>
           <h4 className="text-white font-bold mb-2">Sempre Novidades</h4>
-          <p className="text-gray-400 text-sm">
+          <p className="text-muted text-sm">
             Produtos exclusivos e lançamentos antes de todo mundo
           </p>
         </Card>
@@ -210,7 +210,7 @@ export default function SubscriptionBoxPreview({ onSubscribe }: SubscriptionBoxP
       </div>
 
       {/* How It Works */}
-      <Card className="bg-[#1A1A1A] border-gold/30 p-8">
+      <Card className="bg-surface border-primary/30 p-8">
         <h3 className="text-2xl font-bold text-white mb-6 text-center">Como Funciona</h3>
         <div className="grid md:grid-cols-4 gap-6">
           {[
@@ -224,7 +224,7 @@ export default function SubscriptionBoxPreview({ onSubscribe }: SubscriptionBoxP
                 {item.step}
               </div>
               <h4 className="text-white font-bold mb-2">{item.title}</h4>
-              <p className="text-gray-400 text-sm">{item.desc}</p>
+              <p className="text-muted text-sm">{item.desc}</p>
             </div>
           ))}
         </div>

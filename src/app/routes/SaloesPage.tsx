@@ -103,30 +103,30 @@ export function SaloesPage() {
                     <h2 className="text-2xl font-bold mb-6">Checkout Seguro</h2>
 
                     {/* Order Summary */}
-                    <div className="bg-gray-100 p-4 rounded-lg mb-6">
+                    <div className="bg-surface p-4 rounded-lg mb-6">
                         <div className="font-bold text-lg">{selectedService.name}</div>
-                        <div className="text-sm text-gray-600">com {selectedProfessional.name} em {selectedSalon.name}</div>
-                        <div className="flex justify-between mt-3 text-xl font-bold text-[#D4AF37]">
+                        <div className="text-sm text-muted">com {selectedProfessional.name} em {selectedSalon.name}</div>
+                        <div className="flex justify-between mt-3 text-xl font-bold text-primary">
                             <span>Total</span>
                             <span>R$ {selectedService.price},00</span>
                         </div>
                     </div>
 
                     {/* Premium Plan Nudge */}
-                    <div className="border-2 border-[#D4AF37] rounded-lg p-5 mb-6 bg-[#D4AF37]/10">
+                    <div className="border-2 border-primary rounded-lg p-5 mb-6 bg-primary/10">
                         <div className="flex justify-between items-center mb-3">
                             <h3 className="text-lg font-bold">Plano Alsham Premium</h3>
-                            <span className="bg-[#D4AF37] text-black px-2 py-1 rounded text-xs font-bold">RECOMENDADO</span>
+                            <span className="bg-primary text-foreground-inverse px-2 py-1 rounded text-xs font-bold">RECOMENDADO</span>
                         </div>
                         <ul className="text-sm space-y-1 mb-4 list-disc list-inside">
                             <li>Consultoria AI Ilimitada</li>
                             <li>10% de Desconto em todos os serviços</li>
                             <li>Isenção da taxa de conveniência</li>
                         </ul>
-                        <Button className="w-full bg-black text-[#D4AF37] hover:bg-gray-900">
+                        <Button className="w-full bg-background text-primary hover:bg-surface-hover">
                             Assinar por R$ 39,90/mês
                         </Button>
-                        <div className="text-center text-xs mt-2 text-gray-600">
+                        <div className="text-center text-xs mt-2 text-muted">
                             e pague apenas R$ {(selectedService.price * 0.9).toFixed(2)} hoje!
                         </div>
                     </div>
@@ -172,21 +172,21 @@ export function SaloesPage() {
                 </div>
 
                 {/* Professionals */}
-                <h3 className="text-2xl text-[#D4AF37] border-b border-white/10 pb-3 mb-6">Profissionais Disponíveis</h3>
+                <h3 className="text-2xl text-primary border-b border-border pb-3 mb-6">Profissionais Disponíveis</h3>
 
                 <div className="grid md:grid-cols-2 gap-6">
                     {selectedSalon.professionals.length > 0 ? selectedSalon.professionals.map(pro => (
-                        <Card key={pro.id} className="bg-[#1A1A1A] border-[#333] p-6">
+                        <Card key={pro.id} className="bg-surface border-border p-6">
                             <div className="flex items-center gap-4 mb-5">
                                 <img
                                     src={pro.avatar}
                                     alt={pro.name}
-                                    className="w-16 h-16 rounded-full object-cover border-2 border-[#D4AF37]"
+                                    className="w-16 h-16 rounded-full object-cover border-2 border-primary"
                                 />
                                 <div>
                                     <div className="text-white font-bold">{pro.name}</div>
                                     <div className="text-gray-500 text-sm">{pro.role}</div>
-                                    <div className="text-[#D4AF37] text-sm">⭐ {pro.rating}</div>
+                                    <div className="text-primary text-sm">⭐ {pro.rating}</div>
                                 </div>
                             </div>
 
@@ -203,7 +203,7 @@ export function SaloesPage() {
                                                 setSelectedService(service);
                                                 setShowPayment(true);
                                             }}
-                                            className="bg-[#D4AF37] text-black hover:bg-[#F2D06B] font-bold text-sm"
+                                            className="bg-primary text-foreground-inverse hover:bg-primary-hover font-bold text-sm"
                                         >
                                             R$ {service.price}
                                         </Button>
@@ -224,7 +224,7 @@ export function SaloesPage() {
         <div className="py-10">
             <div className="text-center mb-10">
                 <h2 className="text-4xl font-light text-foreground mb-2">AGENDE SUA TRANSFORMAÇÃO</h2>
-                <p className="text-[#D4AF37] uppercase tracking-[2px] text-xs">Rede de Parceiros Credenciados Alsham</p>
+                <p className="text-primary uppercase tracking-[2px] text-xs">Rede de Parceiros Credenciados Alsham</p>
             </div>
 
             {/* Filters */}
@@ -232,7 +232,7 @@ export function SaloesPage() {
                 {['Próximos a mim', 'Melhores Avaliados', 'Barbearias', 'Salões Femininos', 'Estética'].map(filter => (
                     <button
                         key={filter}
-                        className="px-6 py-2 bg-white/5 border border-white/10 rounded-full text-gray-400 whitespace-nowrap hover:border-[#D4AF37]/50 transition-colors text-sm"
+                        className="px-6 py-2 bg-surface/5 border border-border rounded-full text-muted whitespace-nowrap hover:border-primary/50 transition-colors text-sm"
                     >
                         {filter}
                     </button>
@@ -245,12 +245,12 @@ export function SaloesPage() {
                     <Card
                         key={salon.id}
                         onClick={() => setSelectedSalon(salon)}
-                        className="bg-[#121212] border-[#222] overflow-hidden cursor-pointer hover:-translate-y-2 transition-transform duration-300"
+                        className="bg-surface border-border overflow-hidden cursor-pointer hover:-translate-y-2 transition-transform duration-300"
                     >
                         <div className="h-52 overflow-hidden relative">
                             <img src={salon.image} alt={salon.name} className="w-full h-full object-cover" />
                             {salon.isVerified && (
-                                <span className="absolute top-3 right-3 bg-[#D4AF37] text-black px-2 py-1 rounded text-xs font-bold uppercase">
+                                <span className="absolute top-3 right-3 bg-primary text-foreground-inverse px-2 py-1 rounded text-xs font-bold uppercase">
                                     Verificado
                                 </span>
                             )}
@@ -258,7 +258,7 @@ export function SaloesPage() {
                         <div className="p-5">
                             <div className="flex justify-between items-start mb-2">
                                 <h3 className="text-foreground text-lg font-medium">{salon.name}</h3>
-                                <span className="bg-[#1A1A1A] text-[#D4AF37] px-2 py-1 rounded text-sm">{salon.distance}</span>
+                                <span className="bg-surface text-primary px-2 py-1 rounded text-sm">{salon.distance}</span>
                             </div>
                             <div className="text-gray-500 text-sm mb-4">{salon.address}</div>
                             <div className="flex gap-4 text-gray-400 text-sm">

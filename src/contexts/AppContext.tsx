@@ -71,6 +71,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true); // Inicia como true para verificar sessão
 
   // ==================== EFFECTS ====================
+  // Aplicar tema inicial ao montar
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.dataset.theme = theme;
+  }, []); // Apenas na montagem inicial
+
   // Verificar sessão do Supabase ao montar
   useEffect(() => {
     // Verificar sessão atual
@@ -111,7 +117,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     localStorage.setItem('alsham_theme', theme);
+    // Set data-theme attribute for CSS variables to work
     document.documentElement.setAttribute('data-theme', theme);
+    // Also set as dataset for programmatic access
+    document.documentElement.dataset.theme = theme;
   }, [theme]);
 
   // ==================== USER FUNCTIONS ====================

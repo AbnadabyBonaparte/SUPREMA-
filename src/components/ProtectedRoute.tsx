@@ -80,25 +80,13 @@ export const UpgradeRequired: React.FC<{ requiredTier: string }> = ({ requiredTi
       </div>
 
       {/* Title */}
-      <h2 style={{
-        color: '#D4AF37',
-        fontSize: '1.8rem',
-        fontWeight: 700,
-        marginBottom: '12px',
-        letterSpacing: '0.5px'
-      }}>
+      <h2 className="text-primary text-[1.8rem] font-bold mb-3 tracking-wide">
         Upgrade Necessário
       </h2>
 
       {/* Description */}
-      <p style={{
-        color: '#A0A0A0',
-        fontSize: '1.1rem',
-        marginBottom: '32px',
-        lineHeight: 1.6,
-        maxWidth: '450px'
-      }}>
-        Esta funcionalidade exclusiva requer o plano <strong style={{ color: '#D4AF37' }}>{requiredTier.toUpperCase()}</strong>.
+      <p className="text-muted text-[1.1rem] mb-8 leading-relaxed max-w-[450px]">
+        Esta funcionalidade exclusiva requer o plano <strong className="text-primary">{requiredTier.toUpperCase()}</strong>.
       </p>
 
       {/* Benefits */}

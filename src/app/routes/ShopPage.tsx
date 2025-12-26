@@ -59,12 +59,12 @@ export function ShopPage() {
             <div className="flex justify-between items-center mb-8 pb-6 border-b border-white/10">
                 <div>
                     <h2 className="text-4xl font-serif text-foreground mb-1">ALSHAM BOUTIQUE</h2>
-                    <p className="text-[#D4AF37] text-xs uppercase tracking-[2px]">Curadoria de Luxo & Bem-Estar</p>
+                    <p className="text-primary text-xs uppercase tracking-[2px]">Curadoria de Luxo & Bem-Estar</p>
                 </div>
                 <div className="relative cursor-pointer">
                     <span className="text-2xl">🛍️</span>
                     {cartCount > 0 && (
-                        <span className="absolute -top-1 -right-2 bg-[#D4AF37] text-black rounded-full w-5 h-5 text-xs font-bold flex items-center justify-center">
+                        <span className="absolute -top-1 -right-2 bg-primary text-foreground-inverse rounded-full w-5 h-5 text-xs font-bold flex items-center justify-center">
                             {cartCount}
                         </span>
                     )}
@@ -72,7 +72,7 @@ export function ShopPage() {
             </div>
 
             {/* Hero Banner */}
-            <div className="h-96 rounded-xl overflow-hidden relative mb-10 shadow-2xl border border-[#D4AF37]/30">
+            <div className="h-96 rounded-xl overflow-hidden relative mb-10 shadow-2xl border border-primary/30">
                 <img
                     src="https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?auto=format&fit=crop&w=2000&q=80"
                     alt="Luxury Perfume"
@@ -80,12 +80,12 @@ export function ShopPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-16 left-16 max-w-lg">
-                    <span className="bg-[#D4AF37] text-black px-3 py-1 text-xs font-bold uppercase tracking-wider">Lançamento Exclusivo</span>
-                    <h2 className="text-white font-serif text-6xl mt-4 mb-4 leading-tight">ESSÊNCIA<br />SUPREMA</h2>
-                    <p className="text-gray-200 mb-8 text-lg font-light">
+                    <span className="bg-primary text-foreground-inverse px-3 py-1 text-xs font-bold uppercase tracking-wider">Lançamento Exclusivo</span>
+                    <h2 className="text-foreground font-serif text-6xl mt-4 mb-4 leading-tight">ESSÊNCIA<br />SUPREMA</h2>
+                    <p className="text-foreground-secondary mb-8 text-lg font-light">
                         A nova coleção de perfumaria de nicho importada. Fragrâncias que marcam presença antes mesmo de você chegar.
                     </p>
-                    <Button size="lg" className="bg-white text-black hover:bg-gray-200 font-bold uppercase tracking-wider">
+                    <Button size="lg" className="bg-surface text-foreground-inverse hover:bg-surface-hover font-bold uppercase tracking-wider">
                         Explorar Perfumes
                     </Button>
                 </div>
@@ -98,8 +98,8 @@ export function ShopPage() {
                         key={cat}
                         onClick={() => setActiveCategory(cat)}
                         className={`px-8 py-3 rounded-full whitespace-nowrap text-sm uppercase tracking-wider font-medium transition-all ${activeCategory === cat
-                                ? 'bg-[#D4AF37] text-black'
-                                : 'bg-white/5 text-gray-400 border border-white/10 hover:border-[#D4AF37]/50'
+                                ? 'bg-primary text-foreground-inverse'
+                                : 'bg-surface/5 text-muted border border-border hover:border-primary/50'
                             }`}
                     >
                         {cat}
@@ -112,12 +112,12 @@ export function ShopPage() {
                 {filteredProducts.map(product => (
                     <Card
                         key={product.id}
-                        className="bg-[#121212] border-[#222] overflow-hidden hover:-translate-y-2 transition-transform duration-300 shadow-xl"
+                        className="bg-surface border-border overflow-hidden hover:-translate-y-2 transition-transform duration-300 shadow-xl"
                     >
                         {/* Badges */}
                         <div className="absolute top-3 left-3 z-10 flex flex-col gap-2">
                             {product.isBestSeller && (
-                                <span className="bg-black text-[#D4AF37] border border-[#D4AF37] text-[10px] px-2 py-1 uppercase font-bold rounded-sm">
+                                <span className="bg-background text-primary border border-primary text-[10px] px-2 py-1 uppercase font-bold rounded-sm">
                                     Best Seller
                                 </span>
                             )}
@@ -144,28 +144,28 @@ export function ShopPage() {
 
                         {/* Content */}
                         <div className="p-5">
-                            <div className="text-gray-500 text-xs uppercase tracking-wider mb-1">{product.category}</div>
+                            <div className="text-muted text-xs uppercase tracking-wider mb-1">{product.category}</div>
                             <h3 className="text-foreground text-base font-medium mb-2 h-12 line-clamp-2">{product.name}</h3>
-                            <p className="text-gray-600 text-sm mb-4 h-10 line-clamp-2">{product.description}</p>
+                            <p className="text-muted text-sm mb-4 h-10 line-clamp-2">{product.description}</p>
 
                             <div className="flex items-baseline gap-3 mb-4">
-                                <span className="text-[#D4AF37] text-xl font-bold">R$ {product.price.toFixed(2)}</span>
+                                <span className="text-primary text-xl font-bold">R$ {product.price.toFixed(2)}</span>
                                 {product.originalPrice && (
-                                    <span className="text-gray-600 text-sm line-through">R$ {product.originalPrice.toFixed(2)}</span>
+                                    <span className="text-muted text-sm line-through">R$ {product.originalPrice.toFixed(2)}</span>
                                 )}
                             </div>
 
                             <Button
                                 onClick={handleAddToCart}
                                 variant="outline"
-                                className="w-full border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black uppercase text-xs font-bold"
+                                className="w-full border-primary text-primary hover:bg-primary hover:text-foreground-inverse uppercase text-xs font-bold"
                             >
                                 Adicionar à Sacola
                             </Button>
                             <Button
                                 onClick={() => handleViewDetails(product.id)}
                                 variant="ghost"
-                                className="w-full mt-3 text-[#D4AF37] hover:text-black hover:bg-[#D4AF37] uppercase text-xs font-bold"
+                                className="w-full mt-3 text-primary hover:text-foreground-inverse hover:bg-primary uppercase text-xs font-bold"
                             >
                                 Ver detalhes
                             </Button>

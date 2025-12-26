@@ -54,22 +54,22 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
   };
 
   return (
-    <div className={cn("fixed inset-0 bg-black/95 flex items-center justify-center p-4", Z_INDEX.modal)}>
-      <Card className="bg-[#0A0A0A] border-gold/30 p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className={cn("fixed inset-0 bg-background/95 flex items-center justify-center p-4", Z_INDEX.modal)}>
+      <Card className="bg-background border-primary/30 p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h2 className="text-3xl font-bold text-white flex items-center gap-3">
-              <Sparkles className="w-8 h-8 text-gold" />
+            <h2 className="text-3xl font-bold text-foreground flex items-center gap-3">
+              <Sparkles className="w-8 h-8 text-primary" />
               AR Try-On
             </h2>
-            <p className="text-gray-400 mt-1">{productName}</p>
+            <p className="text-muted mt-1">{productName}</p>
           </div>
           <button
             onClick={onClose}
-            className="w-12 h-12 rounded-full bg-[#1A1A1A] border border-[#333] hover:border-gold transition-colors flex items-center justify-center"
+            className="w-12 h-12 rounded-full bg-surface border border-border hover:border-primary transition-colors flex items-center justify-center"
           >
-            <X className="w-6 h-6 text-white" />
+            <X className="w-6 h-6 text-foreground" />
           </button>
         </div>
 
@@ -77,7 +77,7 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
         <div className="grid md:grid-cols-2 gap-8">
           {/* Left - Camera/Preview */}
           <div>
-            <Card className="bg-[#1A1A1A] border-[#333] p-4 mb-4">
+            <Card className="bg-surface border-border p-4 mb-4">
               {!imgSrc ? (
                 <div className="relative">
                   <Webcam
@@ -120,12 +120,12 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
 
           {/* Right - Try-On Result */}
           <div>
-            <Card className="bg-[#1A1A1A] border-[#333] p-4 mb-4">
+            <Card className="bg-surface border-border p-4 mb-4">
               {isProcessing ? (
                 <div className="w-full h-[480px] flex flex-col items-center justify-center">
                   <div className="w-16 h-16 border-4 border-gold border-t-transparent rounded-full animate-spin mb-4"></div>
-                  <p className="text-gold font-bold text-lg">Processando AR...</p>
-                  <p className="text-gray-400 text-sm mt-2">Aplicando produto virtualmente</p>
+                  <p className="text-primary font-bold text-lg">Processando AR...</p>
+                  <p className="text-muted text-sm mt-2">Aplicando produto virtualmente</p>
                 </div>
               ) : tryOnResult ? (
                 <div className="relative">
@@ -137,9 +137,9 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
                   </div>
                 </div>
               ) : (
-                <div className="w-full h-[480px] flex flex-col items-center justify-center border-2 border-dashed border-[#333] rounded-lg">
-                  <Sparkles className="w-16 h-16 text-gray-600 mb-4" />
-                  <p className="text-gray-500 text-center">
+                <div className="w-full h-[480px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-lg">
+                  <Sparkles className="w-16 h-16 text-muted mb-4" />
+                  <p className="text-muted text-center">
                     Tire uma foto para ver<br />como o produto ficaria em você
                   </p>
                 </div>
@@ -150,12 +150,12 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
               <div className="space-y-3">
                 <Button
                   onClick={download}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold text-lg py-6"
+                  className="w-full bg-emerald-noir-600 hover:bg-emerald-noir-700 text-foreground font-bold text-lg py-6"
                 >
                   <Download className="w-6 h-6 mr-2" />
                   Baixar Resultado
                 </Button>
-                <p className="text-center text-gray-400 text-sm">
+                <p className="text-center text-muted text-sm">
                   Compartilhe nas redes sociais e marque @alsham
                 </p>
               </div>
@@ -169,7 +169,7 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
             <Sparkles className="w-5 h-5" />
             Como funciona o AR Try-On
           </h4>
-          <ul className="space-y-2 text-gray-300 text-sm">
+          <ul className="space-y-2 text-foreground-secondary text-sm">
             <li>1. Posicione seu rosto na câmera em um ambiente bem iluminado</li>
             <li>2. Clique em "Capturar Foto" quando estiver pronto</li>
             <li>3. Nossa IA aplicará o produto virtualmente em você</li>
@@ -178,7 +178,7 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
         </Card>
 
         {/* Privacy Notice */}
-        <p className="text-center text-gray-500 text-xs mt-6">
+        <p className="text-center text-muted text-xs mt-6">
           🔒 Suas fotos são processadas localmente e não são armazenadas em nossos servidores
         </p>
       </Card>

@@ -4,14 +4,16 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { useApp } from '@/contexts/AppContext';
 import { 
   Settings, Shield, Bell, Eye, Database, Trash2, Download, 
   Lock, Globe, Sparkles, Moon, Sun, Smartphone 
 } from 'lucide-react';
 
 export default function SettingsPage() {
+  const { theme, setTheme } = useApp();
   const [activeTab, setActiveTab] = useState<'general' | 'privacy' | 'ai' | 'notifications'>('general');
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const isDarkMode = theme === 'dark';
   const [language, setLanguage] = useState('pt-BR');
   
   // Privacy Settings
@@ -83,7 +85,7 @@ export default function SettingsPage() {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Sidebar - Tabs */}
           <div className="lg:col-span-1">
-            <Card className="bg-[#1A1A1A] border-[#333] p-4">
+            <Card className="bg-surface border-border p-4">
               <div className="space-y-2">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -94,7 +96,7 @@ export default function SettingsPage() {
                       className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                         activeTab === tab.id
                           ? 'bg-gold text-black font-bold'
-                          : 'text-gray-400 hover:bg-[#0A0A0A] hover:text-white'
+                          : 'text-muted hover:bg-background hover:text-foreground'
                       }`}
                     >
                       <Icon className="w-5 h-5" />
@@ -110,31 +112,31 @@ export default function SettingsPage() {
           <div className="lg:col-span-3">
             {/* General Settings */}
             {activeTab === 'general' && (
-              <Card className="bg-[#1A1A1A] border-[#333] p-8">
+              <Card className="bg-surface border-border p-8">
                 <h2 className="text-2xl font-bold mb-6">Configurações Gerais</h2>
 
                 <div className="space-y-6">
                   {/* Theme */}
                   <div>
-                    <label className="block text-white font-medium mb-3">Tema</label>
+                    <label className="block text-foreground font-medium mb-3">Tema</label>
                     <div className="flex gap-4">
                       <button
                         onClick={() => setIsDarkMode(true)}
                         className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-lg border-2 transition-colors ${
                           isDarkMode
-                            ? 'border-gold bg-gold/10'
-                            : 'border-[#333] hover:border-gold/50'
+                            ? 'border-primary bg-primary/10'
+                            : 'border-border hover:border-primary/50'
                         }`}
                       >
                         <Moon className="w-5 h-5" />
                         <span>Escuro</span>
                       </button>
                       <button
-                        onClick={() => setIsDarkMode(false)}
+                        onClick={() => setTheme('light')}
                         className={`flex-1 flex items-center justify-center gap-3 px-6 py-4 rounded-lg border-2 transition-colors ${
                           !isDarkMode
-                            ? 'border-gold bg-gold/10'
-                            : 'border-[#333] hover:border-gold/50'
+                            ? 'border-primary bg-primary/10'
+                            : 'border-border hover:border-primary/50'
                         }`}
                       >
                         <Sun className="w-5 h-5" />
@@ -143,15 +145,15 @@ export default function SettingsPage() {
                     </div>
                   </div>
 
-                  <Separator className="bg-[#333]" />
+                  <Separator className="bg-border" />
 
                   {/* Language */}
                   <div>
-                    <label className="block text-white font-medium mb-3">Idioma</label>
+                    <label className="block text-foreground font-medium mb-3">Idioma</label>
                     <select
                       value={language}
                       onChange={(e) => setLanguage(e.target.value)}
-                      className="w-full px-4 py-3 bg-[#0A0A0A] border border-[#333] rounded-lg text-white focus:outline-none focus:border-gold"
+                      className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
                     >
                       <option value="pt-BR">Português (Brasil)</option>
                       <option value="en-US">English (US)</option>
@@ -160,13 +162,13 @@ export default function SettingsPage() {
                     </select>
                   </div>
 
-                  <Separator className="bg-[#333]" />
+                  <Separator className="bg-border" />
 
                   {/* Region */}
                   <div>
                     <label className="block text-white font-medium mb-3">Região</label>
-                    <div className="flex items-center gap-3 px-4 py-3 bg-[#0A0A0A] border border-[#333] rounded-lg">
-                      <Globe className="w-5 h-5 text-gray-400" />
+                    <div className="flex items-center gap-3 px-4 py-3 bg-background border border-border rounded-lg">
+                      <Globe className="w-5 h-5 text-muted" />
                       <span>Brasil (BRL - R$)</span>
                     </div>
                   </div>
@@ -176,7 +178,7 @@ export default function SettingsPage() {
 
             {/* Privacy Settings */}
             {activeTab === 'privacy' && (
-              <Card className="bg-[#1A1A1A] border-[#333] p-8">
+              <Card className="bg-surface border-border p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Shield className="w-8 h-8 text-gold" />
                   <div>
@@ -187,7 +189,7 @@ export default function SettingsPage() {
 
                 <div className="space-y-6">
                   {/* Data Collection */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div>
                       <p className="text-white font-medium mb-1">Coleta de Dados</p>
                       <p className="text-gray-400 text-sm">Permitir coleta de dados de uso para melhorar a experiência</p>
@@ -196,7 +198,7 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Personalization */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div>
                       <p className="text-white font-medium mb-1">Personalização</p>
                       <p className="text-gray-400 text-sm">Usar dados para personalizar recomendações</p>
@@ -205,7 +207,7 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Analytics */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div>
                       <p className="text-white font-medium mb-1">Analytics</p>
                       <p className="text-gray-400 text-sm">Compartilhar dados anônimos para análise</p>
@@ -222,7 +224,7 @@ export default function SettingsPage() {
                     <ToggleSwitch enabled={thirdPartySharing} onChange={() => setThirdPartySharing(!thirdPartySharing)} />
                   </div>
 
-                  <Separator className="bg-[#333]" />
+                  <Separator className="bg-border" />
 
                   {/* Data Management */}
                   <div className="space-y-4">
@@ -263,7 +265,7 @@ export default function SettingsPage() {
 
             {/* AI Settings */}
             {activeTab === 'ai' && (
-              <Card className="bg-[#1A1A1A] border-[#333] p-8">
+              <Card className="bg-surface border-border p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Sparkles className="w-8 h-8 text-gold" />
                   <div>
@@ -274,7 +276,7 @@ export default function SettingsPage() {
 
                 <div className="space-y-6">
                   {/* AI Recommendations */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div>
                       <p className="text-white font-medium mb-1">Recomendações IA</p>
                       <p className="text-gray-400 text-sm">Receber sugestões personalizadas de produtos e estilos</p>
@@ -283,7 +285,7 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Chat History */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div>
                       <p className="text-white font-medium mb-1">Histórico de Conversas</p>
                       <p className="text-gray-400 text-sm">Salvar conversas com AURA para melhorar respostas</p>
@@ -292,7 +294,7 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Image Analysis */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div>
                       <p className="text-white font-medium mb-1">Análise de Imagens</p>
                       <p className="text-gray-400 text-sm">Permitir IA analisar fotos para recomendações (try-on, scanner)</p>
@@ -309,12 +311,12 @@ export default function SettingsPage() {
                     <ToggleSwitch enabled={aiVoiceData} onChange={() => setAiVoiceData(!aiVoiceData)} />
                   </div>
 
-                  <Separator className="bg-[#333]" />
+                  <Separator className="bg-border" />
 
                   {/* AI Model Info */}
                   <div>
                     <h3 className="text-xl font-bold text-white mb-4">Modelo de IA Atual</h3>
-                    <Card className="bg-[#0A0A0A] border-gold/30 p-4">
+                    <Card className="bg-background border-primary/30 p-4">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-gray-400">Modelo:</span>
                         <Badge variant="gold">Google Gemini 2.5 Pro</Badge>
@@ -335,7 +337,7 @@ export default function SettingsPage() {
 
             {/* Notification Settings */}
             {activeTab === 'notifications' && (
-              <Card className="bg-[#1A1A1A] border-[#333] p-8">
+              <Card className="bg-surface border-border p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Bell className="w-8 h-8 text-gold" />
                   <div>
@@ -346,7 +348,7 @@ export default function SettingsPage() {
 
                 <div className="space-y-6">
                   {/* Email */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div>
                       <p className="text-white font-medium mb-1">Email</p>
                       <p className="text-gray-400 text-sm">Receber notificações por email</p>
@@ -355,7 +357,7 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Push */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div className="flex items-center gap-2">
                       <Smartphone className="w-5 h-5 text-gray-400" />
                       <div>
@@ -367,7 +369,7 @@ export default function SettingsPage() {
                   </div>
 
                   {/* SMS */}
-                  <div className="flex justify-between items-center py-4 border-b border-[#333]">
+                  <div className="flex justify-between items-center py-4 border-b border-border">
                     <div>
                       <p className="text-white font-medium mb-1">SMS</p>
                       <p className="text-gray-400 text-sm">Receber SMS para pedidos e agendamentos</p>

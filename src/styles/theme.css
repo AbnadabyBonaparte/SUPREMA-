@@ -1,0 +1,164 @@
+/* ==================== ALSHAM SUPREMA BELEZA - THEME SYSTEM ==================== */
+/* SSOT (Single Source of Truth) para todas as cores e valores do tema */
+
+:root {
+  /* ==================== DARK THEME (Default) ==================== */
+  /* Obsidian Black Palette */
+  --color-obsidian-50: #f5f5f6;
+  --color-obsidian-100: #e6e6e7;
+  --color-obsidian-200: #cfcfd1;
+  --color-obsidian-300: #adaeb1;
+  --color-obsidian-400: #84858a;
+  --color-obsidian-500: #696a6f;
+  --color-obsidian-600: #5a5b5f;
+  --color-obsidian-700: #4c4d50;
+  --color-obsidian-800: #434345;
+  --color-obsidian-900: #1a1a1c;
+  --color-obsidian-950: #0a0a0b;
+
+  /* Sovereign Gold Palette */
+  --color-gold-50: #fffbeb;
+  --color-gold-100: #fef3c7;
+  --color-gold-200: #fde68a;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+  --color-gold-700: #b45309;
+  --color-gold-800: #92400e;
+  --color-gold-900: #78350f;
+  --color-gold-950: #451a03;
+
+  /* Primary Colors (Sovereign Gold) */
+  --color-primary: var(--color-gold-700);
+  --color-primary-hover: var(--color-gold-600);
+  --color-primary-light: var(--color-gold-500);
+  --color-primary-dark: var(--color-gold-800);
+
+  /* Legacy Gold (D4AF37) - Mapped to gold-700 */
+  --color-gold-legacy: #D4AF37;
+  --color-gold-legacy-hover: #F2D06B;
+
+  /* Background & Surface */
+  --color-background: var(--color-obsidian-950);
+  --color-background-secondary: var(--color-obsidian-900);
+  --color-background-tertiary: var(--color-obsidian-800);
+  --color-surface: var(--color-obsidian-900);
+  --color-surface-elevated: var(--color-obsidian-800);
+  --color-surface-hover: var(--color-obsidian-700);
+
+  /* Text Colors */
+  --color-text-primary: var(--color-marble-50);
+  --color-text-secondary: var(--color-marble-400);
+  --color-text-tertiary: var(--color-marble-300);
+  --color-text-inverse: var(--color-obsidian-950);
+
+  /* Marble (White/Gray) Palette */
+  --color-marble-50: #ffffff;
+  --color-marble-100: #fefefe;
+  --color-marble-200: #fafafa;
+  --color-marble-300: #f5f5f5;
+  --color-marble-400: #f0f0f0;
+  --color-marble-500: #e8e8e8;
+
+  /* Accent Colors */
+  --color-accent: var(--color-gold-700);
+  --color-accent-hover: var(--color-gold-600);
+  --color-accent-light: var(--color-gold-500);
+
+  /* Border Colors */
+  --color-border: rgba(180, 83, 9, 0.2);
+  --color-border-strong: rgba(180, 83, 9, 0.3);
+  --color-border-subtle: rgba(180, 83, 9, 0.1);
+  --color-border-dark: var(--color-obsidian-700);
+
+  /* Status Colors */
+  --color-success: #064e3b;
+  --color-success-light: #065f46;
+  --color-success-dark: #047857;
+  --color-warning: #c98563;
+  --color-warning-light: #b86e4f;
+  --color-warning-dark: #9a5940;
+  --color-error: #7f1d1d;
+  --color-error-light: #991b1b;
+  --color-error-dark: #b91c1c;
+
+  /* Gradients */
+  --gradient-gold: linear-gradient(135deg, #b45309 0%, #f59e0b 50%, #fbbf24 100%);
+  --gradient-gold-radial: radial-gradient(circle at 50% 50%, rgba(181, 83, 9, 0.15), transparent 70%);
+  --gradient-obsidian: linear-gradient(180deg, var(--color-obsidian-950) 0%, var(--color-obsidian-900) 100%);
+
+  /* Shadows */
+  --shadow-gold-glow: 0 0 30px rgba(181, 83, 9, 0.4), 0 0 60px rgba(181, 83, 9, 0.2);
+  --shadow-obsidian-lift: 0 20px 60px -15px rgba(0, 0, 0, 0.6), 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* ==================== LIGHT THEME ==================== */
+:root[data-theme="light"] {
+  /* Background & Surface */
+  --color-background: var(--color-marble-50);
+  --color-background-secondary: var(--color-marble-100);
+  --color-background-tertiary: var(--color-marble-200);
+  --color-surface: var(--color-marble-100);
+  --color-surface-elevated: var(--color-marble-200);
+  --color-surface-hover: var(--color-marble-300);
+
+  /* Text Colors */
+  --color-text-primary: var(--color-obsidian-900);
+  --color-text-secondary: var(--color-obsidian-600);
+  --color-text-tertiary: var(--color-obsidian-500);
+  --color-text-inverse: var(--color-marble-50);
+
+  /* Border Colors */
+  --color-border: rgba(180, 83, 9, 0.15);
+  --color-border-strong: rgba(180, 83, 9, 0.25);
+  --color-border-subtle: rgba(180, 83, 9, 0.08);
+  --color-border-dark: var(--color-marble-300);
+
+  /* Shadows (lighter for light theme) */
+  --shadow-gold-glow: 0 0 20px rgba(181, 83, 9, 0.2), 0 0 40px rgba(181, 83, 9, 0.1);
+  --shadow-obsidian-lift: 0 10px 30px -5px rgba(0, 0, 0, 0.2), 0 5px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-primary-hover:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.bg-background {
+  background-color: var(--color-background);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+.text-foreground {
+  color: var(--color-text-primary);
+}
+
+.text-muted {
+  color: var(--color-text-secondary);
+}
+
+.border-border {
+  border-color: var(--color-border);
+}
+

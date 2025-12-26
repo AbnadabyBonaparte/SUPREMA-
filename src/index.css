@@ -1,5 +1,8 @@
 /* Alsham Suprema Beleza - Global Styles */
 
+/* Import theme variables (SSOT) */
+@import './styles/theme.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,7 +14,9 @@
   }
 
   body {
-    @apply bg-obsidian-950 text-marble-50 antialiased;
+    @apply antialiased;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 
