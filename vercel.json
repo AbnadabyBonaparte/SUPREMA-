@@ -42,8 +42,8 @@
       "destination": "/api/stripe/webhook.js"
     },
     {
-      "source": "/:path*",
-      "destination": "/"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
