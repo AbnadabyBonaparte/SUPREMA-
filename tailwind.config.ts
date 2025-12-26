@@ -7,6 +7,28 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
   ],
+  safelist: [
+    // Classes críticas com variáveis CSS - nunca remover
+    'bg-background',
+    'bg-background-secondary',
+    'bg-background-tertiary',
+    'bg-surface',
+    'bg-surface-elevated',
+    'bg-surface-hover',
+    'text-foreground',
+    'text-foreground-secondary',
+    'text-foreground-tertiary',
+    'text-primary',
+    'text-muted',
+    'border-primary',
+    'border-border',
+    'shadow-gold-glow',
+    'shadow-obsidian-lift',
+    // Pattern para classes dinâmicas com variáveis
+    { pattern: /bg-\[var\(--color-[a-z-]+\)\]/ },
+    { pattern: /text-\[var\(--color-[a-z-]+\)\]/ },
+    { pattern: /border-\[var\(--color-[a-z-]+\)\]/ },
+  ],
   theme: {
     extend: {
       colors: {

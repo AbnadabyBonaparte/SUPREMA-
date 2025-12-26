@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { env } from './src/lib/env';
+// FORÇAR CARREGAMENTO DO THEME.CSS (SSOT)
+import '@/styles/theme.css';
 import './src/index.css';
 
 // Garantir que o tema dark seja aplicado por padrão
