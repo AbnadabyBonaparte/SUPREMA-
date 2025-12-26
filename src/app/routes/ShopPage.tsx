@@ -9,7 +9,7 @@ import { Loader2 } from 'lucide-react';
 
 const categories: ShopCategory[] = ['Todos', 'Perfumaria', 'Cabelo', 'Skincare', 'Wellness', 'Homem', 'Fitness'];
 
-export function ShopPage() {
+function ShopPage() {
     const navigate = useNavigate();
     const [activeCategory, setActiveCategory] = useState<ShopCategory>('Todos');
     const [cartCount, setCartCount] = useState(0);
