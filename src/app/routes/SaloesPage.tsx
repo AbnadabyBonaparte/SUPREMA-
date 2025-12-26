@@ -1,80 +1,12 @@
 // src/pages/SaloesPage.tsx
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { RealProfessional, Service } from '@/types/ai';
 import { useSalons, SalonWithProfessionals } from '@/hooks/useSalons';
 import { Loader2 } from 'lucide-react';
 
-// All data now loaded from Supabase
-    {
-        id: '1',
-        name: "Barbearia Viking Prime",
-        image: "https://images.unsplash.com/photo-1503951914875-452162b7f300?auto=format&fit=crop&w=800&q=80",
-        rating: 4.9,
-        reviews: 128,
-        distance: "1.2 km",
-        address: "Av. Paulista, 1000 - Jardins",
-        isVerified: true,
-        professionals: [
-            {
-                id: 'p1', name: "Ragnar Lopes", role: "Master Barber", rating: 5.0,
-                avatar: "https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?auto=format&fit=crop&w=200&q=80",
-                services: [
-                    { id: 's1', name: "Corte Viking", price: 80, duration: "45 min" },
-                    { id: 's2', name: "Barba Terapia", price: 60, duration: "30 min" }
-                ]
-            },
-            {
-                id: 'p2', name: "Bjorn Silva", role: "Barber", rating: 4.8,
-                avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
-                services: [{ id: 's3', name: "Corte Clássico", price: 60, duration: "40 min" }]
-            }
-        ]
-    },
-    {
-        id: '2',
-        name: "Studio Elegance Femme",
-        image: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80",
-        rating: 4.8,
-        reviews: 342,
-        distance: "2.5 km",
-        address: "Rua Oscar Freire, 500",
-        isVerified: true,
-        professionals: [
-            {
-                id: 'p3', name: "Ana Marie", role: "Colorista", rating: 4.9,
-                avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
-                services: [
-                    { id: 's4', name: "Mechas Californianas", price: 450, duration: "120 min" },
-                    { id: 's5', name: "Hidratação Profunda", price: 150, duration: "60 min" }
-                ]
-            }
-        ]
-    },
-    {
-        id: '3',
-        name: "Ink & Art Tattoo",
-        image: "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?auto=format&fit=crop&w=800&q=80",
-        rating: 5.0,
-        reviews: 56,
-        distance: "5.0 km",
-        address: "Rua Augusta, 200",
-        isVerified: true,
-        professionals: []
-    },
-    {
-        id: '4',
-        name: "Royal Spa & Wellness",
-        image: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=800&q=80",
-        rating: 5.0,
-        reviews: 210,
-        distance: "3.0 km",
-        address: "Shopping Cidade Jardim",
-        isVerified: true,
-        professionals: []
-    }
-];
+// All data now loaded from Supabase via useSalons hook
 
 export function SaloesPage() {
     const { salons, loading, error } = useSalons();
@@ -96,12 +28,12 @@ export function SaloesPage() {
             <div className="py-10 max-w-2xl mx-auto">
                 <button
                     onClick={handleBack}
-                    className="mb-6 text-gray-400 hover:text-white transition-colors"
+                    className="mb-6 text-muted hover:text-foreground transition-colors"
                 >
                     ← Voltar
                 </button>
 
-                <Card className="bg-white text-black p-8">
+                <Card className="bg-surface text-foreground p-8">
                     <h2 className="text-2xl font-bold mb-6">Checkout Seguro</h2>
 
                     {/* Order Summary */}
@@ -136,12 +68,12 @@ export function SaloesPage() {
                     {/* Pay Button */}
                     <Button
                         onClick={() => alert('Pagamento Processado! Agendamento Confirmado.')}
-                        className="w-full bg-gray-200 text-black hover:bg-gray-300 font-bold"
+                        className="w-full bg-surface-hover text-foreground hover:bg-surface font-bold"
                         size="lg"
                     >
                         Pagar Avulso R$ {selectedService.price},00
                     </Button>
-                    <p className="text-xs text-gray-500 text-center mt-3">
+                    <p className="text-xs text-muted text-center mt-3">
                         Pagamento processado via Stripe. Taxa de serviço inclusa.
                     </p>
                 </Card>
@@ -155,7 +87,7 @@ export function SaloesPage() {
             <div className="py-10">
                 <button
                     onClick={handleBack}
-                    className="mb-6 text-gray-400 hover:text-white transition-colors"
+                    className="mb-6 text-muted hover:text-foreground transition-colors"
                 >
                     ← Voltar à Lista
                 </button>
@@ -165,8 +97,8 @@ export function SaloesPage() {
                     <img src={selectedSalon.image} alt={selectedSalon.name} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
                     <div className="absolute bottom-8 left-8">
-                        <h1 className="text-4xl font-bold text-white mb-2">{selectedSalon.name}</h1>
-                        <div className="flex gap-4 text-gray-300 text-sm">
+                        <h1 className="text-4xl font-bold text-foreground mb-2">{selectedSalon.name}</h1>
+                        <div className="flex gap-4 text-foreground-secondary text-sm">
                             <span>⭐ {selectedSalon.rating} ({selectedSalon.reviews} avaliações)</span>
                             <span>📍 {selectedSalon.address}</span>
                         </div>
@@ -186,18 +118,18 @@ export function SaloesPage() {
                                     className="w-16 h-16 rounded-full object-cover border-2 border-primary"
                                 />
                                 <div>
-                                    <div className="text-white font-bold">{pro.name}</div>
-                                    <div className="text-gray-500 text-sm">{pro.role}</div>
+                                    <div className="text-foreground font-bold">{pro.name}</div>
+                                    <div className="text-muted text-sm">{pro.role}</div>
                                     <div className="text-primary text-sm">⭐ {pro.rating}</div>
                                 </div>
                             </div>
 
                             <div className="space-y-3">
                                 {pro.services.map(service => (
-                                    <div key={service.id} className="flex justify-between items-center bg-white/5 p-3 rounded-lg">
+                                    <div key={service.id} className="flex justify-between items-center bg-surface/5 p-3 rounded-lg">
                                         <div>
-                                            <div className="text-gray-200 text-sm">{service.name}</div>
-                                            <div className="text-gray-600 text-xs">{service.duration}</div>
+                                            <div className="text-foreground-secondary text-sm">{service.name}</div>
+                                            <div className="text-muted text-xs">{service.duration}</div>
                                         </div>
                                         <Button
                                             onClick={() => {
@@ -214,7 +146,7 @@ export function SaloesPage() {
                             </div>
                         </Card>
                     )) : (
-                        <p className="text-gray-600">Nenhum profissional disponível no momento.</p>
+                        <p className="text-muted">Nenhum profissional disponível no momento.</p>
                     )}
                 </div>
             </div>
