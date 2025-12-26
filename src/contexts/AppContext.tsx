@@ -1,5 +1,7 @@
 // src/contexts/AppContext.tsx
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { supabase } from '@/lib/supabaseClient';
+import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 // ==================== INTERFACES ====================
 export interface User {
@@ -50,11 +52,8 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // ==================== PROVIDER ====================
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  // User State
-  const [user, setUser] = useState<User | null>(() => {
-    const stored = localStorage.getItem('alsham_user');
-    return stored ? JSON.parse(stored) : null;
-  });
+  // User State - inicializado como null, será preenchido pelo Supabase Auth
+  const [user, setUser] = useState<User | null>(null);
 
   // Cart State
   const [cart, setCart] = useState<CartItem[]>(() => {
@@ -69,12 +68,41 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   });
 
   // Loading State
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Inicia como true para verificar sessão
 
   // ==================== EFFECTS ====================
+  // Verificar sessão do Supabase ao montar
   useEffect(() => {
-    if (user) localStorage.setItem('alsham_user', JSON.stringify(user));
-    else localStorage.removeItem('alsham_user');
+    // Verificar sessão atual
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        setUser(mapSupabaseUserToAppUser(session.user));
+      }
+      setIsLoading(false);
+    });
+
+    // Monitorar mudanças de autenticação
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUser(mapSupabaseUserToAppUser(session.user));
+      } else {
+        setUser(null);
+      }
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Persistir user no localStorage para compatibilidade (opcional)
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('alsham_user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('alsham_user');
+    }
   }, [user]);
 
   useEffect(() => {
@@ -90,19 +118,16 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      // Mock – depois você troca por Supabase Auth
-      await new Promise(resolve => setTimeout(resolve, 800));
-
-      const mockUser: User = {
-        id: crypto.randomUUID(),
-        name: email.split('@')[0],
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
-        tier: 'pro',
-        createdAt: new Date().toISOString(),
-      };
+        password,
+      });
 
-      setUser(mockUser);
+      if (error) throw error;
+
+      if (data.session?.user) {
+        setUser(mapSupabaseUserToAppUser(data.session.user));
+      }
     } catch (error) {
       console.error('Login failed:', error);
       throw error;
@@ -111,9 +136,20 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    clearCart();
+  const logout = async () => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+
+      setUser(null);
+      clearCart();
+    } catch (error) {
+      console.error('Logout failed:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // ==================== CART FUNCTIONS ====================
@@ -177,5 +213,28 @@ export const useApp = () => {
   if (!context) throw new Error('useApp must be used within AppProvider');
   return context;
 };
+
+// ==================== HELPER FUNCTIONS ====================
+/**
+ * Mapeia o usuário do Supabase para o formato do App
+ */
+function mapSupabaseUserToAppUser(supabaseUser: SupabaseUser): User {
+  const userMetadata = supabaseUser.user_metadata || {};
+  const name = userMetadata.name || userMetadata.full_name || supabaseUser.email?.split('@')[0] || 'Usuário';
+  const avatar = userMetadata.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${supabaseUser.email}`;
+
+  // Por padrão, usuário começa como 'free'
+  // O tier pode ser atualizado depois baseado na subscription
+  const tier = (userMetadata.tier as User['tier']) || 'free';
+
+  return {
+    id: supabaseUser.id,
+    name,
+    email: supabaseUser.email || '',
+    avatar,
+    tier,
+    createdAt: supabaseUser.created_at,
+  };
+}
 
 export default AppContext;

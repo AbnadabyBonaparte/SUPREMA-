@@ -1,7 +1,9 @@
 // src/pages/LoginPage.tsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useApp } from '@/contexts/AppContext';
 
 interface LoginPageProps {
     onLoginSuccess?: () => void;
@@ -9,21 +11,54 @@ interface LoginPageProps {
 }
 
 export function LoginPage({ onLoginSuccess, onRegisterClick }: LoginPageProps) {
+    const navigate = useNavigate();
+    const { login, isLoading: authLoading } = useApp();
     const [activeTab, setActiveTab] = useState<'client' | 'partner'>('client');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [isSignUp, setIsSignUp] = useState(false);
+    const [name, setName] = useState('');
+    const [error, setError] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);
+        setError(null);
+        setIsSubmitting(true);
 
-        // Simulate authentication
-        setTimeout(() => {
-            setIsLoading(false);
-            alert(`Login bem-sucedido como ${activeTab === 'client' ? 'Cliente' : 'Parceiro'}!`);
-            if (onLoginSuccess) onLoginSuccess();
-        }, 1500);
+        try {
+            if (isSignUp) {
+                // Para signup, usar Supabase diretamente
+                const { supabase } = await import('@/lib/supabaseClient');
+                const { error } = await supabase.auth.signUp({
+                    email,
+                    password,
+                    options: {
+                        data: {
+                            name: name || email.split('@')[0],
+                        },
+                    },
+                });
+                if (error) throw error;
+                // Mostrar mensagem de sucesso
+                setError(null);
+                alert('Conta criada! Verifique seu email para confirmar.');
+                setIsSignUp(false);
+            } else {
+                await login(email, password);
+                // AppContext já será atualizado automaticamente via onAuthStateChange
+                if (onLoginSuccess) {
+                    onLoginSuccess();
+                } else {
+                    navigate('/dashboard');
+                }
+            }
+        } catch (err: any) {
+            setError(err.message || 'Erro ao autenticar. Verifique suas credenciais.');
+            console.error('Auth error:', err);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -57,8 +92,27 @@ export function LoginPage({ onLoginSuccess, onRegisterClick }: LoginPageProps) {
                     </button>
                 </div>
 
+                {/* Error Message */}
+                {error && (
+                    <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">
+                        {error}
+                    </div>
+                )}
+
                 {/* Form */}
-                <form onSubmit={handleLogin} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    {isSignUp && (
+                        <div>
+                            <label className="block text-gray-500 text-sm mb-2">Nome</label>
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-full px-4 py-3 bg-[#050505] border border-[#333] text-white rounded-lg focus:outline-none focus:border-[#D4AF37]/50 transition-colors"
+                                placeholder="Seu nome completo"
+                            />
+                        </div>
+                    )}
                     <div>
                         <label className="block text-gray-500 text-sm mb-2">Email</label>
                         <input
@@ -88,11 +142,11 @@ export function LoginPage({ onLoginSuccess, onRegisterClick }: LoginPageProps) {
 
                     <Button
                         type="submit"
-                        disabled={isLoading}
+                        disabled={isSubmitting || authLoading}
                         className="w-full bg-[#D4AF37] text-black hover:bg-[#F2D06B] font-bold uppercase tracking-wider py-4 disabled:opacity-70"
                         size="lg"
                     >
-                        {isLoading ? 'Autenticando...' : 'Entrar no Sistema'}
+                        {isSubmitting || authLoading ? 'Autenticando...' : isSignUp ? 'Criar Conta' : 'Entrar no Sistema'}
                     </Button>
                 </form>
 
@@ -112,12 +166,18 @@ export function LoginPage({ onLoginSuccess, onRegisterClick }: LoginPageProps) {
                 {/* Register Link */}
                 {activeTab === 'client' && (
                     <div className="mt-10 text-center border-t border-[#222] pt-6">
-                        <p className="text-gray-500 text-sm mb-2">Ainda não é membro?</p>
+                        <p className="text-gray-500 text-sm mb-2">
+                            {isSignUp ? 'Já tem uma conta?' : 'Ainda não é membro?'}
+                        </p>
                         <button
-                            onClick={onRegisterClick}
+                            type="button"
+                            onClick={() => {
+                                setIsSignUp(!isSignUp);
+                                setError(null);
+                            }}
                             className="text-[#D4AF37] font-bold uppercase text-sm tracking-wider hover:underline"
                         >
-                            Criar Conta Premium
+                            {isSignUp ? 'Fazer Login' : 'Criar Conta Premium'}
                         </button>
                     </div>
                 )}

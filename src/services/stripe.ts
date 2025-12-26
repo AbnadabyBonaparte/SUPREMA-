@@ -1,11 +1,5 @@
 import { env } from '@/lib/env';
-import { createClient } from '@supabase/supabase-js';
-
-// ==================== SUPABASE CLIENT ====================
-const supabaseUrl = env.PUBLIC_SUPABASE_URL || env.VITE_SUPABASE_URL;
-const supabaseAnonKey = env.PUBLIC_SUPABASE_ANON_KEY || env.VITE_SUPABASE_ANON_KEY;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+import { supabase } from '@/lib/supabaseClient';
 
 // ==================== INTERFACES ====================
 export interface StripeSubscription {
