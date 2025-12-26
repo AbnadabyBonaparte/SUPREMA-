@@ -66,6 +66,30 @@ export function useAppointments() {
     }
 
     fetchAppointments();
+
+    // Realtime subscription for appointments
+    const channel = supabase
+      .channel('appointments_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'appointments',
+          filter: `user_id=eq.${user.id}`,
+        },
+        (payload) => {
+          console.log('Appointment change detected:', payload);
+          // Refetch appointments when changes occur
+          fetchAppointments();
+        }
+      )
+      .subscribe();
+
+    // Cleanup subscription on unmount
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [user]);
 
   return { appointments, loading, error };

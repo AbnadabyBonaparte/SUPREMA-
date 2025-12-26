@@ -10,7 +10,7 @@ export default function CreatorSuitePage() {
   const [showUpload, setShowUpload] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  // Mock creator data
+  // TODO: Replace with real creator data from Supabase
   const creatorStats = {
     totalEarnings: 12450.80,
     thisMonth: 3240.50,

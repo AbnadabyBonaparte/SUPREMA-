@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight, Flame, TrendingUp, Eye, Heart } from 'lucide-react'
 import { fadeInUp, staggerContainer } from '@/lib/motion-variants'
 
-// Mock Data for Trends
+// TODO: Replace with real trends data from Supabase or AI recommendations
 const trends = [
     {
         id: 1,

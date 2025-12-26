@@ -6,7 +6,7 @@ import { RealProfessional, Service } from '@/types/ai';
 import { useSalons, SalonWithProfessionals } from '@/hooks/useSalons';
 import { Loader2 } from 'lucide-react';
 
-// Mock data removed - now using Supabase
+// All data now loaded from Supabase
     {
         id: '1',
         name: "Barbearia Viking Prime",

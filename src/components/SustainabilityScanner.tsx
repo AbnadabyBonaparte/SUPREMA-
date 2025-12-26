@@ -21,9 +21,10 @@ export default function SustainabilityScanner() {
     setResult(null);
     try {
       // Simulação de captura (em produção: webcam + OCR ou upload real)
-      const mockImage = "data:image/jpeg;base64,/9j/4AAQSkZJRg..."; // placeholder
-      setImage(mockImage);
-      const analysis = await analyzeIngredients(["parabenos", "sulfatos", "microplásticos"]); // mock ingredients ou extrair de imagem
+      // TODO: Implement real image capture and ingredient extraction
+      const placeholderImage = "data:image/jpeg;base64,/9j/4AAQSkZJRg...";
+      setImage(placeholderImage);
+      const analysis = await analyzeIngredients(["parabenos", "sulfatos", "microplásticos"]);
       setResult(analysis);
     } catch (err) {
       setResult({

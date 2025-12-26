@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 export function ProfessionalDashboardPage() {
     const [selectedPeriod, setSelectedPeriod] = useState<'today' | 'week' | 'month'>('today');
 
-    // Mock data
+    // TODO: Replace with real data from Supabase appointments table
     const todayAppointments = [
         { id: 1, client: 'Maria Santos', service: 'Corte + Escova', time: '09:00', duration: '60 min', price: 120, status: 'confirmed' },
         { id: 2, client: 'Pedro Costa', service: 'Barba', time: '10:30', duration: '30 min', price: 60, status: 'confirmed' },

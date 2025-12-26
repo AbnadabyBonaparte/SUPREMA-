@@ -1,0 +1,43 @@
+#!/bin/sh
+# Pre-commit hook for SUPREMA- Genesis Matrix validation
+
+echo "🔍 Running Genesis Matrix pre-commit validation..."
+
+# Check for hardcoded hex colors (excluding assets and theme.css)
+HEX_COLORS=$(grep -r "#[0-9a-fA-F]\{3,6\}" src/ --exclude-dir=assets --exclude="theme.css" --exclude="*.svg" --exclude="*.png" --exclude="*.jpg" --exclude="*.jpeg" | grep -v "theme.css" | grep -v "//.*#" || true)
+if [ ! -z "$HEX_COLORS" ]; then
+  echo "❌ ERROR: Found hardcoded hex colors in src/:"
+  echo "$HEX_COLORS"
+  echo "Please use CSS variables from theme.css instead."
+  exit 1
+fi
+
+# Check for hardcoded Tailwind gray/white classes
+HARDCODED_CLASSES=$(grep -r "bg-white\|bg-gray-\|text-gray-\|border-gray-" src/ --exclude-dir=node_modules || true)
+if [ ! -z "$HARDCODED_CLASSES" ]; then
+  echo "❌ ERROR: Found hardcoded Tailwind classes (bg-white, bg-gray-, text-gray-):"
+  echo "$HARDCODED_CLASSES"
+  echo "Please use semantic tokens (bg-background, text-foreground, text-muted, etc.) instead."
+  exit 1
+fi
+
+# Check for mock/fake/placeholder data (excluding valid TODOs)
+MOCK_DATA=$(grep -r "mock\|Mock\|fake\|Fake\|placeholder.*mock" src/ --exclude-dir=node_modules | grep -v "TODO:" | grep -v "// TODO" || true)
+if [ ! -z "$MOCK_DATA" ]; then
+  echo "❌ ERROR: Found mock/fake/placeholder data:"
+  echo "$MOCK_DATA"
+  echo "Please replace with real Supabase queries or mark as TODO: with clear description."
+  exit 1
+fi
+
+# Run build
+echo "🔨 Running build..."
+npm run build
+if [ $? -ne 0 ]; then
+  echo "❌ ERROR: Build failed!"
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
+exit 0
+

@@ -33,10 +33,10 @@ export function DashboardPage() {
             }));
     }, [appointments]);
 
-    // Mock recommendations (can be replaced with real AI recommendations later)
+    // TODO: Implement AI recommendations system
     const recentRecommendations: any[] = [];
 
-    // Mock loyalty points (can be replaced with real loyalty system later)
+    // TODO: Implement loyalty points system
     const loyaltyPoints = 2450;
     const nextTierPoints = 3000;
     const progressPercent = (loyaltyPoints / nextTierPoints) * 100;

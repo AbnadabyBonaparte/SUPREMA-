@@ -46,7 +46,7 @@ export default function SubscriptionBoxPreview({ onSubscribe }: SubscriptionBoxP
     return boxesMap;
   }, [supabaseBoxes, selectedTier]);
 
-  // Fallback mock data (only if Supabase has no data)
+  // Fallback data structure (only used if Supabase has no data)
   const fallbackBoxes = {
     essentials: {
       name: 'Essentials Box',

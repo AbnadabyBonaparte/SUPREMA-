@@ -34,7 +34,7 @@ export default function ProductTryOn({ productName, productImage, onClose }: Pro
     // Em produção, aqui seria a chamada para API de try-on (ex: Gemini Vision, TryOnLabs, etc.)
     await new Promise(resolve => setTimeout(resolve, 2000));
     
-    // Mock: retorna a imagem original com overlay
+    // TODO: Implement real AR try-on processing
     setTryOnResult(image);
     setIsProcessing(false);
   };

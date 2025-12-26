@@ -7,7 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/hooks/useCart';
 import { useToast } from '@/components/ui/use-toast';
 import ProductTryOn from '@/components/ProductTryOn';
-import { Star, ShoppingCart, Heart, Share2, Truck, Shield, Sparkles } from 'lucide-react';
+import { useProduct } from '@/hooks/useProduct';
+import { Star, ShoppingCart, Heart, Share2, Truck, Shield, Sparkles, Loader2 } from 'lucide-react';
 
 interface ProductDetailPageProps {
   productId?: string;
@@ -23,35 +24,55 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
   const [quantity, setQuantity] = useState(1);
   const [showTryOn, setShowTryOn] = useState(false);
 
-  const resolvedProductId = params.productId || productId || '1';
+  const resolvedProductId = params.productId || productId || '';
 
-  // Mock product data
-  const product = {
-    id: resolvedProductId,
-    name: 'Shampoo Metal Detox Alsham',
-    price: 189.90,
-    oldPrice: 249.90,
-    rating: 4.9,
-    reviews: 2847,
-    inStock: true,
-    category: 'Cabelo',
-    brand: 'Alsham',
-    description: 'Revolucione seu cabelo com a tecnologia Metal Detox. Remove metais pesados acumulados, restaura o brilho natural e protege contra danos futuros. Fórmula exclusiva com nanotecnologia e ingredientes sustentáveis.',
+  // Fetch product from Supabase
+  const { product, loading, error } = useProduct(resolvedProductId);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <span className="ml-3 text-muted">Carregando produto...</span>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error || !product) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-error mb-4">{error || 'Produto não encontrado'}</p>
+        <Button onClick={() => navigate('/shop')}>Voltar para a loja</Button>
+      </div>
+    );
+  }
+
+  // Transform product data for component
+  const productData = {
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    oldPrice: product.original_price,
+    rating: product.rating || 0,
+    reviews: product.reviews_count || 0,
+    inStock: product.in_stock !== false,
+    category: product.category,
+    brand: product.brand || 'Alsham',
+    description: product.description || '',
     benefits: [
-      'Remove 100% dos metais pesados em 3 aplicações',
-      'Restaura o brilho natural em 7 dias',
-      'Protege contra poluição e água dura',
-      'Fórmula vegana e cruelty-free',
-      'Fragrância exclusiva Alsham Signature'
+      'Produto premium selecionado',
+      'Qualidade garantida Alsham',
+      'Entrega rápida e segura',
     ],
-    ingredients: 'Aqua, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Citric Acid, Guar Hydroxypropyltrimonium Chloride, Parfum, Limonene',
-    howToUse: 'Aplique no cabelo molhado, massageie suavemente o couro cabeludo por 2-3 minutos. Enxágue abundantemente. Para melhores resultados, use 3x por semana.',
-    images: [
-      'https://images.unsplash.com/photo-1571875257727-256c39da42af?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=800&q=80'
+    ingredients: 'Ingredientes disponíveis na embalagem',
+    howToUse: 'Siga as instruções na embalagem do produto',
+    images: product.images && product.images.length > 0 ? product.images : 
+            product.image ? [product.image] : [
+      'https://images.unsplash.com/photo-1571875257727-256c39da42af?auto=format&fit=crop&w=800&q=80'
     ],
-    tags: ['Bestseller', 'Sustentável', 'Vegano']
+    tags: product.is_best_seller ? ['Bestseller'] : product.is_new ? ['Novo'] : []
   };
 
   const handleAddToCart = () => {
@@ -60,7 +81,7 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
       name: product.name,
       price: product.price,
       quantity,
-      image: product.images[0]
+      image: productData.images[0] || product.image || ''
     });
     toast({
       title: '✅ Adicionado ao carrinho!',
@@ -81,7 +102,7 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-10">
+    <div className="min-h-screen bg-background text-foreground py-10">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 mb-6">
         <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -89,7 +110,7 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
           <span>/</span>
           <button onClick={handleBack} className="hover:text-gold transition-colors">Shop</button>
           <span>/</span>
-          <span className="text-white">{product.category}</span>
+          <span className="text-foreground">{productData.category}</span>
         </div>
       </div>
 
@@ -98,15 +119,15 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
           {/* Left Column - Images */}
           <div>
             {/* Main Image */}
-            <Card className="bg-[#1A1A1A] border-gold/30 p-4 mb-4 overflow-hidden">
+            <Card className="bg-surface border-primary/30 p-4 mb-4 overflow-hidden">
               <img
-                src={product.images[selectedImage]}
-                alt={product.name}
+                src={productData.images[selectedImage]}
+                alt={productData.name}
                 className="w-full h-[500px] object-cover rounded-lg"
               />
-              {product.tags.length > 0 && (
+              {productData.tags.length > 0 && (
                 <div className="flex gap-2 mt-4">
-                  {product.tags.map((tag, idx) => (
+                  {productData.tags.map((tag, idx) => (
                     <Badge key={idx} variant="gold">{tag}</Badge>
                   ))}
                 </div>
@@ -115,15 +136,15 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
 
             {/* Thumbnail Gallery */}
             <div className="grid grid-cols-3 gap-4">
-              {product.images.map((img, idx) => (
+              {productData.images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
                   className={`border-2 rounded-lg overflow-hidden transition-all ${
-                    selectedImage === idx ? 'border-gold' : 'border-[#333] hover:border-gold/50'
+                    selectedImage === idx ? 'border-primary' : 'border-border hover:border-primary/50'
                   }`}
                 >
-                  <img src={img} alt={`${product.name} ${idx + 1}`} className="w-full h-24 object-cover" />
+                  <img src={img} alt={`${productData.name} ${idx + 1}`} className="w-full h-24 object-cover" />
                 </button>
               ))}
             </div>
@@ -131,7 +152,7 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
             {/* AR Try-On Button */}
             <Button
               onClick={handleTryOn}
-              className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-lg py-6"
+              className="w-full mt-6 bg-gradient-to-r from-primary/80 to-primary hover:from-primary hover:to-primary-hover text-foreground-inverse font-bold text-lg py-6"
             >
               <Sparkles className="w-6 h-6 mr-2" />
               Experimentar com AR/VR
@@ -142,29 +163,29 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
           <div>
             <div className="mb-6">
               <p className="text-gold text-sm font-bold uppercase tracking-wider mb-2">{product.brand}</p>
-              <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
+              <h1 className="text-4xl font-bold mb-4">{productData.name}</h1>
 
               {/* Rating */}
               <div className="flex items-center gap-4 mb-4">
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'fill-gold text-gold' : 'text-gray-600'}`} />
+                    <Star key={i} className={`w-5 h-5 ${i < Math.floor(productData.rating) ? 'fill-primary text-primary' : 'text-muted'}`} />
                   ))}
                 </div>
-                <span className="text-white font-bold">{product.rating}</span>
-                <span className="text-gray-400">({product.reviews.toLocaleString()} avaliações)</span>
+                <span className="text-foreground font-bold">{productData.rating}</span>
+                <span className="text-muted">({productData.reviews.toLocaleString()} avaliações)</span>
               </div>
 
               {/* Price */}
               <div className="flex items-baseline gap-4 mb-6">
-                <span className="text-5xl font-bold text-gold">R$ {product.price.toFixed(2)}</span>
-                {product.oldPrice && (
-                  <span className="text-2xl text-gray-500 line-through">R$ {product.oldPrice.toFixed(2)}</span>
+                <span className="text-5xl font-bold text-primary">R$ {productData.price.toFixed(2)}</span>
+                {productData.oldPrice && (
+                  <span className="text-2xl text-muted line-through">R$ {productData.oldPrice.toFixed(2)}</span>
                 )}
               </div>
 
               {/* Stock Status */}
-              {product.inStock ? (
+              {productData.inStock ? (
                 <Badge variant="success" className="mb-6">✅ Em estoque - Envio imediato</Badge>
               ) : (
                 <Badge variant="error" className="mb-6">❌ Fora de estoque</Badge>
@@ -172,19 +193,19 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
             </div>
 
             {/* Description */}
-            <Card className="bg-[#1A1A1A] border-[#333] p-6 mb-6">
+            <Card className="bg-surface border-border p-6 mb-6">
               <h3 className="text-xl font-bold mb-3">Sobre o Produto</h3>
-              <p className="text-gray-300 leading-relaxed">{product.description}</p>
+              <p className="text-foreground-secondary leading-relaxed">{productData.description}</p>
             </Card>
 
             {/* Benefits */}
-            <Card className="bg-[#1A1A1A] border-[#333] p-6 mb-6">
+            <Card className="bg-surface border-border p-6 mb-6">
               <h3 className="text-xl font-bold mb-4">Benefícios</h3>
               <ul className="space-y-3">
-                {product.benefits.map((benefit, idx) => (
+                {productData.benefits.map((benefit, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <span className="text-gold text-xl">✓</span>
-                    <span className="text-gray-300">{benefit}</span>
+                    <span className="text-primary text-xl">✓</span>
+                    <span className="text-foreground-secondary">{benefit}</span>
                   </li>
                 ))}
               </ul>
@@ -192,18 +213,18 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
 
             {/* Quantity Selector */}
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-gray-400">Quantidade:</span>
+              <span className="text-muted">Quantidade:</span>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="w-10 h-10 rounded-full bg-[#1A1A1A] border border-[#333] hover:border-gold transition-colors"
+                  className="w-10 h-10 rounded-full bg-surface border border-border hover:border-primary transition-colors"
                 >
                   -
                 </button>
                 <span className="text-2xl font-bold w-12 text-center">{quantity}</span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  className="w-10 h-10 rounded-full bg-[#1A1A1A] border border-[#333] hover:border-gold transition-colors"
+                  className="w-10 h-10 rounded-full bg-surface border border-border hover:border-primary transition-colors"
                 >
                   +
                 </button>
@@ -214,34 +235,34 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
             <div className="flex gap-4 mb-8">
               <Button
                 onClick={handleAddToCart}
-                disabled={!product.inStock}
-                className="flex-1 bg-gold hover:bg-gold/90 text-black font-bold text-xl py-6"
+                disabled={!productData.inStock}
+                className="flex-1 bg-primary hover:bg-primary-hover text-foreground-inverse font-bold text-xl py-6"
               >
                 <ShoppingCart className="w-6 h-6 mr-2" />
                 Adicionar ao Carrinho
               </Button>
-              <Button variant="outline" className="border-gold text-gold hover:bg-gold hover:text-black p-6">
+              <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-foreground-inverse p-6">
                 <Heart className="w-6 h-6" />
               </Button>
-              <Button variant="outline" className="border-gold text-gold hover:bg-gold hover:text-black p-6">
+              <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-foreground-inverse p-6">
                 <Share2 className="w-6 h-6" />
               </Button>
             </div>
 
             {/* Trust Badges */}
             <div className="grid grid-cols-2 gap-4">
-              <Card className="bg-[#1A1A1A] border-[#333] p-4 flex items-center gap-3">
-                <Truck className="w-8 h-8 text-gold" />
+              <Card className="bg-surface border-border p-4 flex items-center gap-3">
+                <Truck className="w-8 h-8 text-primary" />
                 <div>
                   <p className="font-bold text-sm">Frete Grátis</p>
-                  <p className="text-xs text-gray-400">Acima de R$ 150</p>
+                  <p className="text-xs text-muted">Acima de R$ 150</p>
                 </div>
               </Card>
-              <Card className="bg-[#1A1A1A] border-[#333] p-4 flex items-center gap-3">
-                <Shield className="w-8 h-8 text-gold" />
+              <Card className="bg-surface border-border p-4 flex items-center gap-3">
+                <Shield className="w-8 h-8 text-primary" />
                 <div>
                   <p className="font-bold text-sm">Garantia 30 dias</p>
-                  <p className="text-xs text-gray-400">Devolução grátis</p>
+                  <p className="text-xs text-muted">Devolução grátis</p>
                 </div>
               </Card>
             </div>
@@ -250,18 +271,18 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
 
         {/* Additional Info Tabs */}
         <div className="mt-16">
-          <Card className="bg-[#1A1A1A] border-[#333] p-8">
+          <Card className="bg-surface border-border p-8">
             <h3 className="text-2xl font-bold mb-6">Informações Adicionais</h3>
             
             <div className="space-y-6">
               <div>
-                <h4 className="text-gold font-bold mb-2">Como Usar</h4>
-                <p className="text-gray-300">{product.howToUse}</p>
+                <h4 className="text-primary font-bold mb-2">Como Usar</h4>
+                <p className="text-foreground-secondary">{productData.howToUse}</p>
               </div>
 
               <div>
-                <h4 className="text-gold font-bold mb-2">Ingredientes</h4>
-                <p className="text-gray-300 text-sm">{product.ingredients}</p>
+                <h4 className="text-primary font-bold mb-2">Ingredientes</h4>
+                <p className="text-foreground-secondary text-sm">{productData.ingredients}</p>
               </div>
             </div>
           </Card>
@@ -271,7 +292,7 @@ export default function ProductDetailPage({ productId, onBack }: ProductDetailPa
       {/* AR Try-On Modal */}
       {showTryOn && (
         <ProductTryOn
-          productName={product.name}
+          productName={productData.name}
           productImage={product.images[0]}
           onClose={() => setShowTryOn(false)}
         />
