@@ -1,279 +1,188 @@
-# 👑 ALSHAM SUPREMA BELEZA 5.0
+# SUPREMA BELEZA 5.0
 
-> **A Revolução da Beleza com Inteligência Artificial**
+![Domínio Absoluto Alcançado](https://img.shields.io/badge/Status-Domínio%20Absoluto%20Alcançado-00D4AA?style=for-the-badge&logo=vercel)
+![Data de Conquista](https://img.shields.io/badge/Data-26%2F12%2F2025-FFD700?style=for-the-badge)
+![Matriz Gênesis](https://img.shields.io/badge/Conformidade-100%25-00D4AA?style=for-the-badge)
 
-Plataforma premium de beleza com 18 agentes de IA, try-on AR/VR, live shopping, sustainability scanner e curadoria personalizada.
+> **Plataforma premium de beleza com 18 agentes IA, AR try-on, e-commerce de luxo e consultoria personalizada.**
 
----
-
-## 🚀 **FEATURES PRINCIPAIS**
-
-### ✨ **18 Agentes de IA Especializados**
-- Cabeleireira X.0, Barber Supreme, Makeup Artist, Skincare Expert
-- Nail Artist, Body Sculptor, Colorist Pro, Visagista Digital
-- Dermatologista IA, Nutricionista Capilar, Personal Stylist
-- Trend Forecaster, Product Specialist, Sustainability Advisor
-- Wedding Planner Beauty, Men's Grooming, Teen Beauty, Mature Skin
-
-### 🎭 **AR/VR Try-On**
-- Experimentação virtual de produtos com webcam
-- Processamento em tempo real
-- Download de resultados
-- Privacy-first (sem armazenamento)
-
-### 🌱 **Sustainability Scanner**
-- Análise de ingredientes por IA
-- Score de sustentabilidade (0-100)
-- Identificação de componentes nocivos
-- Alternativas sustentáveis Alsham
-
-### 📦 **Subscription Boxes**
-- 3 tiers: Essentials, Premium, Luxury
-- Curadoria personalizada por IA
-- Economia de até 60%
-- Entrega mensal garantida
-
-### 🎥 **Live Shopping**
-- Transmissões ao vivo com produtos
-- Chat integrado com IA
-- Compra durante a live
-- Ofertas exclusivas
-
-### 🎨 **Creator Suite**
-- Dashboard de ganhos e métricas
-- Upload de UGC (fotos/vídeos)
-- Sistema de afiliados
-- Comissões escalonadas (10-20%)
-
-### ⚙️ **Configurações Avançadas**
-- Controle de privacidade IA
-- Gerenciamento de dados (LGPD/GDPR)
-- Exportação de dados
-- Exclusão de conta
+**Deploy Live:** [🔗 Ver em Produção](https://suprema-beleza.vercel.app)
 
 ---
 
-## 📁 **ESTRUTURA DO PROJETO**
+## 🚀 Stack Tecnológica
+
+- **React 19** + **TypeScript 5.8** + **Vite 6**
+- **Tailwind CSS** — Utility-first styling
+- **shadcn/ui** — Component library premium
+- **Supabase 2.39.3** — Backend completo (Auth + Database + Realtime)
+- **Google Gemini 2.5 Pro** — IA para consultorias personalizadas
+- **Framer Motion** — Animações fluidas
+- **React Router DOM** — Roteamento
+- **Vercel** — Deploy e hosting
+
+---
+
+## ✨ Funcionalidades
+
+### 🎨 18 Agentes IA Especializados
+- Consultoria personalizada por categoria (cabelo, pele, make, wellness)
+- Integração com Gemini 2.5 Pro
+- Respostas instantâneas e recomendações técnicas
+
+### 🛍️ E-commerce Premium
+- Produtos curados de luxo
+- Carrinho com persistência
+- Checkout seguro via Stripe
+- Subscription boxes personalizadas
+
+### 📅 Sistema de Agendamento
+- Rede de salões e profissionais credenciados
+- Agendamento em tempo real
+- Realtime updates de disponibilidade
+
+### 🎭 AR Try-On
+- Visualização de produtos em tempo real
+- Tecnologia de realidade aumentada
+- Integração com webcam
+
+### 🌓 Tema Dinâmico
+- Dark/Light mode funcional
+- CSS variables (SSOT)
+- Persistência de preferência
+
+### 🔐 Autenticação Completa
+- Supabase Auth integrado
+- Sessão persistente
+- Rotas protegidas por tier
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```
-alsham-suprema-beleza/
-├── src/
-│   ├── pages/
-│   │   ├── HomePage.tsx
-│   │   ├── ShopPage.tsx
-│   │   ├── ProductDetailPage.tsx ⭐ NOVO
-│   │   ├── CheckoutPage.tsx
-│   │   ├── LiveShoppingPage.tsx
-│   │   ├── SustainabilityPage.tsx
-│   │   ├── DashboardPage.tsx
-│   │   ├── ProfilePage.tsx
-│   │   ├── FidelidadePage.tsx
-│   │   ├── MembershipPage.tsx
-│   │   ├── SaloesPage.tsx
-│   │   ├── PartnerPage.tsx
-│   │   ├── ProfessionalDashboardPage.tsx
-│   │   ├── CreatorSuitePage.tsx ⭐ NOVO
-│   │   ├── SettingsPage.tsx ⭐ NOVO
-│   │   └── LoginPage.tsx
-│   ├── components/
-│   │   ├── ai/
-│   │   │   ├── SmartConsultation.tsx
-│   │   │   ├── ImageStudio.tsx
-│   │   │   ├── Chat.tsx
-│   │   │   └── GlobalAssistant.tsx
-│   │   ├── cart/
-│   │   │   └── CartDrawer.tsx
-│   │   ├── ui/
-│   │   │   ├── button.tsx
-│   │   │   ├── card.tsx
-│   │   │   ├── badge.tsx ⭐ NOVO
-│   │   │   ├── separator.tsx ⭐ NOVO
-│   │   │   ├── textarea.tsx
-│   │   │   └── use-toast.ts ⭐ NOVO
-│   │   ├── MatrixHub.tsx
-│   │   ├── SponsoredHero.tsx
-│   │   ├── TrendSpotlight.tsx
-│   │   ├── StyleConsultant.tsx
-│   │   ├── SustainabilityScanner.tsx
-│   │   ├── ProductTryOn.tsx ⭐ NOVO
-│   │   ├── UGCUpload.tsx ⭐ NOVO
-│   │   ├── SubscriptionBoxPreview.tsx ⭐ NOVO
-│   │   ├── AnimatedSection.tsx ⭐ NOVO
-│   │   ├── ErrorBoundary.tsx
-│   │   ├── ProtectedRoute.tsx
-│   │   ├── Header.tsx
-│   │   └── Footer.tsx
-│   ├── contexts/
-│   │   ├── AppContext.tsx
-│   │   └── ToastContext.tsx
-│   ├── hooks/
-│   │   └── useCart.ts
-│   ├── services/
-│   │   └── ai/
-│   │       ├── geminiService.ts
-│   │       └── agents.ts
-│   └── types/
-│       └── ai.ts
-├── components/ (raiz)
-│   ├── Header.tsx
-│   ├── Footer.tsx
-│   ├── LoadingSpinner.tsx
-│   └── ...
-├── services/ (raiz)
-│   ├── geminiService.ts
-│   └── supabaseClient.ts
-├── App.tsx
-├── index.tsx
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-├── vercel.json
-├── metadata.json ⭐ ATUALIZADO
-└── README.md
+src/
+├── app/routes/       # Páginas da aplicação
+├── components/ui/    # shadcn/ui components
+├── components/layout/ # Header, Footer
+├── hooks/            # Custom hooks (useProducts, useSalons, etc.)
+├── lib/              # supabaseClient.ts (SSOT)
+├── styles/           # theme.css (SSOT de cores)
+└── contexts/         # AppContext, ToastContext
 ```
 
----
-
-## 🛠️ **TECNOLOGIAS**
-
-| Categoria | Tecnologia | Versão |
-|-----------|------------|--------|
-| Frontend | React | 19.2.0 |
-| Build Tool | Vite | 6.2.0 |
-| Linguagem | TypeScript | 5.8.2 |
-| IA | Google Gemini | 2.5 Pro |
-| Database | Supabase | 2.39.3 |
-| Animações | Framer Motion | 12.23.24 |
-| Styling | Tailwind CSS | - |
-| Deployment | Vercel | - |
-| Webcam | react-webcam | 7.2.0 |
+**Documentação completa:** [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)
 
 ---
 
-## 📦 **INSTALAÇÃO**
+## 🛡️ Matriz Gênesis — Governança
+
+Este projeto segue rigorosamente a **Matriz Gênesis (ALSHAM 360° PRIMA)**:
+
+### As 6 Leis Sagradas
+
+1. **Zero cores hardcoded** — Apenas CSS variables
+2. **Componentes shadcn/ui obrigatórios** — Zero customizações desnecessárias
+3. **Dados 100% reais** — Zero mocks, tudo do Supabase
+4. **Temas dinâmicos** — Toggle funcional com persistência
+5. **Estados UI completos** — Loading/error/empty em todas as páginas
+6. **Estrutura canônica** — SSOT para tudo
+
+**Documentação completa:** [`docs/MATRIZ_GENESIS.md`](./docs/MATRIZ_GENESIS.md)
+
+### Arquivos de Governança
+
+- [`.cursorrules`](./.cursorrules) — Regras para Cursor AI
+- [`CLAUDE.md`](./CLAUDE.md) — Instruções para Claude AI
+- [`.github/copilot-instructions.md`](./.github/copilot-instructions.md) — Regras para GitHub Copilot
+- [`docs/MATRIZ_GENESIS.md`](./docs/MATRIZ_GENESIS.md) — Leis Sagradas completas
+- [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — Arquitetura canônica
+
+---
+
+## 🚦 Validação Pré-Commit
+
+O projeto inclui validação automática via `.husky/pre-commit`:
+
+- ✅ Verifica cores hardcoded
+- ✅ Verifica classes Tailwind hardcoded
+- ✅ Verifica mocks/fakes
+- ✅ Valida build success
+
+**Nenhum commit que viole a Matriz Gênesis será aceito.**
+
+---
+
+## 🏗️ Setup Local
 
 ```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/alsham-suprema-beleza.git
-
-# Entre na pasta
-cd alsham-suprema-beleza
-
-# Instale as dependências
+# Instalar dependências
+npm install
+# ou
 pnpm install
 
-# Configure as variáveis de ambiente
-cp .env.example .env
-# Edite .env e adicione:
-# VITE_GOOGLE_API_KEY=sua_chave_aqui
-# VITE_SUPABASE_URL=sua_url_aqui
-# VITE_SUPABASE_ANON_KEY=sua_chave_aqui
-# VITE_GA_MEASUREMENT_ID=sua_ga4_measurement_id (produção)
-# VITE_ENABLE_ANALYTICS=false (manter false em dev/preview)
+# Configurar variáveis de ambiente
+cp env.example .env.local
+# Preencher VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY
 
-# Rode o projeto
+# Executar schema do Supabase
+# Executar supabase_schema.sql no Supabase SQL Editor
+
+# Iniciar servidor de desenvolvimento
+npm run dev
+# ou
 pnpm dev
-
-# Build para produção
-pnpm build
 ```
 
 ---
 
-## 🚀 **DEPLOY NO VERCEL**
+## 📊 Status do Projeto
 
-1. Conecte o repositório GitHub ao Vercel
-2. Configure as variáveis de ambiente:
-   - `VITE_GOOGLE_API_KEY`
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-   - `VITE_GA_MEASUREMENT_ID`
-   - `VITE_ENABLE_ANALYTICS` (false em Preview, true em Produção)
-3. Deploy automático a cada push na branch `main`
+### ✅ Concluído
 
----
+- [x] Autenticação Supabase completa
+- [x] Sistema de tema dinâmico
+- [x] Dados 100% reais (zero mocks)
+- [x] Estados UI completos
+- [x] Realtime subscriptions
+- [x] Validação pré-commit
+- [x] Documentação completa
 
-## 📈 **ANALYTICS & CSP**
+### 🎯 Próximos Passos
 
-- Analytics: Google Analytics 4 via `gtag.js`, habilitado somente quando `VITE_ENABLE_ANALYTICS=true` e `VITE_GA_MEASUREMENT_ID` configurado.
-- Pré-visualizações e desenvolvimento permanecem sem coleta de analytics por padrão.
-- CSP: cabeçalhos definidos no `vercel.json`, usando Report-Only em Preview e enforcement em Produção, permitindo apenas domínios necessários (GA4, Supabase, Gemini).
-
----
-
-## 📊 **MÉTRICAS DE IMPACTO**
-
-| Métrica | Valor Estimado |
-|---------|----------------|
-| Conversão | +300% |
-| Tempo no Site | +58% |
-| LTV | +500% |
-| Engajamento | +250% |
-| Retenção | +180% |
+- [ ] Sistema de fidelidade (loyalty points)
+- [ ] Recomendações IA avançadas
+- [ ] Analytics e métricas
+- [ ] Testes automatizados
 
 ---
 
-## 🎯 **ROADMAP**
+## 📚 Documentação
 
-### ✅ **FASE 1 - CONCLUÍDA**
-- [x] 13 páginas principais
-- [x] 18 agentes IA
-- [x] Componentes UI base
-- [x] Gemini Service completo
-- [x] Carrinho + Checkout
-
-### ✅ **FASE 2 - CONCLUÍDA**
-- [x] Product Detail com Try-On AR/VR
-- [x] Creator Suite / Influencer Hub
-- [x] Settings Page com Privacy IA
-- [x] Subscription Boxes AI-curated
-- [x] Polimento (animações + SEO)
-
-### 🔜 **FASE 3 - PRÓXIMOS PASSOS**
-- [ ] Integração com Stripe (pagamentos)
-- [ ] Integração com WhatsApp Business
-- [ ] App Mobile (React Native)
-- [ ] Sistema de Reviews
-- [ ] Gamificação (badges, conquistas)
-- [ ] Programa de Referral
+- [`docs/MATRIZ_GENESIS.md`](./docs/MATRIZ_GENESIS.md) — Leis Sagradas e manifesto
+- [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — Arquitetura detalhada
+- [`COMMIT_INSTRUCTIONS.md`](./COMMIT_INSTRUCTIONS.md) — Guia de commits
+- [`supabase_schema.sql`](./supabase_schema.sql) — Schema do banco de dados
 
 ---
 
-## 🏆 **DIFERENCIAIS COMPETITIVOS**
+## 🏆 Conquistas
 
-1. **18 Agentes IA** - Maior variedade do mercado
-2. **Try-On AR/VR** - Tecnologia de ponta
-3. **Sustainability Scanner** - Único no Brasil
-4. **Live Shopping** - Experiência imersiva
-5. **Creator Suite** - Monetização para influencers
-6. **Subscription Boxes IA** - Curadoria personalizada
-7. **Privacy-First** - LGPD/GDPR compliant
+**26 de Dezembro de 2025** — Domínio Absoluto da Matriz Gênesis alcançado.
 
----
-
-## 📞 **CONTATO**
-
-- **Email:** contato@alsham.com.br
-- **Instagram:** [@AlshamBeauty](https://instagram.com/alshambeauty)
-- **TikTok:** [@AlshamBeauty](https://tiktok.com/@alshambeauty)
-- **YouTube:** [@AlshamBeauty](https://youtube.com/@alshambeauty)
+- ✅ 100% conformidade com as 6 Leis Sagradas
+- ✅ Zero cores hardcoded
+- ✅ Zero mock data
+- ✅ Estrutura canônica estabelecida
+- ✅ Validação automática implementada
+- ✅ Documentação completa
 
 ---
 
-## 📄 **LICENÇA**
+## 📝 Licença
 
-Proprietary - © 2025 Alsham Beauty Tech. Todos os direitos reservados.
-
----
-
-## 🙏 **CRÉDITOS**
-
-Desenvolvido com 💛 por **Vibe Code** e **Manus AI**
-
-**Comandante:** Leonidas  
-**Versão:** 5.0.0  
-**Status:** 🔥 DOMINAÇÃO MUNDIAL ATIVADA
+Proprietário — ALSHAM SUPREMA BELEZA
 
 ---
 
-**#AlshamSupremaBeleza #BeautyTech #AIBeauty #FutureOfBeauty**
+**2026 é nosso.** 🏆
