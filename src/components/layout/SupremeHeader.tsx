@@ -61,39 +61,39 @@ export function SupremeHeader() {
     <>
       <motion.header
         className={cn(
-          "fixed top-0 left-0 right-0 transition-all duration-500",
+          "fixed top-0 left-0 right-0 w-full transition-all duration-500",
           Z_INDEX.header,
           isScrolled
-            ? "bg-obsidian-950/95 backdrop-blur-xl border-b border-sovereign-gold-700/20 shadow-obsidian-lift"
+            ? "bg-[var(--color-background)]/95 backdrop-blur-xl border-b border-[var(--color-border)] shadow-obsidian-lift"
             : "bg-transparent"
         )}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 lg:h-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+          <div className="flex items-center justify-between h-16 sm:h-20 lg:h-24 gap-4">
             
             {/* LOGO */}
-            <Link to="/" className="group relative z-10">
+            <Link to="/" className="group relative z-10 flex-shrink-0">
               <motion.div 
-                className="flex items-center gap-3"
+                className="flex items-center gap-2 sm:gap-3"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="relative">
                   <motion.div
-                    className="absolute inset-0 bg-liquid-gold opacity-0 blur-xl group-hover:opacity-50 transition-opacity duration-500"
+                    className="absolute inset-0 bg-[var(--color-primary)] opacity-0 blur-xl group-hover:opacity-50 transition-opacity duration-500"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 3, repeat: Infinity }}
                   />
-                  <Crown className="w-8 h-8 text-sovereign-gold-700 relative z-10" strokeWidth={1.5} />
+                  <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--color-primary)] relative z-10" strokeWidth={1.5} />
                 </div>
-                <div>
-                  <h1 className="font-display text-2xl font-medium tracking-tight text-marble-50">
+                <div className="hidden sm:block">
+                  <h1 className="font-display text-xl sm:text-2xl font-medium tracking-tight text-[var(--color-text-primary)]">
                     ALSHAM
                   </h1>
-                  <p className="font-accent text-xs text-sovereign-gold-700 tracking-widest -mt-1">
+                  <p className="font-accent text-[10px] sm:text-xs text-[var(--color-primary)] tracking-widest -mt-1">
                     SUPREMA BELEZA
                   </p>
                 </div>
@@ -101,7 +101,7 @@ export function SupremeHeader() {
             </Link>
 
             {/* DESKTOP NAV */}
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 flex-1 justify-center">
               {navigationItems.map((item, idx) => (
                 <Link
                   key={item.href}
@@ -130,16 +130,16 @@ export function SupremeHeader() {
             </nav>
 
             {/* ACTIONS */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
               {/* Search */}
               <motion.button
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full border border-sovereign-gold-700/30 bg-obsidian-900/50 hover:bg-obsidian-900 hover:border-sovereign-gold-700/60 transition-all duration-300 group"
+                className="hidden lg:flex items-center gap-2 px-3 xl:px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/50 hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-primary)] transition-all duration-300 group"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Search className="w-4 h-4 text-sovereign-gold-700" />
-                <span className="font-body text-sm text-marble-50/60 group-hover:text-marble-50/80">
+                <Search className="w-4 h-4 text-[var(--color-primary)]" />
+                <span className="font-body text-sm text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] hidden xl:inline">
                   Buscar
                 </span>
               </motion.button>
@@ -147,23 +147,23 @@ export function SupremeHeader() {
               {/* Account */}
               <Link to="/dashboard">
                 <motion.button
-                  className="p-2.5 rounded-full border border-sovereign-gold-700/30 bg-obsidian-900/50 hover:bg-obsidian-900 hover:border-sovereign-gold-700/60 transition-all duration-300"
+                  className="p-2 sm:p-2.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/50 hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-primary)] transition-all duration-300"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <User className="w-5 h-5 text-marble-50" strokeWidth={1.5} />
+                  <User className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-text-primary)]" strokeWidth={1.5} />
                 </motion.button>
               </Link>
 
               {/* Cart */}
               <Link to="/cart">
                 <motion.button
-                  className="relative p-2.5 rounded-full bg-liquid-gold hover:shadow-gold-glow transition-all duration-300"
+                  className="relative p-2 sm:p-2.5 rounded-full bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] hover:shadow-gold-glow transition-all duration-300"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <ShoppingBag className="w-5 h-5 text-obsidian-950" strokeWidth={1.5} />
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-ruby-700 text-marble-50 text-xs font-heading rounded-full flex items-center justify-center">
+                  <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-text-inverse)]" strokeWidth={1.5} />
+                  <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-[var(--color-error)] text-[var(--color-text-primary)] text-[10px] sm:text-xs font-heading rounded-full flex items-center justify-center">
                     3
                   </span>
                 </motion.button>
@@ -172,13 +172,13 @@ export function SupremeHeader() {
               {/* Mobile Menu */}
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2.5 rounded-full border border-sovereign-gold-700/30 bg-obsidian-900/50"
+                className="lg:hidden p-2 sm:p-2.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/50 hover:bg-[var(--color-surface-hover)] transition-all duration-300"
                 whileTap={{ scale: 0.9 }}
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-5 h-5 text-marble-50" />
+                  <X className="w-5 h-5 text-[var(--color-text-primary)]" />
                 ) : (
-                  <Menu className="w-5 h-5 text-marble-50" />
+                  <Menu className="w-5 h-5 text-[var(--color-text-primary)]" />
                 )}
               </motion.button>
             </div>

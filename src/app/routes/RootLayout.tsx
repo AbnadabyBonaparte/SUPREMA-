@@ -7,9 +7,9 @@ import CartDrawer from '@/components/cart/CartDrawer';
 
 const RootLayout: React.FC = () => {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="min-h-screen flex flex-col bg-[var(--color-background)]">
       <SupremeHeader />
-      <main style={{ flex: 1, maxWidth: '1200px', margin: '0 auto', width: '100%', padding: '0 20px' }}>
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 lg:pt-24">
         <Outlet />
       </main>
       <GlobalAssistant />
